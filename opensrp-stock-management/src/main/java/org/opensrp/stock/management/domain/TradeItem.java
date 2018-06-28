@@ -1,7 +1,6 @@
-package org.opensrp.stock.management;
+package org.opensrp.stock.management.domain;
 
 import java.util.List;
-import java.util.UUID;
 
 public class TradeItem extends BaseEntity {
 

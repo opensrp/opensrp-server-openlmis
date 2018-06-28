@@ -1,4 +1,4 @@
-package org.opensrp.stock.management;
+package org.opensrp.stock.management.domain;
 
 import org.apache.commons.lang3.StringUtils;
 
