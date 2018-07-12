@@ -8,7 +8,7 @@
     </sql>
 
     <sql id="from_orderables">
-        from core.orderables o
+        from core.orderable o
     </sql>
 
 

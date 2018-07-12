@@ -12,6 +12,6 @@ public interface BaseRepository<T> {
 
     List<T> getAll();
 
-    void safeRemove(T entity);
+    Long safeRemove(T entity);
 
 }

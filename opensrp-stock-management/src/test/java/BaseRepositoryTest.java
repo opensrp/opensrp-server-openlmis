@@ -26,7 +26,7 @@ public class BaseRepositoryTest {
         try {
             Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
             Statement statement = connection.createStatement();
-            statement.executeUpdate("TRUNCATE " + "core.orderables");
+            statement.executeUpdate("TRUNCATE " + "core.orderable");
         } catch (Exception e) {
             e.printStackTrace();
         }

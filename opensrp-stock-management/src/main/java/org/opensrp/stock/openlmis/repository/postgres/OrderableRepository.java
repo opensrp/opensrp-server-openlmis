@@ -82,18 +82,20 @@ public class OrderableRepository implements BaseRepository<Orderable> {
     }
 
     @Override
-    public void safeRemove(Orderable orderable) {
+    public Long safeRemove(Orderable orderable) {
 
         if (orderable == null || orderable.getId() == null) {
-            return;
+            return null;
         }
 
         if (orderable.getDateDeleted() == null) {
-            orderable.setDateDeleted(Calendar.getInstance().getTimeInMillis());
+            orderable.setDateDeleted( Calendar.getInstance().getTimeInMillis());
         }
 
         OrderableExample orderableExample = new OrderableExample();
-        orderableExample.createCriteria().andIdEqualTo(orderable.getId()).andDateDeletedIsNotNull();
+        orderableExample.createCriteria().andIdEqualTo(orderable.getId()).andDateDeletedIsNull();
         orderableMapper.updateByExample(orderable, orderableExample);
+
+        return orderable.getDateDeleted();
     }
 }
