@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry
+            location="/Users/vkaruri/Desktop/Ona_Projects/opensrp-server/assets/migrations/drivers/postgresql-42.2.1.jar" />
+    <context id="core">
+        <!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
+        <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
+                        driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
+        <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain.postgres"
+                            targetProject="opensrp-stock-management/src/main/java" />
+        <sqlMapGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper.xml"
+                         targetProject="opensrp-stock-management/src/main/java" />
+        <javaClientGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper"
+                             targetProject="opensrp-stock-management/src/main/java" type="XMLMAPPER" />
+
+        <table schema="core" tableName="orderable" />
+    </context>
+</generatorConfiguration>

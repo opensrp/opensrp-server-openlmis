@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="classpath*:maven.properties,classpath*:activemq.properties,classpath*:opensrp.properties" />
+
+    <import resource="test-persistence-postgres.xml"/>
+
+    <context:annotation-config />
+
+    <context:component-scan base-package="org.opensrp.stock.openlmis.domain" />
+    <context:component-scan base-package="org.opensrp.stock.openlmis.repository" />
+    <context:component-scan base-package="org.opensrp.stock.openlmis.service" />
+
+    <bean id="openLmisDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/opensrp" />
+        <property name="username" value="opensrp_admin" />
+        <property name="password" value="admin" />
+    </bean>
+</beans>

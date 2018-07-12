@@ -1,4 +1,4 @@
-package org.opensrp.stock.management.dto;
+package org.opensrp.stock.openlmis.dto;
 
 import java.util.UUID;
 

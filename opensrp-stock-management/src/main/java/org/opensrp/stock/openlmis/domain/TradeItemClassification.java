@@ -1,4 +1,4 @@
-package org.opensrp.stock.management.domain;
+package org.opensrp.stock.openlmis.domain;
 
 public class TradeItemClassification extends BaseEntity {
 
