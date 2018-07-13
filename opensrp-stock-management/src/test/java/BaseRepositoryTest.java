@@ -15,18 +15,19 @@ public class BaseRepositoryTest {
 
     @Autowired
     private DataSource openLmisDataSource;
+    protected static String tableName;
 
     @Before
     public void setUp() {
-        truncateTables();
+        truncateTables(tableName);
     }
 
-    private void truncateTables() {
+    private void truncateTables(String tableName) {
 
         try {
             Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
             Statement statement = connection.createStatement();
-            statement.executeUpdate("TRUNCATE " + "core.orderable");
+            statement.executeUpdate("TRUNCATE " + tableName);
         } catch (Exception e) {
             e.printStackTrace();
         }

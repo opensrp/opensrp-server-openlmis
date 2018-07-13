@@ -15,5 +15,6 @@
                              targetProject="opensrp-stock-management/src/main/java" type="XMLMAPPER" />
 
         <table schema="core" tableName="orderable" />
+        <table schema="core" tableName="program_orderable" />
     </context>
 </generatorConfiguration>

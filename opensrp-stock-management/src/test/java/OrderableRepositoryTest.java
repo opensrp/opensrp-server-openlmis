@@ -1,8 +1,8 @@
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.postgres.Orderable;
 import org.opensrp.stock.openlmis.repository.postgres.OrderableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 
 import java.util.List;
 
@@ -14,6 +14,11 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
 
     @Autowired
     private OrderableRepository repository;
+
+    @BeforeClass
+    public static void bootStrap() {
+        tableName = "core.orderable";
+    }
 
     @Test
     public void testAddShouldAddNewOrderable() {
@@ -115,7 +120,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAllShouldGetAllOrderablesInTable() {
 
         Orderable orderable = new Orderable();
         orderable.setId("id_3");
@@ -148,7 +153,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testSafeRemove() {
+    public void testSafeRemoveShouldAddADeleteDateToOrderable() {
 
         Orderable orderable = new Orderable();
         orderable.setId("id_3");

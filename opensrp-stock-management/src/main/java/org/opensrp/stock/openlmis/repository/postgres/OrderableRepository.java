@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Calendar;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
+
 @Repository
 public class OrderableRepository implements BaseRepository<Orderable> {
 
@@ -46,6 +48,32 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         orderableMapper.updateByPrimaryKey(orderable);
     }
 
+    @Override
+    public List<Orderable> getAll() {
+
+        OrderableExample orderableExample = new OrderableExample();
+        orderableExample.createCriteria();
+        return orderableMapper.select(orderableExample, 0, DEFAULT_FETCH_LIMIT);
+    }
+
+    @Override
+    public Long safeRemove(Orderable orderable) {
+
+        if (orderable == null || orderable.getId() == null) {
+            return null;
+        }
+
+        if (orderable.getDateDeleted() == null) {
+            orderable.setDateDeleted( Calendar.getInstance().getTimeInMillis());
+        }
+
+        OrderableExample orderableExample = new OrderableExample();
+        orderableExample.createCriteria().andIdEqualTo(orderable.getId()).andDateDeletedIsNull();
+        orderableMapper.updateByExample(orderable, orderableExample);
+
+        return orderable.getDateDeleted();
+    }
+
     private String retrievePrimaryKey(Orderable orderable) {
 
         Object uniqueId = getUniqueField(orderable);
@@ -65,37 +93,11 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         return orderable.getId().toString();
     }
 
-    protected Object getUniqueField(Orderable orderable) {
+    private Object getUniqueField(Orderable orderable) {
 
         if (orderable == null) {
             return null;
         }
         return orderable.getId().toString();
-    }
-
-    @Override
-    public List<Orderable> getAll() {
-
-        OrderableExample orderableExample = new OrderableExample();
-        orderableExample.createCriteria();
-        return orderableMapper.select(orderableExample, 0, 10);
-    }
-
-    @Override
-    public Long safeRemove(Orderable orderable) {
-
-        if (orderable == null || orderable.getId() == null) {
-            return null;
-        }
-
-        if (orderable.getDateDeleted() == null) {
-            orderable.setDateDeleted( Calendar.getInstance().getTimeInMillis());
-        }
-
-        OrderableExample orderableExample = new OrderableExample();
-        orderableExample.createCriteria().andIdEqualTo(orderable.getId()).andDateDeletedIsNull();
-        orderableMapper.updateByExample(orderable, orderableExample);
-
-        return orderable.getDateDeleted();
     }
 }
