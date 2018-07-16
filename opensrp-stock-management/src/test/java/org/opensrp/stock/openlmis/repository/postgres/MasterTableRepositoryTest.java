@@ -1,8 +1,9 @@
+package org.opensrp.stock.openlmis.repository.postgres;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.MasterTableMetaData;
 import org.opensrp.stock.openlmis.domain.postgres.MasterTableEntry;
-import org.opensrp.stock.openlmis.repository.postgres.MasterTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

@@ -1,7 +1,8 @@
+package org.opensrp.stock.openlmis.repository.postgres;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.postgres.Orderable;
-import org.opensrp.stock.openlmis.repository.postgres.OrderableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
