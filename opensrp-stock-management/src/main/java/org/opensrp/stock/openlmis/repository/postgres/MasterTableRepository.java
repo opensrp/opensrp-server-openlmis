@@ -25,7 +25,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
             return null;
         }
 
-        // TODO: check if the entry does not already exist
         MasterTableEntry masterTableEntry = convert(masterTableMetaData, null);
         add(masterTableEntry);
         if (masterTableEntry.getId() == null) {
@@ -37,7 +36,12 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     @Override
     public void add(MasterTableEntry masterTableEntry) {
 
-        if (masterTableEntry== null) {
+        if (masterTableEntry == null) {
+            return;
+        }
+
+        // MasterTableEntry already exists
+        if (retrievePrimaryKey(masterTableEntry) != null) {
             return;
         }
 
@@ -48,24 +52,22 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         // TODO: add metadata to a separate table
     }
 
-    private String retrievePrimaryKey(MasterTableEntry masterTableEntry) {
+    private Long retrievePrimaryKey(MasterTableEntry masterTableEntry) {
 
         Object uniqueId = getUniqueField(masterTableEntry);
         if (uniqueId == null) {
             return null;
         }
-
-        // String id = uniqueId.toString(); TODO: remove this
-
+        Long id = (Long) uniqueId;
 
         MasterTableEntryExample masterTableEntryExample = new MasterTableEntryExample();
-        masterTableEntryExample.createCriteria().andIdEqualTo(new Long(12)); // TODO: remove this
+        masterTableEntryExample.createCriteria().andIdEqualTo(id);
 
         List<MasterTableEntry> result = masterTableMapper.selectByExample(masterTableEntryExample);
         if (result.size() == 0) {
             return null;
         }
-        return masterTableEntry.getId().toString();
+        return masterTableEntry.getId();
     }
 
     private Object getUniqueField(MasterTableEntry masterTableEntry) {
@@ -73,7 +75,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         if (masterTableEntry == null) {
             return null;
         }
-        return masterTableEntry.getId().toString();
+        return masterTableEntry.getId();
     }
 
     @Override

@@ -60,6 +60,39 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
+    public void testAddShouldNotAddNewMasterTableEntryIfDuplicate() {
+
+        MasterTableMetaData metaData = new MasterTableMetaData(
+                "id",
+                "type",
+                "identifier",
+                98782492049L
+        );
+        MasterTableEntry entry = repository.add(metaData);
+
+        metaData = new MasterTableMetaData(
+                "id_2",
+                "type_2",
+                "identifier_2",
+                98782492049L
+        );
+        MasterTableEntry masterTableEntry = new MasterTableEntry();
+        masterTableEntry.setId(entry.getId());
+        masterTableEntry.setJson(metaData);
+        masterTableEntry.setDateUpdated(78982894L);
+
+        repository.add(masterTableEntry);
+        entry = repository.get(entry.getId());
+
+        // assert all data matches
+        metaData = (MasterTableMetaData) entry.getJson();
+        assertEquals(metaData.getId(), "id");
+        assertEquals(metaData.getType(), "type");
+        assertEquals(metaData.getIdentifier(), "identifier");
+        assertEquals(metaData.getServerVersion(), 98782492049L);
+    }
+
+    @Test
     public void testGetShouldRetrieveExistingMasterTableEntry() {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
