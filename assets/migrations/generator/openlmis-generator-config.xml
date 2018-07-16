@@ -16,5 +16,8 @@
 
         <table schema="core" tableName="orderable" />
         <table schema="core" tableName="program_orderable" />
+        <table schema="core" tableName="master_table" domainObjectName="MasterTableEntry">
+            <columnOverride column="json" typeHandler="org.opensrp.stock.openlmis.handler.MasterTableTypeHandler"  />
+        </table>
     </context>
 </generatorConfiguration>
