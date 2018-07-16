@@ -6,7 +6,6 @@ import org.apache.ibatis.type.TypeHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.ektorp.impl.StdObjectMapperFactory;
 import org.opensrp.stock.openlmis.domain.MasterTableMetaData;
-import org.opensrp.stock.openlmis.domain.postgres.MasterTable;
 import org.postgresql.util.PGobject;
 
 import java.sql.CallableStatement;

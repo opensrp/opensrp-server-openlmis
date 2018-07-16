@@ -13,6 +13,8 @@ public class MasterTableMetaData {
     @JsonProperty
     private long serverVersion;
 
+    protected  MasterTableMetaData() {}
+
     public MasterTableMetaData(String id, String type, String identifier, long serverVersion) {
         this.id = id;
         this.type = type;
