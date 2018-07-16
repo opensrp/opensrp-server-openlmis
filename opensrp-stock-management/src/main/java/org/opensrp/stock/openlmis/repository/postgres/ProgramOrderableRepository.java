@@ -32,8 +32,8 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
     }
 
     @Override
-    public ProgramOrderable get(String id) {
-        return programOrderableMapper.selectByPrimaryKey(id);
+    public ProgramOrderable get(Object id) {
+        return programOrderableMapper.selectByPrimaryKey((String) id);
     }
 
     public List<ProgramOrderable> get(String id, String programId, String orderableId) {

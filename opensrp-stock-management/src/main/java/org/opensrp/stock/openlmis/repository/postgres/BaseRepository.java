@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface BaseRepository<T> {
 
-    T get(String id);
+    T get(Object id);
 
     void add(T entity);
 

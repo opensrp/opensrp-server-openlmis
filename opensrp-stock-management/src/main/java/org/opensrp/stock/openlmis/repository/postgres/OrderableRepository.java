@@ -32,8 +32,8 @@ public class OrderableRepository implements BaseRepository<Orderable> {
     }
 
     @Override
-    public Orderable get(String id) {
-        return orderableMapper.selectByPrimaryKey(id);
+    public Orderable get(Object id) {
+        return orderableMapper.selectByPrimaryKey((String) id);
     }
 
     public List<Orderable> get(String id, String tradeItemId, String commodityTypeId) {
