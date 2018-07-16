@@ -23,7 +23,6 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         if (orderable == null || orderable.getId() == null) {
             return;
         }
-
         // Orderable already exists
         if (retrievePrimaryKey(orderable) != null) {
             return;

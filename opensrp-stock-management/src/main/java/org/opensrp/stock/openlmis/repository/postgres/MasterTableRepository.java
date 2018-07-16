@@ -18,7 +18,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     @Autowired
     private CustomMasterTableMapper masterTableMapper;
 
-
     public MasterTableEntry add(MasterTableMetaData masterTableMetaData) {
 
         if (masterTableMetaData == null || masterTableMetaData.getId() == null) {
@@ -116,6 +115,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     }
 
     private MasterTableEntry convert(MasterTableMetaData metaData, Long primaryKey) {
+
         if (metaData == null) {
             return null;
         }
