@@ -11,16 +11,7 @@
     <url>http://github.com/OpenSRP/opensrp-server</url>
 
     <modules>
-        <module>opensrp-common</module>
-        <module>opensrp-api</module>
-        <module>opensrp-form</module>
-        <module>opensrp-core</module>
-        <module>opensrp-interface</module>
-        <module>opensrp-register</module>
-        <module>opensrp-connector</module>
-        <module>opensrp-web</module>
-        <module>opensrp-stock-management</module>
-        <!-- <module>opensrp-reporting</module> -->
+        <module>openlmis-stock</module>
     </modules>
 
     <properties>
@@ -83,7 +74,6 @@
             <url>http://nexus.motechproject.org/content/repositories/opensrp-server</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${opensrp.updatePolicy}</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -92,7 +82,6 @@
             <url>http://nexus.motechproject.org/content/repositories/snapshots</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>${opensrp.updatePolicy}</updatePolicy>
             </snapshots>
         </repository>
         <repository>
@@ -137,138 +126,6 @@
 
             <build>
                 <!-- <pluginManagement> -->
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>Drop DB Before Unit and Repository Tests</id>
-                                <phase>process-test-classes</phase>
-                                <configuration>
-                                    <target>
-                                        <echo message="Dropping Couch DBs: START"/>
-                                        <exec executable="curl">
-                                            <arg value="-s"/>
-                                            <arg value="-S"/>
-                                            <arg value="-X"/>
-                                            <arg value="DELETE"/>
-                                            <arg value="http://${couchdb.username}:${couchdb.password}@${couchdb.server}:${couchdb.port}/${couchdb.db.opensrp}"/>
-                                            <arg value="http://${couchdb.username}:${couchdb.password}@${couchdb.server}:${couchdb.port}/${couchdb.db.form}"/>
-                                            <arg value="http://${couchdb.username}:${couchdb.password}@${couchdb.server}:${couchdb.port}/${couchdb.db.motech-scheduletracking}"/>
-                                        </exec>
-                                        <echo message="Dropping Couch DBs: END"/>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>CREATE DB OPENSRP</id>
-                                <phase>pre-integration-test</phase>
-                                <configuration>
-                                    <target>
-                                        <echo message="CREATING OPENSRP START"/>
-                                        <exec executable="curl">
-                                            <arg value="-X"/>
-                                            <arg value="PUT"/>
-                                            <arg value="http://${couchdb.username}:${couchdb.password}@${couchdb.server}:${couchdb.port}/${couchdb.db.opensrp}"/>
-                                        </exec>
-                                        <echo message="CREATED OPENSRP END"/>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>sql-maven-plugin</artifactId>
-                        <version>1.5</version>
-                        <dependencies>
-                            <!-- <dependency>
-                                <groupId>postgresql</groupId>
-                                <artifactId>postgresql</artifactId>
-                                <version>9.1-901.jdbc4</version>
-                            </dependency> -->
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>${mysql.connector.version}</version>
-                            </dependency>
-                        </dependencies>
-
-                        <configuration>
-                            <driver>${jdbc.driverClassName}</driver>
-                            <url>${jdbc.url-wo-db}</url>
-                            <username>${jdbc.username}</username>
-                            <password>${jdbc.password}</password>
-                            <skip>${maven.test.skip}</skip>
-                        </configuration>
-
-                        <executions>
-                            <!-- Database init scripts for DBMS specific configuration -->
-                            <execution>
-                                <id>drop-create-relational-db</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <url>${jdbc.url-wo-db}</url>
-                                    <username>${jdbc.username}</username>
-                                    <password>${jdbc.password}</password>
-                                    <autocommit>true</autocommit>
-                                    <sqlCommand>
-                                        drop database if exists ${db.quartz};
-                                        create database ${db.quartz};
-                                    </sqlCommand>
-                                    <onError>abort</onError>
-                                </configuration>
-                            </execution>
-                            <!-- END: Database init scripts for DBMS specific configuration -->
-                            <execution>
-                                <id>create-quartz-tables</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <url>${jdbc.url-wo-db}/${db.quartz}</url>
-                                    <username>${jdbc.username}</username>
-                                    <password>${jdbc.password}</password>
-                                    <autocommit>true</autocommit>
-                                    <srcFiles>
-                                        <srcFile>../build/sql/tables_quartz_${jdbc.backend}.sql</srcFile>
-                                    </srcFiles>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.9</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <argLine>-XX:MaxPermSize=1024M</argLine>
-                                    <includes>
-                                        <include>**/it/**</include>
-                                    </includes>
-                                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
                 <!-- </pluginManagement> -->
             </build>
         </profile>
@@ -392,58 +249,6 @@
         <!-- </pluginManagement> -->
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.apache.maven.plugins
-                                        </groupId>
-                                        <artifactId>
-                                            maven-antrun-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.6,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>run</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>
-                                            org.codehaus.mojo
-                                        </groupId>
-                                        <artifactId>
-                                            properties-maven-plugin
-                                        </artifactId>
-                                        <versionRange>
-                                            [1.0-alpha-2,)
-                                        </versionRange>
-                                        <goals>
-                                            <goal>
-                                                read-project-properties
-                                            </goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
