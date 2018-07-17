@@ -4,12 +4,14 @@ import org.opensrp.stock.openlmis.domain.postgres.MasterMetadataEntry;
 import org.opensrp.stock.openlmis.domain.postgres.MasterMetadataEntryExample;
 import org.opensrp.stock.openlmis.repository.postgres.mapper.custom.CustomMasterMetadataEntryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;
 import java.util.List;
 
 import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
 
+@Repository
 public class MasterMetadataRepository implements BaseRepository<MasterMetadataEntry> {
 
     @Autowired
@@ -21,11 +23,11 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
         if (metadataEntry == null) {
             return;
         }
-        // MasterMetadataEntry already exists or doesn't contain mandatory fields
-        if (isDuplicateEntry(metadataEntry) == 1 || isDuplicateEntry(metadataEntry) == -1) {
+        // MasterMetadataEntry already exists
+        if (isDuplicateEntry(metadataEntry)) {
             return;
         }
-        metadataEntryMapper.insert(metadataEntry);
+        metadataEntryMapper.insertSelectiveAndSetId(metadataEntry);
     }
 
     public List<MasterMetadataEntry> get(String uuid, String type) {
@@ -79,17 +81,16 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
         return entry.getDateDeleted();
     }
 
-    private int isDuplicateEntry(MasterMetadataEntry metadataEntry) {
+    private boolean isDuplicateEntry(MasterMetadataEntry metadataEntry) {
 
-        String uuid = metadataEntry.getUuid();
-        String type = metadataEntry.getType();
-        if (uuid == null || type == null) {
-            return -1;
+        Long id = metadataEntry.getId();
+        if (id == null) {
+            return false;
         }
         MasterMetadataEntryExample metadataEntryExample = new MasterMetadataEntryExample();
-        metadataEntryExample.createCriteria().andUuidEqualTo(uuid).andTypeEqualTo(type);
+        metadataEntryExample.createCriteria().andIdEqualTo(id);
 
         List<MasterMetadataEntry> result = metadataEntryMapper.selectByExample(metadataEntryExample);
-        return (result.size() != 0 ? 1 : 0);
+        return (result.size() != 0 ? true : false);
     }
 }

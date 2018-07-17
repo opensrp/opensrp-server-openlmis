@@ -10,4 +10,6 @@ import java.util.List;
 public interface CustomMasterMetadataEntryMapper extends MasterMetadataEntryMapper {
 
     List<MasterMetadataEntry> select(@Param("example") MasterMetadataEntryExample example, @Param("offset") int offset, @Param("limit") int limit);
+
+    int insertSelectiveAndSetId(MasterMetadataEntry record);
 }

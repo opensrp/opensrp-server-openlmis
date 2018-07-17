@@ -32,14 +32,14 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
                 482492049L
         );
 
-        MasterTableEntry masterTable = new MasterTableEntry();
-        masterTable.setJson(metaData);
-        masterTable.setDateUpdated(782894L);
+        MasterTableEntry masterTableEntry = new MasterTableEntry();
+        masterTableEntry.setJson(metaData);
+        masterTableEntry.setDateUpdated(782894L);
 
-        repository.add(masterTable);
+        repository.add(masterTableEntry);
 
-        MasterTableEntry masterTableEntryEntry = repository.get(masterTable.getId());
-        assertNotNull(masterTableEntryEntry);
+        masterTableEntry = repository.get(masterTableEntry.getId());
+        assertNotNull(masterTableEntry);
     }
 
     @Test
