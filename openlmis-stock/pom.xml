@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>opensrp-stock-management</artifactId>
+    <artifactId>openlmis-stock</artifactId>
     <packaging>jar</packaging>
 
     <build>
@@ -25,11 +25,11 @@
                 </includes>
             </resource>
             <resource>
-                <directory>/src/main/java/org/opensrp/stock/openlmis/repository/postgres/mapper/xml</directory>
+                <directory>../openlmis-stock/src/main/java/org/opensrp/stock/openlmis/repository/postgres/mapper/xml</directory>
                 <targetPath>org/opensrp/stock/openlmis/repository/postgres/mapper/xml</targetPath>
             </resource>
             <resource>
-                <directory>/src/main/java/org/opensrp/stock/openlmis/repository/postgres/mapper/custom/xml</directory>
+                <directory>../openlmis-stock/src/main/java/org/opensrp/stock/openlmis/repository/postgres/mapper/custom/xml</directory>
                 <targetPath>org/opensrp/stock/openlmis/repository/postgres/mapper/custom/xml</targetPath>
             </resource>
         </resources>
