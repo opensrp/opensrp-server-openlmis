@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-openlmis-application-context.xml")
-public class BaseRepositoryTest {
+public abstract class BaseRepositoryTest {
 
     @Autowired
     private DataSource openLmisDataSource;
