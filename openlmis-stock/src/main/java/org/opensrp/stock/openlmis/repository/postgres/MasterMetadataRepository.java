@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 @Repository
 public class MasterMetadataRepository implements BaseRepository<MasterMetadataEntry> {
@@ -27,6 +28,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
         if (isDuplicateEntry(metadataEntry)) {
             return;
         }
+        metadataEntry.setDateUpdated(getCurrentTime());
         metadataEntryMapper.insertSelectiveAndSetId(metadataEntry);
     }
 
@@ -44,6 +46,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
 
     @Override
     public void update(MasterMetadataEntry masterMetadataEntry) {
+        masterMetadataEntry.setDateUpdated(getCurrentTime());
         metadataEntryMapper.updateByPrimaryKey(masterMetadataEntry);
     }
 
@@ -51,6 +54,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
 
         MasterMetadataEntryExample metadataEntryExample = new MasterMetadataEntryExample();
         metadataEntryExample.createCriteria().andUuidEqualTo(uuid).andTypeEqualTo(type);
+        entry.setDateUpdated(getCurrentTime());
         metadataEntryMapper.updateByExample(entry, metadataEntryExample);
     }
 

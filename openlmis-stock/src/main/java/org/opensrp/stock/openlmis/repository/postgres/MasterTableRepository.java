@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 @Repository
 public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
@@ -25,6 +26,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         }
 
         MasterTableEntry masterTableEntry = convert(masterTableMetaData, null);
+        masterTableEntry.setDateUpdated(getCurrentTime());
         add(masterTableEntry);
         if (masterTableEntry.getId() == null) {
             return null;
@@ -44,6 +46,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
             return;
         }
 
+        masterTableEntry.setDateUpdated(getCurrentTime());
         int rowsAffected = masterTableMapper.insertSelectiveAndSetId(masterTableEntry);
         if (rowsAffected < 1 || masterTableEntry.getId() == null) {
             return;
@@ -84,6 +87,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
 
     @Override
     public void update(MasterTableEntry masterTableEntry) {
+        masterTableEntry.setDateUpdated(getCurrentTime());
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
     }
 

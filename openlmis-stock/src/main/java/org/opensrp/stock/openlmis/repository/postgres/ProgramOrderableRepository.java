@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 @Repository
 public class ProgramOrderableRepository implements BaseRepository<ProgramOrderable> {
@@ -28,13 +29,12 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
         if (retrievePrimaryKey(programOrderable) != null) {
             return;
         }
+        programOrderable.setDateUpdated(getCurrentTime());
         programOrderableMapper.insert(programOrderable);
     }
 
     @Override
-    public ProgramOrderable get(Object id) {
-        return programOrderableMapper.selectByPrimaryKey((String) id);
-    }
+    public ProgramOrderable get(Object id) { return programOrderableMapper.selectByPrimaryKey((String) id); }
 
     public List<ProgramOrderable> get(String id, String programId, String orderableId) {
 
@@ -46,6 +46,7 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
 
     @Override
     public void update(ProgramOrderable programOrderable) {
+        programOrderable.setDateUpdated(getCurrentTime());
         programOrderableMapper.updateByPrimaryKey(programOrderable);
     }
 
