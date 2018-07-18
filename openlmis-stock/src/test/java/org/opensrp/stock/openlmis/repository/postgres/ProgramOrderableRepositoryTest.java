@@ -21,7 +21,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testAddShouldAddNewOrderable() {
+    public void testAddShouldAddNewProgramOrderable() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id");
@@ -39,7 +39,38 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testGetShouldRetrieveAddedOrderable() {
+    public void testAddShouldNotAddNewProgramOrderableIfDuplicate() {
+
+        ProgramOrderable programOrderable = new ProgramOrderable();
+        programOrderable.setId("id");
+        programOrderable.setProgramId("program_id");
+        programOrderable.setOrderableId("orderable_id");
+        programOrderable.setDosesPerPatient(2);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(false);
+        programOrderable.setDateUpdated(93932430132L);
+        repository.add(programOrderable);
+
+        ProgramOrderable entry = new ProgramOrderable();
+        programOrderable.setId(programOrderable.getId());
+        programOrderable.setProgramId("program_id");
+        programOrderable.setOrderableId("orderable_id");
+        programOrderable.setDosesPerPatient(2);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(false);
+        programOrderable.setDateUpdated(93932430132L);
+        repository.add(entry);
+
+        entry = repository.get(programOrderable.getId());
+        assertEquals(entry.getProgramId(), programOrderable.getProgramId());
+        assertEquals(entry.getOrderableId(), programOrderable.getOrderableId());
+        assertEquals(entry.getDosesPerPatient(), programOrderable.getDosesPerPatient());
+        assertEquals(entry.getActive(), programOrderable.getActive());
+        assertEquals(entry.getFullSupply(), programOrderable.getFullSupply());
+    }
+
+    @Test
+    public void testGetShouldRetrieveAddedProgramOrderable() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id_2");
@@ -56,7 +87,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testGetShouldRetrieveAddedOrderableById() {
+    public void testGetShouldRetrieveAddedProgramOrderableById() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id_3");
@@ -73,7 +104,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testUpdateShouldUpdateExistingRecord() {
+    public void testUpdateShouldUpdateExistingProgramOrderable() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id_4");
@@ -105,7 +136,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testGetAllShouldGetAllOrderablesInTable() {
+    public void testGetAllShouldGetAllProgramOrderablesInTable() {
 
 
         ProgramOrderable programOrderable = new ProgramOrderable();
@@ -133,7 +164,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testSafeRemoveShouldAddADeleteDateToOrderable() {
+    public void testSafeRemoveShouldAddADeleteDateToProgramOrderable() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id_7");

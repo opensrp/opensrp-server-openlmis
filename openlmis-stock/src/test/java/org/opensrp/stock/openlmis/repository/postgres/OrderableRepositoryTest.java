@@ -43,6 +43,45 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
+    public void testAddShouldNotAddNewOrderableIfDuplicate() {
+
+        Orderable orderable = new Orderable();
+        orderable.setId("id");
+        orderable.setCode("code");
+        orderable.setCommodityTypeId("commodity_type_id");
+        orderable.setTradeItemId("trade_item_id");
+        orderable.setDispensable(1);
+        orderable.setFullProductCode("full_product_code");
+        orderable.setNetContent(10);
+        orderable.setPackRoundingThreshold(2);
+        orderable.setRoundToZero(false);
+        repository.add(orderable);
+
+        Orderable entry = new Orderable();
+        entry.setId(orderable.getId());
+        entry.setCode("code_2");
+        entry.setCommodityTypeId("commodity_type_id_2");
+        entry.setTradeItemId("trade_item_id_2");
+        entry.setDispensable(3);
+        entry.setFullProductCode("full_product_code_2");
+        entry.setNetContent(20);
+        entry.setPackRoundingThreshold(3);
+        entry.setRoundToZero(true);
+        entry.setDateUpdated(98287323012L);
+        repository.add(entry);
+
+        entry = repository.get(orderable.getId());
+        assertEquals(entry.getCode(), orderable.getCode());
+        assertEquals(entry.getCommodityTypeId(), orderable.getCommodityTypeId());
+        assertEquals(entry.getTradeItemId(), orderable.getTradeItemId());
+        assertEquals(entry.getDispensable(), orderable.getDispensable());
+        assertEquals(entry.getFullProductCode(), orderable.getFullProductCode());
+        assertEquals(entry.getNetContent(), orderable.getNetContent());
+        assertEquals(entry.getPackRoundingThreshold(), orderable.getPackRoundingThreshold());
+        assertEquals(entry.getRoundToZero(), orderable.getRoundToZero());
+    }
+
+    @Test
     public void testGetShouldRetrieveAddedOrderable() {
 
         Orderable orderable = new Orderable();
@@ -83,7 +122,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testUpdateShouldUpdateExistingRecord() {
+    public void testUpdateShouldUpdateExistingOrderable() {
 
         Orderable orderable = new Orderable();
         orderable.setId("id_3");
