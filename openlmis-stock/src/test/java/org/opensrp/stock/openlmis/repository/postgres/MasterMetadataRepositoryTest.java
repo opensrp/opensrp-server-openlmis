@@ -25,6 +25,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
 
         repository.add(entry);
@@ -38,6 +39,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
         repository.add(entry);
 
@@ -45,6 +47,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         masterMetadataEntry.setId(entry.getId());
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
+        entry.setMasterTableEntryId(93412038L);
         masterMetadataEntry.setServerVersion(82492049L);
         repository.add(masterMetadataEntry);
 
@@ -60,6 +63,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
         repository.add(entry);
 
@@ -73,12 +77,14 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
         repository.add(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
+        entry.setMasterTableEntryId(93412038L);
         masterMetadataEntry.setServerVersion(482492049L);
         repository.add(entry);
 
@@ -92,6 +98,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
         repository.add(entry);
 
@@ -99,6 +106,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         masterMetadataEntry.setId(entry.getId());
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
+        masterMetadataEntry.setMasterTableEntryId(93412038L);
         masterMetadataEntry.setServerVersion(899492049L);
         repository.update(masterMetadataEntry);
 
@@ -114,12 +122,14 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
         repository.add(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
+        entry.setMasterTableEntryId(93412038L);
         masterMetadataEntry.setServerVersion(482492049L);
         repository.add(masterMetadataEntry);
 
@@ -133,6 +143,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         MasterMetadataEntry entry = new MasterMetadataEntry();
         entry.setUuid("uuid");
         entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
 
         // before deleting

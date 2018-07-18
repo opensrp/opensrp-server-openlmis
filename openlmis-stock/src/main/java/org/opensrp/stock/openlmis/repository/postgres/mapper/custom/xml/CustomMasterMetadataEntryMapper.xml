@@ -91,6 +91,9 @@
             <if test="type != null">
                 type,
             </if>
+            <if test="masterTableEntryId != null">
+                master_table_entry_id,
+            </if>
             <if test="serverVersion != null">
                 server_version,
             </if>
@@ -110,6 +113,9 @@
             </if>
             <if test="type != null">
                 #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="masterTableEntryId != null">
+                #{masterTableEntryId,jdbcType=BIGINT},
             </if>
             <if test="serverVersion != null">
                 #{serverVersion,jdbcType=BIGINT},
