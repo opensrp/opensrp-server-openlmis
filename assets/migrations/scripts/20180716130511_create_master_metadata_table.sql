@@ -20,6 +20,7 @@ CREATE TABLE core.master_metadata (
     id bigserial NOT NULL,
     uuid character varying NOT NULL,
     type character varying NOT NULL,
+    master_table_entry_id bigint NOT NULL,
     server_version bigint,
     date_updated bigint,
     date_deleted bigint,
