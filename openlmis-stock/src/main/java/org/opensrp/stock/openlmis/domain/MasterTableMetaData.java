@@ -5,29 +5,20 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class MasterTableMetaData {
 
     @JsonProperty
-    private String id;
+    private String uuid;
     @JsonProperty
     private String type;
     @JsonProperty
-    private String identifier;
+    private Long masterTableEntryId;
     @JsonProperty
-    private long serverVersion;
+    private Long serverVersion;
 
     protected  MasterTableMetaData() {}
 
-    public MasterTableMetaData(String id, String type, String identifier, long serverVersion) {
-        this.id = id;
+    public MasterTableMetaData(String type, String uuid, Long masterTableEntryId, long serverVersion) {
         this.type = type;
-        this.identifier = identifier;
+        this.uuid = uuid;
         this.serverVersion = serverVersion;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getType() {
@@ -38,12 +29,12 @@ public class MasterTableMetaData {
         this.type = type;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public long getServerVersion() {
@@ -52,5 +43,13 @@ public class MasterTableMetaData {
 
     public void setServerVersion(long serverVersion) {
         this.serverVersion = serverVersion;
+    }
+
+    public Long getMasterTableEntryId() {
+        return masterTableEntryId;
+    }
+
+    public void setMasterTableEntryId(Long masterTableEntryId) {
+        this.masterTableEntryId = masterTableEntryId;
     }
 }
