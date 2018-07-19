@@ -8,11 +8,11 @@
         <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
                         driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
         <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain.postgres"
-                            targetProject="opensrp-stock-management/src/main/java" />
+                            targetProject="openlmis-stock/src/main/java" />
         <sqlMapGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper.xml"
-                         targetProject="opensrp-stock-management/src/main/java" />
+                         targetProject="openlmis-stock/src/main/java" />
         <javaClientGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper"
-                             targetProject="opensrp-stock-management/src/main/java" type="XMLMAPPER" />
+                             targetProject="openlmis-stock/src/main/java" type="XMLMAPPER" />
 
         <table schema="core" tableName="orderable" />
         <table schema="core" tableName="program_orderable" />

@@ -13,6 +13,4 @@
     <context:component-scan base-package="org.opensrp.stock.openlmis.domain" />
     <context:component-scan base-package="org.opensrp.stock.openlmis.repository" />
     <context:component-scan base-package="org.opensrp.stock.openlmis.service" />
-
-
 </beans>
