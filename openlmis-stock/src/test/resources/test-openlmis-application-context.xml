@@ -6,7 +6,7 @@
 
     <context:property-placeholder location="classpath*:maven.properties,classpath*:activemq.properties,classpath*:opensrp.properties" />
 
-    <import resource="test-persistence-postgres.xml"/>
+    <import resource="test-openlmis-persistence-postgres.xml"/>
 
     <context:annotation-config />
 
@@ -14,11 +14,5 @@
     <context:component-scan base-package="org.opensrp.stock.openlmis.repository" />
     <context:component-scan base-package="org.opensrp.stock.openlmis.service" />
 
-    <bean id="openLmisDataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://localhost:5432/opensrp" />
-        <property name="username" value="opensrp_admin" />
-        <property name="password" value="admin" />
-    </bean>
+
 </beans>
