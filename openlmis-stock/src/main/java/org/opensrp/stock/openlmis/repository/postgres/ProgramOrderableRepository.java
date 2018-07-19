@@ -43,6 +43,12 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
         return programOrderableMapper.selectByExample(programOrderableExample);
     }
 
+    public List<ProgramOrderable> get(long prevServerVersion) {
+
+        ProgramOrderableExample programOrderableExample = new ProgramOrderableExample();
+        programOrderableExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
+        return programOrderableMapper.selectByExample(programOrderableExample);
+    }
 
     @Override
     public void update(ProgramOrderable programOrderable) {

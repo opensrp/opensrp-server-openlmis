@@ -9,6 +9,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
 
@@ -123,6 +124,34 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         ProgramOrderable result = repository.get("id_3");
         assertNotNull(result);
     }
+
+    @Test
+    public void testGetShouldRetrieveAddedProgramOrderableByServerVersion() {
+
+        long timeBeforeInsertion = getCurrentTime();
+
+        ProgramOrderable programOrderable = new ProgramOrderable();
+        programOrderable.setId("id_3");
+        programOrderable.setProgramId("program_id_3");
+        programOrderable.setOrderableId("orderable_id_3");
+        programOrderable.setDosesPerPatient(3);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(true);
+        repository.add(programOrderable);
+
+        programOrderable = new ProgramOrderable();
+        programOrderable.setId("id_1");
+        programOrderable.setProgramId("program_id_2");
+        programOrderable.setOrderableId("orderable_id_2");
+        programOrderable.setDosesPerPatient(3);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(true);
+        repository.add(programOrderable);
+
+        List<ProgramOrderable> result = repository.get(timeBeforeInsertion);
+        assertEquals(result.size(), 2);
+    }
+
 
     @Test
     public void testUpdateShouldUpdateExistingProgramOrderable() {

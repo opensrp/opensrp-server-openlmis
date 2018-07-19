@@ -44,6 +44,13 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         return orderableMapper.selectByExample(orderableExample);
     }
 
+    public List<Orderable> get(long prevServerVersion) {
+
+        OrderableExample orderableExample = new OrderableExample();
+        orderableExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
+        return orderableMapper.selectByExample(orderableExample);
+    }
+
     @Override
     public void update(Orderable orderable) {
         orderable.setServerVersion(getCurrentTime());

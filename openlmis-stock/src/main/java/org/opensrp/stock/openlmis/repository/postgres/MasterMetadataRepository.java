@@ -39,6 +39,13 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
         return metadataEntryMapper.selectByExample(metadataEntryExample);
     }
 
+    public List<MasterMetadataEntry> get(long prevServerVersion) {
+
+        MasterMetadataEntryExample metadataEntryExample = new MasterMetadataEntryExample();
+        metadataEntryExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
+        return metadataEntryMapper.selectByExample(metadataEntryExample);
+    }
+
     @Override
     public MasterMetadataEntry get(Object id) {
         return metadataEntryMapper.selectByPrimaryKey((Long) id);

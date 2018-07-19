@@ -9,6 +9,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 
 public class OrderableRepositoryTest extends BaseRepositoryTest {
@@ -152,6 +153,39 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
 
         Orderable result = repository.get("id_2");
         assertNotNull(result);
+    }
+
+    @Test
+    public void testGetShouldRetrieveAddedOrderableByServerVersion() {
+
+        long timeBeforeInsertion = getCurrentTime();
+
+        Orderable orderable = new Orderable();
+        orderable.setId("id_2");
+        orderable.setCode("code_2");
+        orderable.setCommodityTypeId("commodity_type_id_2");
+        orderable.setTradeItemId("trade_item_id_2");
+        orderable.setDispensable(3);
+        orderable.setFullProductCode("full_product_code_2");
+        orderable.setNetContent(20);
+        orderable.setPackRoundingThreshold(3);
+        orderable.setRoundToZero(true);
+        repository.add(orderable);
+
+        orderable = new Orderable();
+        orderable.setId("id_1");
+        orderable.setCode("code_1");
+        orderable.setCommodityTypeId("commodity_type_id_2");
+        orderable.setTradeItemId("trade_item_id_2");
+        orderable.setDispensable(3);
+        orderable.setFullProductCode("full_product_code_2");
+        orderable.setNetContent(20);
+        orderable.setPackRoundingThreshold(3);
+        orderable.setRoundToZero(true);
+        repository.add(orderable);
+
+        List<Orderable> result = repository.get(timeBeforeInsertion);
+        assertEquals(result.size(), 2);
     }
 
     @Test

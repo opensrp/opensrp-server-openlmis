@@ -86,6 +86,9 @@
             <if test="json != null">
                 json,
             </if>
+            <if test="serverVersion != null">
+                server_version,
+            </if>
             <if test="dateDeleted != null">
                 date_deleted,
             </if>
@@ -96,6 +99,9 @@
             </if>
             <if test="json != null">
                 #{json,jdbcType=OTHER,typeHandler=org.opensrp.stock.openlmis.handler.MasterTableTypeHandler},
+            </if>
+            <if test="serverVersion != null">
+                #{serverVersion,jdbcType=BIGINT},
             </if>
             <if test="dateDeleted != null">
                 #{dateDeleted,jdbcType=BIGINT},

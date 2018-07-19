@@ -93,6 +93,13 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.selectByPrimaryKey((Long) id);
     }
 
+    public List<MasterTableEntry> get(long prevServerVersion) {
+
+        MasterTableEntryExample entryExample = new MasterTableEntryExample();
+        entryExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
+        return masterTableMapper.selectByExample(entryExample);
+    }
+
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 
@@ -106,6 +113,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         MasterMetadataEntry lastEntry = result.get(result.size() - 1);
         if (result != null) {
             entry.setId(lastEntry.getId());
+            entry.setServerVersion(getCurrentTime());
             masterMetadataRepository.update(entry);
         } else {
             masterMetadataRepository.add(entry);

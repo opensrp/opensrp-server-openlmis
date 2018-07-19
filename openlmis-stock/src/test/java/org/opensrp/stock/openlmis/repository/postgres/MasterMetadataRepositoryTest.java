@@ -10,6 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
 
@@ -87,17 +88,36 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         entry.setUuid("uuid");
         entry.setType("type");
         entry.setMasterTableEntryId(93412038L);
-        entry.setServerVersion(482492049L);
         repository.add(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
         masterMetadataEntry.setUuid("uuid");
         masterMetadataEntry.setType("type");
         masterMetadataEntry.setMasterTableEntryId(93412038L);
-        masterMetadataEntry.setServerVersion(482492049L);
         repository.add(masterMetadataEntry);
 
         List<MasterMetadataEntry> entries = repository.get("uuid", "type");
+        assertEquals(entries.size(), 2);
+    }
+
+    @Test
+    public void testGetShouldRetrieveExistingMasterMetadataEntryByServerVersion() {
+
+        long timeBeforeInsertion = getCurrentTime();
+
+        MasterMetadataEntry entry = new MasterMetadataEntry();
+        entry.setUuid("uuid");
+        entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
+        repository.add(entry);
+
+        MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
+        masterMetadataEntry.setUuid("uuid");
+        masterMetadataEntry.setType("type");
+        masterMetadataEntry.setMasterTableEntryId(93412038L);
+        repository.add(masterMetadataEntry);
+
+        List<MasterMetadataEntry> entries = repository.get(timeBeforeInsertion);
         assertEquals(entries.size(), 2);
     }
 

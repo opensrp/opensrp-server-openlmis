@@ -11,6 +11,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
@@ -101,6 +102,30 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         MasterTableEntry entry = repository.add(metaData);
         entry = repository.get(entry.getId());
         assertNotNull(entry);
+    }
+
+    @Test
+    public void testGetShouldRetrieveExistingMasterTableEntryByServerVersion() {
+
+        long timeBeforeInsertion = getCurrentTime();
+        MasterTableMetaData metaData = new MasterTableMetaData(
+                "type",
+                "identifier",
+                824382823L,
+                482492049L
+        );
+        repository.add(metaData);
+
+        metaData = new MasterTableMetaData(
+                "type_2",
+                "identifier_2",
+                824382823L,
+                482492049L
+        );
+        repository.add(metaData);
+
+        List<MasterTableEntry> masterTableEntries = repository.get(timeBeforeInsertion);
+        assertEquals(masterTableEntries.size(), 2);
     }
 
     @Test
