@@ -18,6 +18,7 @@ public class MasterTableMetaData {
     public MasterTableMetaData(String type, String uuid, Long masterTableEntryId, long serverVersion) {
         this.type = type;
         this.uuid = uuid;
+        this.masterTableEntryId = masterTableEntryId;
         this.serverVersion = serverVersion;
     }
 
