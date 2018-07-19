@@ -30,7 +30,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        programOrderable.setDateUpdated(93932430132L);
 
         repository.add(programOrderable);
 
@@ -48,7 +47,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         ProgramOrderable entry = new ProgramOrderable();
@@ -58,7 +56,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(entry);
 
         entry = repository.get(programOrderable.getId());
@@ -79,7 +76,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.get("id_2", "program_id_2", "orderable_id_2");
@@ -96,7 +92,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         ProgramOrderable result = repository.get("id_3");
@@ -113,7 +108,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         programOrderable = new ProgramOrderable();
@@ -123,7 +117,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.update(programOrderable);
 
         // ensure old values are removed
@@ -146,7 +139,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         programOrderable = new ProgramOrderable();
@@ -156,7 +148,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.getAll();
@@ -173,7 +164,6 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        programOrderable.setDateUpdated(93932430132L);
         repository.add(programOrderable);
 
         Long timeStamp = repository.safeRemove(programOrderable);

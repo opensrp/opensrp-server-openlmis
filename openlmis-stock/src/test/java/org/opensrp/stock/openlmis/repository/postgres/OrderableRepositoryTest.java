@@ -34,7 +34,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        orderable.setDateUpdated(4910843012L);
         repository.add(orderable);
 
         List<Orderable> orderables = repository.get("id", "trade_item_id", "commodity_type_id");
@@ -67,7 +66,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         entry.setNetContent(20);
         entry.setPackRoundingThreshold(3);
         entry.setRoundToZero(true);
-        entry.setDateUpdated(98287323012L);
         repository.add(entry);
 
         entry = repository.get(orderable.getId());
@@ -94,7 +92,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        orderable.setDateUpdated(98287323012L);
         repository.add(orderable);
 
         List<Orderable> orderables = repository.get("id_2", "trade_item_id_2", "commodity_type_id_2");
@@ -114,7 +111,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        orderable.setDateUpdated(98287323012L);
         repository.add(orderable);
 
         Orderable result = repository.get("id_2");
@@ -134,7 +130,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        orderable.setDateUpdated(4910843012L);
         repository.add(orderable);
 
         orderable = new Orderable();
@@ -147,7 +142,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        orderable.setDateUpdated(939900843012L);
         repository.update(orderable);
 
         // ensure old values are removed
@@ -172,7 +166,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        orderable.setDateUpdated(4910843012L);
         repository.add(orderable);
 
         orderable = new Orderable();
@@ -185,7 +178,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(40);
         orderable.setPackRoundingThreshold(4);
         orderable.setRoundToZero(true);
-        orderable.setDateUpdated(939900843012L);
         repository.add(orderable);
 
         List<Orderable> orderables = repository.getAll();
@@ -205,7 +197,6 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        orderable.setDateUpdated(4910843012L);
         repository.add(orderable);
 
         Long timeStamp = repository.safeRemove(orderable);

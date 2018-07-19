@@ -34,7 +34,6 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setJson(metaData);
-        masterTableEntry.setDateUpdated(782894L);
 
         repository.add(masterTableEntry);
 
@@ -79,7 +78,6 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setId(entry.getId());
         masterTableEntry.setJson(masterTableMetaData);
-        masterTableEntry.setDateUpdated(78982894L);
 
         repository.add(masterTableEntry);
         masterTableEntry = repository.get(entry.getId());

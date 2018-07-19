@@ -106,12 +106,11 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         MasterMetadataEntry lastEntry = result.get(result.size() - 1);
         if (result != null) {
             entry.setId(lastEntry.getId());
-            masterMetadataRepository.update(entry, entry.getUuid(), entry.getType());
+            masterMetadataRepository.update(entry);
         } else {
             masterMetadataRepository.add(entry);
         }
     }
-
 
     @Override
     public List<MasterTableEntry> getAll() {
