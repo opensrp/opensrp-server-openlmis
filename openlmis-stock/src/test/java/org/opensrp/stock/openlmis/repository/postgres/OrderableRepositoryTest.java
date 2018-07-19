@@ -36,6 +36,18 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setRoundToZero(false);
         repository.add(orderable);
 
+        orderable = new Orderable();
+        orderable.setId("id_2");
+        orderable.setCode("code");
+        orderable.setCommodityTypeId("commodity_type_id");
+        orderable.setTradeItemId("trade_item_id");
+        orderable.setDispensable(1);
+        orderable.setFullProductCode("full_product_code");
+        orderable.setNetContent(10);
+        orderable.setPackRoundingThreshold(2);
+        orderable.setRoundToZero(false);
+        repository.add(orderable);
+
         List<Orderable> orderables = repository.get("id", "trade_item_id", "commodity_type_id");
 
         assertEquals(orderables.size(), 1);
@@ -94,6 +106,19 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setRoundToZero(true);
         repository.add(orderable);
 
+        orderable = new Orderable();
+        orderable.setId("id_1");
+        orderable.setCode("code_1");
+        orderable.setCommodityTypeId("commodity_type_id_2");
+        orderable.setTradeItemId("trade_item_id_2");
+        orderable.setDispensable(3);
+        orderable.setFullProductCode("full_product_code_2");
+        orderable.setNetContent(20);
+        orderable.setPackRoundingThreshold(3);
+        orderable.setRoundToZero(true);
+        repository.add(orderable);
+
+
         List<Orderable> orderables = repository.get("id_2", "trade_item_id_2", "commodity_type_id_2");
         assertEquals(orderables.size(), 1);
     }
@@ -104,6 +129,18 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         Orderable orderable = new Orderable();
         orderable.setId("id_2");
         orderable.setCode("code_2");
+        orderable.setCommodityTypeId("commodity_type_id_2");
+        orderable.setTradeItemId("trade_item_id_2");
+        orderable.setDispensable(3);
+        orderable.setFullProductCode("full_product_code_2");
+        orderable.setNetContent(20);
+        orderable.setPackRoundingThreshold(3);
+        orderable.setRoundToZero(true);
+        repository.add(orderable);
+
+        orderable = new Orderable();
+        orderable.setId("id_1");
+        orderable.setCode("code_1");
         orderable.setCommodityTypeId("commodity_type_id_2");
         orderable.setTradeItemId("trade_item_id_2");
         orderable.setDispensable(3);

@@ -27,10 +27,18 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         entry.setType("type");
         entry.setMasterTableEntryId(93412038L);
         entry.setServerVersion(482492049L);
-
         repository.add(entry);
+
+
+        entry = new MasterMetadataEntry();
+        entry.setUuid("uuid");
+        entry.setType("type");
+        entry.setMasterTableEntryId(93412038L);
+        entry.setServerVersion(482492049L);
+        repository.add(entry);
+
         List<MasterMetadataEntry> result = repository.get("uuid", "type");
-        assertEquals(result.size(), 1);
+        assertEquals(result.size(), 2);
     }
 
     @Test
@@ -83,14 +91,14 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         repository.add(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
-        masterMetadataEntry.setUuid("uuid_2");
-        masterMetadataEntry.setType("type_2");
-        entry.setMasterTableEntryId(93412038L);
+        masterMetadataEntry.setUuid("uuid");
+        masterMetadataEntry.setType("type");
+        masterMetadataEntry.setMasterTableEntryId(93412038L);
         masterMetadataEntry.setServerVersion(482492049L);
-        repository.add(entry);
+        repository.add(masterMetadataEntry);
 
         List<MasterMetadataEntry> entries = repository.get("uuid", "type");
-        assertEquals(entries.size(), 1);
+        assertEquals(entries.size(), 2);
     }
 
     @Test

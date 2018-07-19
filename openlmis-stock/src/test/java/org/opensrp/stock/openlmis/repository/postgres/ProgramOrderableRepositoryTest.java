@@ -30,7 +30,15 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
+        repository.add(programOrderable);
 
+        programOrderable = new ProgramOrderable();
+        programOrderable.setId("id_2");
+        programOrderable.setProgramId("program_id");
+        programOrderable.setOrderableId("orderable_id");
+        programOrderable.setDosesPerPatient(2);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(false);
         repository.add(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.get("id", "program_id", "orderable_id");
@@ -78,6 +86,15 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setFullSupply(true);
         repository.add(programOrderable);
 
+        programOrderable = new ProgramOrderable();
+        programOrderable.setId("id_1");
+        programOrderable.setProgramId("program_id_2");
+        programOrderable.setOrderableId("orderable_id_2");
+        programOrderable.setDosesPerPatient(3);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(true);
+        repository.add(programOrderable);
+
         List<ProgramOrderable> programOrderables = repository.get("id_2", "program_id_2", "orderable_id_2");
         assertEquals(programOrderables.size(), 1);
     }
@@ -89,6 +106,15 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setId("id_3");
         programOrderable.setProgramId("program_id_3");
         programOrderable.setOrderableId("orderable_id_3");
+        programOrderable.setDosesPerPatient(3);
+        programOrderable.setActive(true);
+        programOrderable.setFullSupply(true);
+        repository.add(programOrderable);
+
+        programOrderable = new ProgramOrderable();
+        programOrderable.setId("id_1");
+        programOrderable.setProgramId("program_id_2");
+        programOrderable.setOrderableId("orderable_id_2");
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);

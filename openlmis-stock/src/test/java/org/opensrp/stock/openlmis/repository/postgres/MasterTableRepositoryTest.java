@@ -34,7 +34,6 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setJson(metaData);
-
         repository.add(masterTableEntry);
 
         masterTableEntry = repository.get(masterTableEntry.getId());
