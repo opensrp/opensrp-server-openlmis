@@ -19,7 +19,7 @@
 CREATE TABLE core.master_table (
     id bigserial NOT NULL,
     json jsonb NOT NULL,
-    date_updated bigint,
+    server_version bigint,
     date_deleted bigint,
     PRIMARY KEY (id)
 ) WITH (

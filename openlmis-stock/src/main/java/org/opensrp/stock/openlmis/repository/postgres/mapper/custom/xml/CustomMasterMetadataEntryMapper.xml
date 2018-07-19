@@ -3,7 +3,7 @@
 <mapper namespace="org.opensrp.stock.openlmis.repository.postgres.mapper.custom.CustomMasterMetadataEntryMapper">
 
     <sql id="column_list">
-        mmt.id, mmt.uuid, mmt.type, mmt.server_version, mmt.date_updated, mmt.date_deleted
+        mmt.id, mmt.uuid, mmt.type, mmt.server_version, mmt.date_deleted
     </sql>
 
     <sql id="from_master_metadata_table">
@@ -20,7 +20,6 @@
         <result column="uuid" jdbcType="VARCHAR" property="uuid" />
         <result column="type" jdbcType="VARCHAR" property="type" />
         <result column="server_version" jdbcType="BIGINT" property="serverVersion" />
-        <result column="date_updated" jdbcType="BIGINT" property="dateUpdated" />
         <result column="date_deleted" jdbcType="BIGINT" property="dateDeleted" />
     </resultMap>
 
@@ -97,9 +96,6 @@
             <if test="serverVersion != null">
                 server_version,
             </if>
-            <if test="dateUpdated != null">
-                date_updated,
-            </if>
             <if test="dateDeleted != null">
                 date_deleted,
             </if>
@@ -119,9 +115,6 @@
             </if>
             <if test="serverVersion != null">
                 #{serverVersion,jdbcType=BIGINT},
-            </if>
-            <if test="dateUpdated != null">
-                #{dateUpdated,jdbcType=BIGINT},
             </if>
             <if test="dateDeleted != null">
                 #{dateDeleted,jdbcType=BIGINT},

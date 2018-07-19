@@ -3,8 +3,7 @@
 <mapper namespace="org.opensrp.stock.openlmis.repository.postgres.mapper.custom.CustomProgramOrderableMapper">
 
     <sql id="column_list">
-        po.id, po.program_id, po.orderable_id, po.doses_per_patient, po.active, po.full_supply,
-        po.date_updated, po.date_deleted
+        po.id, po.program_id, po.orderable_id, po.doses_per_patient, po.active, po.full_supply, po.date_deleted
     </sql>
 
     <sql id="from_program_orderables">
@@ -24,7 +23,6 @@
         <result column="doses_per_patient" jdbcType="INTEGER" property="dosesPerPatient" />
         <result column="active" jdbcType="BIT" property="active" />
         <result column="full_supply" jdbcType="BIT" property="fullSupply" />
-        <result column="date_updated" jdbcType="BIGINT" property="dateUpdated" />
         <result column="date_deleted" jdbcType="BIGINT" property="dateDeleted" />
     </resultMap>
 

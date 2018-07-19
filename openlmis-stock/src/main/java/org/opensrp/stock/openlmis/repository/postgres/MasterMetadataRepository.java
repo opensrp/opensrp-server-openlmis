@@ -28,7 +28,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
         if (isDuplicateEntry(metadataEntry)) {
             return;
         }
-        metadataEntry.setDateUpdated(getCurrentTime());
+        metadataEntry.setServerVersion(getCurrentTime());
         metadataEntryMapper.insertSelectiveAndSetId(metadataEntry);
     }
 
@@ -46,7 +46,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
 
     @Override
     public void update(MasterMetadataEntry masterMetadataEntry) {
-        masterMetadataEntry.setDateUpdated(getCurrentTime());
+        masterMetadataEntry.setServerVersion(getCurrentTime());
         metadataEntryMapper.updateByPrimaryKey(masterMetadataEntry);
     }
 
@@ -54,7 +54,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
 
         MasterMetadataEntryExample metadataEntryExample = new MasterMetadataEntryExample();
         metadataEntryExample.createCriteria().andUuidEqualTo(uuid).andTypeEqualTo(type);
-        entry.setDateUpdated(getCurrentTime());
+        entry.setServerVersion(getCurrentTime());
         metadataEntryMapper.updateByExample(entry, metadataEntryExample);
     }
 

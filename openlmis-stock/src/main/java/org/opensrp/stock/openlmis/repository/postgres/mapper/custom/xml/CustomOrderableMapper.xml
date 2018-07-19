@@ -4,7 +4,7 @@
 
     <sql id="column_list">
         o.id, o.code, o.full_product_code, o.net_content, o.pack_rounding_threshold, o.round_to_zero,
-        o.dispensable, o.trade_item_id, o.commodity_type_id, o.date_updated
+        o.dispensable, o.trade_item_id, o.commodity_type_id
     </sql>
 
     <sql id="from_orderables">
@@ -22,7 +22,6 @@
         <result column="dispensable" jdbcType="INTEGER" property="dispensable" />
         <result column="trade_item_id" jdbcType="VARCHAR" property="tradeItemId" />
         <result column="commodity_type_id" jdbcType="VARCHAR" property="commodityTypeId" />
-        <result column="date_updated" jdbcType="TIMESTAMP" property="dateUpdated" />
     </resultMap>
 
     <sql id="where_clause">

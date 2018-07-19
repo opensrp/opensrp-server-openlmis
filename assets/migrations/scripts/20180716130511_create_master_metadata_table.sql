@@ -22,7 +22,6 @@ CREATE TABLE core.master_metadata (
     type character varying NOT NULL,
     master_table_entry_id bigint NOT NULL,
     server_version bigint,
-    date_updated bigint,
     date_deleted bigint,
     PRIMARY KEY (id)
 ) WITH (

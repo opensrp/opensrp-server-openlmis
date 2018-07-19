@@ -3,7 +3,7 @@
 <mapper namespace="org.opensrp.stock.openlmis.repository.postgres.mapper.custom.CustomMasterTableMapper">
 
     <sql id="column_list">
-        mt.id, mt.json, mt.date_updated, mt.date_deleted
+        mt.id, mt.json, mt.date_deleted
     </sql>
 
     <sql id="from_master_table">
@@ -19,7 +19,6 @@
         -->
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="json" jdbcType="OTHER" property="json" />
-        <result column="date_updated" jdbcType="BIGINT" property="dateUpdated" />
         <result column="date_deleted" jdbcType="BIGINT" property="dateDeleted" />
     </resultMap>
 
@@ -87,9 +86,6 @@
             <if test="json != null">
                 json,
             </if>
-            <if test="dateUpdated != null">
-                date_updated,
-            </if>
             <if test="dateDeleted != null">
                 date_deleted,
             </if>
@@ -100,9 +96,6 @@
             </if>
             <if test="json != null">
                 #{json,jdbcType=OTHER,typeHandler=org.opensrp.stock.openlmis.handler.MasterTableTypeHandler},
-            </if>
-            <if test="dateUpdated != null">
-                #{dateUpdated,jdbcType=BIGINT},
             </if>
             <if test="dateDeleted != null">
                 #{dateDeleted,jdbcType=BIGINT},

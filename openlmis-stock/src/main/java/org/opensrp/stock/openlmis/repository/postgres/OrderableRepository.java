@@ -28,7 +28,7 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         if (retrievePrimaryKey(orderable) != null) {
             return;
         }
-        orderable.setDateUpdated(getCurrentTime());
+        orderable.setServerVersion(getCurrentTime());
         orderableMapper.insert(orderable);
     }
 
@@ -46,7 +46,7 @@ public class OrderableRepository implements BaseRepository<Orderable> {
 
     @Override
     public void update(Orderable orderable) {
-        orderable.setDateUpdated(getCurrentTime());
+        orderable.setServerVersion(getCurrentTime());
         orderableMapper.updateByPrimaryKey(orderable);
     }
 

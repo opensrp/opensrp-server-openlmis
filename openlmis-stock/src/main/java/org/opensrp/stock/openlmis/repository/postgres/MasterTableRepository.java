@@ -30,7 +30,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         }
 
         MasterTableEntry masterTableEntry = convert(masterTableMetaData, null);
-        masterTableEntry.setDateUpdated(getCurrentTime());
+        masterTableEntry.setServerVersion(getCurrentTime());
         add(masterTableEntry);
         if (masterTableEntry.getId() == null) {
             return null;
@@ -50,7 +50,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
             return;
         }
 
-        masterTableEntry.setDateUpdated(getCurrentTime());
+        masterTableEntry.setServerVersion(getCurrentTime());
         int rowsAffected = masterTableMapper.insertSelectiveAndSetId(masterTableEntry);
         if (rowsAffected < 1 || masterTableEntry.getId() == null) {
             return;
@@ -96,7 +96,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 
-        masterTableEntry.setDateUpdated(getCurrentTime());
+        masterTableEntry.setServerVersion(getCurrentTime());
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
 
         // Add or update metadata to master metadata table

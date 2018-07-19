@@ -29,7 +29,7 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
         if (retrievePrimaryKey(programOrderable) != null) {
             return;
         }
-        programOrderable.setDateUpdated(getCurrentTime());
+        programOrderable.setServerVersion(getCurrentTime());
         programOrderableMapper.insert(programOrderable);
     }
 
@@ -46,7 +46,7 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
 
     @Override
     public void update(ProgramOrderable programOrderable) {
-        programOrderable.setDateUpdated(getCurrentTime());
+        programOrderable.setServerVersion(getCurrentTime());
         programOrderableMapper.updateByPrimaryKey(programOrderable);
     }
 

@@ -24,7 +24,7 @@ CREATE TABLE core.program_orderable (
     doses_per_patient integer,
     active boolean,
     full_supply boolean,
-    date_updated bigint,
+    server_version bigint,
     date_deleted bigint,
     PRIMARY KEY (id)
 ) WITH (

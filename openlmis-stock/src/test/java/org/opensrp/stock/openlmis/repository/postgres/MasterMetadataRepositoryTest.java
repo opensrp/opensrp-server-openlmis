@@ -108,7 +108,6 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         entry.setUuid("uuid");
         entry.setType("type");
         entry.setMasterTableEntryId(93412038L);
-        entry.setServerVersion(482492049L);
         repository.add(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
@@ -116,14 +115,12 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
         masterMetadataEntry.setMasterTableEntryId(93412038L);
-        masterMetadataEntry.setServerVersion(899492049L);
         repository.update(masterMetadataEntry);
 
         // ensure values were updated
         entry = repository.get(entry.getId());
         assertEquals(entry.getUuid(), "uuid_2");
         assertEquals(entry.getType(), "type_2");
-        assertEquals(entry.getServerVersion().longValue(), 899492049L);
     }
 
     @Test
