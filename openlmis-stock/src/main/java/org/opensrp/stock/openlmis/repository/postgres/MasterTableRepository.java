@@ -162,7 +162,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     private MasterMetadataEntry convert(MasterTableMetaData masterTableMetaData) {
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
-        masterMetadataEntry.setMasterTableEntryId(masterTableMetaData.getMasterTableEntryId());
         masterMetadataEntry.setType(masterTableMetaData.getType());
         masterMetadataEntry.setUuid(masterTableMetaData.getUuid());
 

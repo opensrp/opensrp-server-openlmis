@@ -28,9 +28,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
 
         MasterTableEntry masterTableEntry = new MasterTableEntry();
@@ -46,9 +44,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
 
         MasterTableEntry entry = repository.add(metaData);
@@ -63,17 +59,13 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                 824382823L,
-                98782492049L
+                "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
 
         MasterTableMetaData  masterTableMetaData= new MasterTableMetaData(
                 "type_2",
-                "identifier_2",
-                824382823L,
-                98782492049L
+                "identifier_2"
         );
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setId(entry.getId());
@@ -86,7 +78,6 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         masterTableMetaData = (MasterTableMetaData) masterTableEntry.getJson();
         assertEquals(masterTableMetaData.getType(), metaData.getType());
         assertEquals(masterTableMetaData.getUuid(), metaData.getUuid());
-        assertEquals(masterTableMetaData.getMasterTableEntryId(), metaData.getMasterTableEntryId());
     }
 
     @Test
@@ -94,9 +85,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
 
         MasterTableEntry entry = repository.add(metaData);
@@ -110,17 +99,13 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         long timeBeforeInsertion = getCurrentTime();
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
         repository.add(metaData);
 
         metaData = new MasterTableMetaData(
                 "type_2",
-                "identifier_2",
-                824382823L,
-                482492049L
+                "identifier_2"
         );
         repository.add(metaData);
 
@@ -133,9 +118,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
 
@@ -144,9 +127,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData newMetaData = new MasterTableMetaData(
                 "type_2",
-                "identifier_2",
-                824382823L,
-                89240234939L
+                "identifier_2"
         );
         updatedEntry.setJson(newMetaData);
         repository.update(updatedEntry);
@@ -155,7 +136,6 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         metaData = (MasterTableMetaData) repository.get(entry.getId()).getJson();
         assertEquals(metaData.getType(), "type_2");
         assertEquals(metaData.getUuid(), "identifier_2");
-        assertEquals(metaData.getServerVersion(), 89240234939L);
     }
 
     @Test
@@ -163,25 +143,19 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type",
-                "identifier",
-                824382823L,
-                482492049L
+                "identifier"
         );
         repository.add(metaData);
 
         metaData = new MasterTableMetaData(
                 "type_2",
-                "identifier_2",
-                824382823L,
-                90684492049L
+                "identifier_2"
         );
         repository.add(metaData);
 
        metaData = new MasterTableMetaData(
                 "type_3",
-                "identifier_3",
-               824382823L,
-                5234892049L
+                "identifier_3"
         );
         repository.add(metaData);
 
@@ -194,9 +168,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableMetaData metaData = new MasterTableMetaData(
                 "type_3",
-                "identifier_3",
-                824382823L,
-                5234892049L
+                "identifier_3"
         );
         MasterTableEntry entry = repository.add(metaData);
         assertNull(entry.getDateDeleted());
