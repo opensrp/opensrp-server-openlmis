@@ -51,6 +51,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         masterMetadataEntry.setServerVersion(82492049L);
         repository.add(masterMetadataEntry);
 
+        // ensure values remained the same
         masterMetadataEntry = repository.get(entry.getId());
         assertEquals(masterMetadataEntry.getUuid(), entry.getUuid());
         assertEquals(masterMetadataEntry.getType(), entry.getType());
@@ -110,6 +111,7 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         masterMetadataEntry.setServerVersion(899492049L);
         repository.update(masterMetadataEntry);
 
+        // ensure values were updated
         entry = repository.get(entry.getId());
         assertEquals(entry.getUuid(), "uuid_2");
         assertEquals(entry.getType(), "type_2");
