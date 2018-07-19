@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <classPathEntry
-            location="/Users/vkaruri/Desktop/Ona_Projects/opensrp-server/assets/migrations/drivers/postgresql-42.2.1.jar" />
+            location="/Users/vkaruri/Desktop/Ona_Projects/opensrp-server-openlmis/assets/migrations/drivers/postgresql-42.2.1.jar" />
     <context id="core">
         <!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
         <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
