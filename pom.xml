@@ -195,8 +195,7 @@
                         </goals>
                         <configuration>
                             <files>
-                                <file>${main.basedir}/build/maven.properties</file>
-                                <file>${main.basedir}/assets/config/opensrp.properties</file>
+                                <file>${main.basedir}/assets/config/openlmis.properties</file>
                             </files>
                         </configuration>
                     </execution>

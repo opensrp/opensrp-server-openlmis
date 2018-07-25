@@ -32,6 +32,6 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"
-			value="org.opensrp.stock.openlmis.repository.postgres.mapper;org.opensrp.stock.openlmis.repository.postgres.mapper.custom" />
+			value="org.opensrp.stock.openlmis.repository.postgres.mapper;org.opensrp.stock.openlmis.repository.mapper.custom" />
 	</bean>
 </beans>

@@ -9,46 +9,6 @@
         </layout>
     </appender>
 
-    <appender name="ReportingRollingLog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="opensrpReporting.log"/>
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ddMMyyyy HH:mm:ss,SSS} %-5p [%t] [%c{1}] %m%n"/>
-        </layout>
-    </appender>
-
-    <appender name="ReportingMonitorLog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="opensrpReportingMonitoring.log"/>
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
-        </layout>
-    </appender>
-
-    <appender name="WebRollingLog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="opensrpWeb.log"/>
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ddMMyyyy HH:mm:ss,SSS} %-5p [%t] [%c{1}] %m%n"/>
-        </layout>
-    </appender>
-
-    <appender name="WebMonitorLog" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="opensrpWebMonitoring.log"/>
-        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d{ddMMyyyy HH:mm:ss,SSS} %m%n"/>
-        </layout>
-    </appender>
-    
-    <logger name="org.motechproject">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.quartz">
-        <level value="WARN"/>
-    </logger>
-
     <logger name="metrics">
         <level value="WARN"/>
     </logger>
@@ -60,8 +20,8 @@
     <logger name="org.ei">
         <level value="INFO"/>
     </logger>
-    
-    <logger name="org.opensrp">
+
+    <logger name="org.opensrp.stock.openlmis">
         <level value="DEBUG"/>
     </logger>
 
@@ -74,7 +34,7 @@
         <!--<appender-ref ref="WebMonitorLog"/>-->
         <appender-ref ref="CONSOLE"/>
     </logger>
-    
+
     <root>
         <priority value="INFO"/>
         <!--<appender-ref ref="RollingLog"/>-->

@@ -7,9 +7,7 @@
                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:property-placeholder location="classpath*:maven.properties"/>
-
-    <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
+    <util:properties id="opensrp" location="classpath:/openlmis.properties"/>
 
     <context:annotation-config/>
 

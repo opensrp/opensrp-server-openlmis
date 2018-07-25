@@ -9,9 +9,9 @@
                         driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
         <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain.postgres"
                             targetProject="openlmis-stock/src/main/java" />
-        <sqlMapGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper.xml"
+        <sqlMapGenerator targetPackage="org.opensrp.stock.openlmis.repository.mapper.xml"
                          targetProject="openlmis-stock/src/main/java" />
-        <javaClientGenerator targetPackage="org.opensrp.stock.openlmis.repository.postgres.mapper"
+        <javaClientGenerator targetPackage="org.opensrp.stock.openlmis.repository.mapper"
                              targetProject="openlmis-stock/src/main/java" type="XMLMAPPER" />
 
         <table schema="core" tableName="orderable" />
