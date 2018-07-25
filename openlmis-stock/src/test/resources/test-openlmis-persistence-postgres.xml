@@ -22,9 +22,9 @@
 
 	<bean id="OpenSRPSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="openLMISDataSource" />
-		<property name="typeAliasesPackage" value="org.opensrp.stock.openlmis.domain.postgres" />
+		<property name="typeAliasesPackage" value="org.opensrp.stock.openlmis.domain" />
 		<property name="mapperLocations"
-				  value="classpath*:org/opensrp/stock/openlmis/repository/postgres/mapper/**/*.xml" />
+				  value="classpath*:org/opensrp/stock/openlmis/repository/mapper/**/*.xml" />
 	</bean>
 
 	<bean id="OpenSRPSqlSession" class="org.mybatis.spring.SqlSessionTemplate">

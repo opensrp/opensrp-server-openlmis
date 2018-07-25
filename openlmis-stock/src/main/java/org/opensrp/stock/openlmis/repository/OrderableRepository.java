@@ -2,6 +2,7 @@ package org.opensrp.stock.openlmis.repository;
 
 import org.opensrp.stock.openlmis.domain.Orderable;
 import org.opensrp.stock.openlmis.domain.OrderableExample;
+import org.opensrp.stock.openlmis.repository.mapper.OrderableMapper;
 import org.opensrp.stock.openlmis.repository.mapper.custom.CustomOrderableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 public class OrderableRepository implements BaseRepository<Orderable> {
 
     @Autowired
-    private CustomOrderableMapper orderableMapper;
+    private OrderableMapper orderableMapper;
 
     @Override
     public void add(Orderable orderable) {
@@ -62,7 +63,7 @@ public class OrderableRepository implements BaseRepository<Orderable> {
 
         OrderableExample orderableExample = new OrderableExample();
         orderableExample.createCriteria();
-        return orderableMapper.select(orderableExample, 0, DEFAULT_FETCH_LIMIT);
+        return orderableMapper.selectByExample(orderableExample);
     }
 
     @Override

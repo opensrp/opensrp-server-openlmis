@@ -59,7 +59,7 @@
         </where>
     </sql>
 
-    <select id="select" resultMap="org.opensrp.stock.openlmis.repository.postgres.mapper.ProgramOrderableMapper.BaseResultMap">
+    <select id="select" resultMap="org.opensrp.stock.openlmis.repository.mapper.ProgramOrderableMapper.BaseResultMap">
         select
         <if test="example.distinct">
             distinct

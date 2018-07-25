@@ -7,7 +7,7 @@
         <!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
         <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
                         driverClass="org.postgresql.Driver" password="admin" userId="opensrp_admin" />
-        <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain.postgres"
+        <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain"
                             targetProject="openlmis-stock/src/main/java" />
         <sqlMapGenerator targetPackage="org.opensrp.stock.openlmis.repository.mapper.xml"
                          targetProject="openlmis-stock/src/main/java" />

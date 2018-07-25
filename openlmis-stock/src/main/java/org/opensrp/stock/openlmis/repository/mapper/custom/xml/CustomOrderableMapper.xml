@@ -57,7 +57,7 @@
         </where>
     </sql>
 
-    <select id="select" resultMap="org.opensrp.stock.openlmis.repository.postgres.mapper.OrderableMapper.BaseResultMap">
+    <select id="select" resultMap="org.opensrp.stock.openlmis.repository.mapper.OrderableMapper.BaseResultMap">
         select
         <if test="example.distinct">
             distinct
