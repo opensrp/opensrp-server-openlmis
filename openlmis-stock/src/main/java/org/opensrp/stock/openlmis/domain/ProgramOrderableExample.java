@@ -1,5 +1,7 @@
 package org.opensrp.stock.openlmis.domain;
 
+import org.opensrp.stock.openlmis.exception.NullQueryValueException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,21 +177,21 @@ public class ProgramOrderableExample {
 
         protected void addCriterion(String condition) {
             if (condition == null) {
-                throw new NullPointerException("Value for condition cannot be null");
+                throw new NullQueryValueException("Value for condition cannot be null");
             }
             criteria.add(new Criterion(condition));
         }
 
         protected void addCriterion(String condition, Object value, String property) {
             if (value == null) {
-                throw new NullPointerException("Value for " + property + " cannot be null");
+                throw new NullQueryValueException("Value for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
         }
 
         protected void addCriterion(String condition, Object value1, Object value2, String property) {
             if (value1 == null || value2 == null) {
-                throw new NullPointerException("Between values for " + property + " cannot be null");
+                throw new NullQueryValueException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
