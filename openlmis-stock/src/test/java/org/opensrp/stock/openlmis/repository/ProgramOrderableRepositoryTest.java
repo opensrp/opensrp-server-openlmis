@@ -180,7 +180,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         assertEquals(programOrderables.size(), 0);
 
         // ensure values are updated
-        programOrderables = repository.get("id_4", "program_id_4", "orderable_id_4");;
+        programOrderables = repository.get("id_4", "program_id_4", "orderable_id_4");
         assertEquals(programOrderables.size(), 1);
     }
 

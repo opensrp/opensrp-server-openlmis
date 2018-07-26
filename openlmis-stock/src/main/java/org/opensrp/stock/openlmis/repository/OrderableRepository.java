@@ -3,14 +3,12 @@ package org.opensrp.stock.openlmis.repository;
 import org.opensrp.stock.openlmis.domain.Orderable;
 import org.opensrp.stock.openlmis.domain.OrderableExample;
 import org.opensrp.stock.openlmis.repository.mapper.OrderableMapper;
-import org.opensrp.stock.openlmis.repository.mapper.custom.CustomOrderableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Calendar;
 import java.util.List;
 
-import static org.opensrp.stock.openlmis.util.Utils.DEFAULT_FETCH_LIMIT;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 
 @Repository
