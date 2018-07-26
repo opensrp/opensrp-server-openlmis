@@ -8,8 +8,8 @@ install:
   - echo "skip" # or anything that returns 0 status.
   - sudo netstat -tuplen # listing all the port for debug purpose.
 before_script:
-  - psql -c "CREATE ROLE opensrp_admin WITH LOGIN SUPERUSER PASSWORD 'admin';" -U postgres
-  - psql -c "CREATE DATABASE opensrp_test WITH OWNER = opensrp_admin;" -U postgres
+  - psql -c "CREATE ROLE openlmis_admin WITH LOGIN SUPERUSER PASSWORD 'admin';" -U postgres
+  - psql -c "CREATE DATABASE openlmis_test WITH OWNER = openlmis_admin;" -U postgres
   - chmod +x assets/migrations/run_mybatis_migrations.sh
   - sudo ./assets/migrations/run_mybatis_migrations.sh
   - sudo mkdir -p /opt/multimedia

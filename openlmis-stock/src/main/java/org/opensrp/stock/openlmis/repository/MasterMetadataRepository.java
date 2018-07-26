@@ -21,7 +21,7 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
     @Override
     public void add(MasterMetadataEntry metadataEntry) {
 
-        if (metadataEntry == null || metadataEntry.getMasterTableEntryId() == null || metadataEntry.getType() == null) {
+        if (metadataEntry == null || metadataEntry.getMasterTableEntryId() == null) {
             return;
         }
         // MasterMetadataEntry already exists

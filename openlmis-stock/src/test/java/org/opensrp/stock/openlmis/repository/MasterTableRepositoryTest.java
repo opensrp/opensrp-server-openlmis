@@ -2,9 +2,10 @@ package org.opensrp.stock.openlmis.repository;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.MasterTableMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
-import org.opensrp.stock.openlmis.repository.MasterTableRepository;
+import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -27,8 +28,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testAddShouldAddNewMasterTableEntry() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        TradeItemMetaData metaData = new TradeItemMetaData(
                 "identifier"
         );
 
@@ -43,8 +43,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testAddShouldAddNewMasterTableEntryFromMetadata() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
 
@@ -58,34 +57,30 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testAddShouldNotAddNewMasterTableEntryIfDuplicate() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
 
-        MasterTableMetaData  masterTableMetaData= new MasterTableMetaData(
-                "type_2",
+        BaseMetaData baseMetaData = new BaseMetaData(
                 "identifier_2"
         );
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setId(entry.getId());
-        masterTableEntry.setJson(masterTableMetaData);
+        masterTableEntry.setJson(baseMetaData);
 
         repository.add(masterTableEntry);
         masterTableEntry = repository.get(entry.getId());
 
         // assert all data matches
-        masterTableMetaData = (MasterTableMetaData) masterTableEntry.getJson();
-        assertEquals(masterTableMetaData.getType(), metaData.getType());
-        assertEquals(masterTableMetaData.getUuid(), metaData.getUuid());
+        baseMetaData = (BaseMetaData) masterTableEntry.getJson();
+        assertEquals(baseMetaData.getUuid(), metaData.getUuid());
     }
 
     @Test
     public void testGetShouldRetrieveExistingMasterTableEntry() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
 
@@ -98,14 +93,12 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     public void testGetShouldRetrieveExistingMasterTableEntryByServerVersion() {
 
         long timeBeforeInsertion = getCurrentTime();
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
         repository.add(metaData);
 
-        metaData = new MasterTableMetaData(
-                "type_2",
+        metaData = new BaseMetaData(
                 "identifier_2"
         );
         repository.add(metaData);
@@ -117,8 +110,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testUpdateShouldUpdateExistingMasterTableEntry() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
@@ -126,36 +118,31 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         MasterTableEntry updatedEntry = new MasterTableEntry();
         updatedEntry.setId(entry.getId());
 
-        MasterTableMetaData newMetaData = new MasterTableMetaData(
-                "type_2",
+        ProgramMetaData newMetaData = new ProgramMetaData(
                 "identifier_2"
         );
         updatedEntry.setJson(newMetaData);
         repository.update(updatedEntry);
 
         // assert all data matches
-        metaData = (MasterTableMetaData) repository.get(entry.getId()).getJson();
-        assertEquals(metaData.getType(), "type_2");
+        metaData = (BaseMetaData) repository.get(entry.getId()).getJson();
         assertEquals(metaData.getUuid(), "identifier_2");
     }
 
     @Test
     public void testGetAllShouldRetrieveAllMasterTableEntries() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
         repository.add(metaData);
 
-        metaData = new MasterTableMetaData(
-                "type_2",
+        metaData = new BaseMetaData(
                 "identifier_2"
         );
         repository.add(metaData);
 
-       metaData = new MasterTableMetaData(
-                "type_3",
+       metaData = new BaseMetaData(
                 "identifier_3"
         );
         repository.add(metaData);
@@ -167,8 +154,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testSafeRemoveShouldAddDeleteDateToMasterTableEntry() {
 
-        MasterTableMetaData metaData = new MasterTableMetaData(
-                "type_3",
+        BaseMetaData metaData = new BaseMetaData(
                 "identifier_3"
         );
         MasterTableEntry entry = repository.add(metaData);

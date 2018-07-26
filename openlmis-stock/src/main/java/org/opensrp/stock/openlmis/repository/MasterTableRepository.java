@@ -1,6 +1,6 @@
 package org.opensrp.stock.openlmis.repository;
 
-import org.opensrp.stock.openlmis.domain.MasterTableMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.MasterMetadataEntry;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.MasterTableEntryExample;
@@ -23,13 +23,13 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     @Autowired
     private MasterMetadataRepository masterMetadataRepository;
 
-    public MasterTableEntry add(MasterTableMetaData masterTableMetaData) {
+    public MasterTableEntry add(BaseMetaData baseMetaData) {
 
-        if (masterTableMetaData == null || masterTableMetaData.getUuid() == null) {
+        if (baseMetaData == null || baseMetaData.getUuid() == null) {
             return null;
         }
 
-        MasterTableEntry masterTableEntry = convert(masterTableMetaData, null);
+        MasterTableEntry masterTableEntry = convert(baseMetaData, null);
         masterTableEntry.setServerVersion(getCurrentTime());
         add(masterTableEntry);
         if (masterTableEntry.getId() == null) {
@@ -57,7 +57,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         }
 
         // Add metadata to master metadata table
-        MasterMetadataEntry entry =  convert((MasterTableMetaData) masterTableEntry.getJson());
+        MasterMetadataEntry entry =  convert((BaseMetaData) masterTableEntry.getJson());
         entry.setMasterTableEntryId(masterTableEntry.getId());
         masterMetadataRepository.add(entry);
     }
@@ -107,11 +107,12 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
 
         // Add or update metadata to master metadata table
-        MasterMetadataEntry entry = convert((MasterTableMetaData) masterTableEntry.getJson());
+        MasterMetadataEntry entry = convert((BaseMetaData) masterTableEntry.getJson());
         entry.setMasterTableEntryId(masterTableEntry.getId());
-        List<MasterMetadataEntry> result = masterMetadataRepository.get(entry.getUuid(), entry.getType());
-        MasterMetadataEntry lastEntry = result.get(result.size() - 1);
-        if (result != null) {
+        List<MasterMetadataEntry> result = masterMetadataRepository.get(entry.getUuid(), entry.getClass().getName());
+
+        if (result != null && result.size() > 0) {
+            MasterMetadataEntry lastEntry = result.get(result.size() - 1);
             entry.setId(lastEntry.getId());
             entry.setServerVersion(getCurrentTime());
             masterMetadataRepository.update(entry);
@@ -146,7 +147,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableEntry.getDateDeleted();
     }
 
-    private MasterTableEntry convert(MasterTableMetaData metaData, Long primaryKey) {
+    private MasterTableEntry convert(BaseMetaData metaData, Long primaryKey) {
 
         if (metaData == null) {
             return null;
@@ -159,11 +160,11 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableEntry;
     }
 
-    private MasterMetadataEntry convert(MasterTableMetaData masterTableMetaData) {
+    private MasterMetadataEntry convert(BaseMetaData metaData) {
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
-        masterMetadataEntry.setType(masterTableMetaData.getType());
-        masterMetadataEntry.setUuid(masterTableMetaData.getUuid());
+        masterMetadataEntry.setUuid(metaData.getUuid());
+        masterMetadataEntry.setType(metaData.getClass().getSimpleName());
 
         return masterMetadataEntry;
     }
