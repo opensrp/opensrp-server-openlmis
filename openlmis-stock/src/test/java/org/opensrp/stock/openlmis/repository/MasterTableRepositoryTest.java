@@ -107,6 +107,55 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         assertEquals(masterTableEntries.size(), 2);
     }
 
+
+    @Test
+    public void testGetShouldRetrieveExistingMasterTableEntryByType() {
+
+        BaseMetaData metaData = new TradeItemMetaData(
+                "identifier"
+        );
+        repository.add(metaData);
+
+        metaData = new TradeItemMetaData(
+                "identifier_2"
+        );
+        repository.add(metaData);
+
+
+        metaData = new ProgramMetaData(
+                "identifier_3"
+        );
+        repository.add(metaData);
+
+        List<MasterTableEntry> masterTableEntries = repository.get("TradeItem");
+        assertEquals(masterTableEntries.size(), 2);
+    }
+
+    @Test
+    public void testGetShouldRetrieveExistingMasterTableEntryByTypeAndServerVersion() {
+
+        long timeBeforeInsertion = getCurrentTime();
+        BaseMetaData metaData = new TradeItemMetaData(
+                "identifier"
+        );
+        repository.add(metaData);
+
+        metaData = new TradeItemMetaData(
+                "identifier_2"
+        );
+        repository.add(metaData);
+
+
+        metaData = new ProgramMetaData(
+                "identifier_3"
+        );
+        repository.add(metaData);
+
+        List<MasterTableEntry> masterTableEntries = repository.get("TradeItem", timeBeforeInsertion);
+        assertEquals(masterTableEntries.size(), 2);
+    }
+
+
     @Test
     public void testUpdateShouldUpdateExistingMasterTableEntry() {
 

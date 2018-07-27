@@ -71,6 +71,22 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="selectByType" resultMap="org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper.BaseResultMap">
+        SELECT
+            mt.json
+        FROM core.master_table mt join core.master_metadata mm on mt.id = mm.master_table_entry_id
+            where mm.type = #{type}
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectByTypeAndServerVersion" resultMap="org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper.BaseResultMap">
+        SELECT
+            mt.json
+        FROM core.master_table mt join core.master_metadata mm on mt.id = mm.master_table_entry_id
+            where mm.type = #{type} and mt.server_version &gt; #{lastServerVersion}
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
     <insert id="insertSelectiveAndSetId" parameterType="org.opensrp.stock.openlmis.domain.MasterTableEntry"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
         <!--

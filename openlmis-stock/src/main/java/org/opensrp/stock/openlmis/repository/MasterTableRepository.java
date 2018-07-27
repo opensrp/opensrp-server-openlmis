@@ -93,6 +93,14 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.selectByPrimaryKey((Long) id);
     }
 
+    public List<MasterTableEntry> get(String type) {
+        return masterTableMapper.selectByType(type, 0, DEFAULT_FETCH_LIMIT);
+    }
+
+    public List<MasterTableEntry> get(String type, long serverVersion) {
+        return masterTableMapper.selectByTypeAndServerVersion(type, serverVersion, 0, DEFAULT_FETCH_LIMIT);
+    }
+
     public List<MasterTableEntry> get(long prevServerVersion) {
 
         MasterTableEntryExample entryExample = new MasterTableEntryExample();
