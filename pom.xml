@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.opensrp</groupId>
-    <artifactId>opensrp</artifactId>
+    <artifactId>openlmis</artifactId>
     <packaging>pom</packaging>
     <version>0.1-SNAPSHOT</version>
-    <name>opensrp</name>
+    <name>openlmis</name>
     <url>http://github.com/OpenSRP/opensrp-server</url>
 
     <modules>
