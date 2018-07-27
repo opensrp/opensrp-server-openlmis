@@ -164,7 +164,8 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
         masterMetadataEntry.setUuid(metaData.getUuid());
-        masterMetadataEntry.setType(metaData.getClass().getSimpleName());
+        // strip MetaData from class name and set as type
+        masterMetadataEntry.setType(metaData.getClass().getSimpleName().split("Meta")[0]);
 
         return masterMetadataEntry;
     }
