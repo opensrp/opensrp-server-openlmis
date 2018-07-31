@@ -1,19 +1,19 @@
 package org.opensrp.stock.openlmis.domain.metadata;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @JsonSubTypes.Type(value = ProgramMetaData.class, name = "Program"),
-        @JsonSubTypes.Type(value = CommodityTypeMetaData.class, name = "CommodityType"),
-        @JsonSubTypes.Type(value = TradeItemMetaData.class, name = "TradeItem") })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
+@JsonSubTypes({ @JsonSubTypes.Type(value = ProgramMetaData.class, name = "program"),
+        @JsonSubTypes.Type(value = CommodityTypeMetaData.class, name = "commodity_type"),
+        @JsonSubTypes.Type(value = TradeItemMetaData.class, name = "trade_item") })
+@JsonIgnoreProperties({"type"})
 public class BaseMetaData {
 
     @JsonProperty
     private String uuid;
-    @JsonProperty
-    private String type;
 
     protected BaseMetaData() {}
 
@@ -27,13 +27,5 @@ public class BaseMetaData {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

@@ -64,7 +64,7 @@ public class TradeItemResource {
 
         try {
             JSONObject syncData = new JSONObject(data);
-            if (!syncData.has("trade_items")) {
+            if (!syncData.has("trade_item")) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 

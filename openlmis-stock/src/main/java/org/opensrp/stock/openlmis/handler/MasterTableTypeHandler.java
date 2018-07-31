@@ -1,12 +1,12 @@
 package org.opensrp.stock.openlmis.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.ektorp.impl.StdObjectMapperFactory;
 import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.BaseTypedMetaData;
 import org.postgresql.util.PGobject;
 
 import java.sql.CallableStatement;
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
 
-    public static final ObjectMapper mapper = new StdObjectMapperFactory().createObjectMapper();
+    public static final ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper().enableDefaultTyping();
 
     @Override
     public void setParameter(PreparedStatement ps, int i, BaseMetaData parameter, JdbcType jdbcType) throws SQLException {
@@ -42,9 +42,6 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
                 return null;
             }
             BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
-            // this field is not added automatically using codehaus jackson
-            JSONObject jsonObject = new JSONObject(jsonString);
-            result.setType(jsonObject.getString("type"));
             return result;
         }
         catch (Exception e) {
@@ -60,9 +57,6 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
                 return null;
             }
             BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
-            // this field is not added automatically using codehaus jackson
-            JSONObject jsonObject = new JSONObject(jsonString);
-            result.setType(jsonObject.getString("type"));
             return result;
         }
         catch (Exception e) {
@@ -78,9 +72,6 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
                 return null;
             }
             BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
-            // this field is not added automatically using codehaus jackson
-            JSONObject jsonObject = new JSONObject(jsonString);
-            result.setType(jsonObject.getString("type"));
             return result;
         }
         catch (Exception e) {

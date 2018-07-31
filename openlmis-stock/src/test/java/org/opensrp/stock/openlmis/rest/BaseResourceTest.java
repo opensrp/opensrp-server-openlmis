@@ -1,13 +1,13 @@
 package org.opensrp.stock.openlmis.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONArray;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
@@ -49,7 +49,7 @@ public abstract class BaseResourceTest {
 
     protected MockMvc mockMvc;
 
-    protected ObjectMapper mapper = new ObjectMapper();
+    protected ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
 
     protected static String tableName;
 
@@ -91,7 +91,7 @@ public abstract class BaseResourceTest {
         return result;
     }
 
-    protected byte[] getCallAsByeArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
+    protected byte[] getRequestAsByteArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
 
         String finalUrl = url;
         if (!parameterQuery.isEmpty()) {
@@ -104,7 +104,7 @@ public abstract class BaseResourceTest {
         return mvcResult.getResponse().getContentAsByteArray();
     }
 
-    protected JsonNode postCallWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
+    protected JsonNode postRequestWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
 
         MvcResult mvcResult = this.mockMvc.perform(
                 post(url).contentType(MediaType.APPLICATION_JSON).body(data.getBytes()).accept(MediaType.APPLICATION_JSON))
@@ -118,7 +118,7 @@ public abstract class BaseResourceTest {
         return actualObj;
     }
 
-    protected MvcResult postCallWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
+    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
             throws Exception {
 
         List<BasicNameValuePair> paramList = new ArrayList<>();
@@ -133,7 +133,7 @@ public abstract class BaseResourceTest {
         return mvcResult;
     }
 
-    protected JsonNode postCallWithBasicAuthorizationHeader(String url, String userName, String password,
+    protected JsonNode postRequestWithBasicAuthorizationHeader(String url, String userName, String password,
                                                             ResultMatcher expectedStatus) throws Exception {
 
         String basicAuthCredentials = new String(Base64.encode((userName + ":" + password).getBytes()));
