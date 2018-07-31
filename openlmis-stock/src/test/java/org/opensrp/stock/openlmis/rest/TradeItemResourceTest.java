@@ -1,12 +1,14 @@
 package org.opensrp.stock.openlmis.rest;
 
-import org.codehaus.jackson.JsonNode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.opensrp.stock.openlmis.repository.MasterTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -34,15 +36,23 @@ public class TradeItemResourceTest extends BaseResourceTest {
     @Test
     public void testGetAllShouldReturnAllTradeItems() throws Exception {
 
+        List<Object> expectedTradeItems = new ArrayList<>();
+
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier"
         );
         repository.add(expectedTradeItem);
+        expectedTradeItems.add(expectedTradeItem);
 
-        JsonNode actualObj = getCallAsJsonNode(BASE_URL, null, status().isOk());
-        TradeItemMetaData actualTradeItem = mapper.treeToValue(actualObj, TradeItemMetaData.class);
+        expectedTradeItem = new TradeItemMetaData(
+                "identifier_1"
+        );
+        repository.add(expectedTradeItem);
+        expectedTradeItems.add(expectedTradeItem);
 
-        assertEquals(actualTradeItem, expectedTradeItem);
+        List<Object> actualTradeItems = getResponseAsList(BASE_URL, null, status().isOk());
+
+        assertTwoListAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
     }
 }
 

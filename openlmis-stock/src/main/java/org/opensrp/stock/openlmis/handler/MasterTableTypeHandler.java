@@ -5,6 +5,7 @@ import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.ektorp.impl.StdObjectMapperFactory;
+import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.postgresql.util.PGobject;
 
@@ -40,7 +41,11 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            // this field is not added automatically using codehaus jackson
+            JSONObject jsonObject = new JSONObject(jsonString);
+            result.setType(jsonObject.getString("type"));
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);
@@ -54,7 +59,11 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            // this field is not added automatically using codehaus jackson
+            JSONObject jsonObject = new JSONObject(jsonString);
+            result.setType(jsonObject.getString("type"));
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);
@@ -68,7 +77,11 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            // this field is not added automatically using codehaus jackson
+            JSONObject jsonObject = new JSONObject(jsonString);
+            result.setType(jsonObject.getString("type"));
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);

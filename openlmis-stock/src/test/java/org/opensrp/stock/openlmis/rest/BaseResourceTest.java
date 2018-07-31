@@ -1,12 +1,17 @@
 package org.opensrp.stock.openlmis.rest;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -21,12 +26,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,7 +38,7 @@ import static org.springframework.test.web.server.result.MockMvcResultHandlers.p
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = TestWebContextLoader.class, locations = {
-        "classpath:spring/applicationContext-opensrp-web.xml"})
+        "classpath:test-openlmis-application-context.xml"})
 public abstract class BaseResourceTest {
 
     @Autowired
@@ -70,9 +72,10 @@ public abstract class BaseResourceTest {
         this.mockMvc = MockMvcBuilders.webApplicationContextSetup(this.wac).build();
     }
 
-    protected JsonNode getCallAsJsonNode(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
+    protected List<Object> getResponseAsList(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
+
         String finalUrl = url;
-        if (!parameter.isEmpty()) {
+        if (parameter != null &&!parameter.isEmpty()) {
             finalUrl = finalUrl + "?" + parameter;
         }
 
@@ -83,11 +86,13 @@ public abstract class BaseResourceTest {
         if (responseString.isEmpty()) {
             return null;
         }
-        JsonNode actualObj = mapper.readTree(responseString);
-        return actualObj;
+
+        List<Object> result = new Gson().fromJson(responseString, new TypeToken<List<TradeItemMetaData>>(){}.getType());
+        return result;
     }
 
     protected byte[] getCallAsByeArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
+
         String finalUrl = url;
         if (!parameterQuery.isEmpty()) {
             finalUrl = finalUrl + "?" + parameterQuery;
@@ -115,6 +120,7 @@ public abstract class BaseResourceTest {
 
     protected MvcResult postCallWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
             throws Exception {
+
         List<BasicNameValuePair> paramList = new ArrayList<>();
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
@@ -129,6 +135,7 @@ public abstract class BaseResourceTest {
 
     protected JsonNode postCallWithBasicAuthorizationHeader(String url, String userName, String password,
                                                             ResultMatcher expectedStatus) throws Exception {
+
         String basicAuthCredentials = new String(Base64.encode((userName + ":" + password).getBytes()));
         System.out.println(basicAuthCredentials);
         MvcResult mvcResult = this.mockMvc.perform(
@@ -144,6 +151,7 @@ public abstract class BaseResourceTest {
     }
 
     protected <T> List<T> createObjectListFromJson(JsonNode jsonList, Class<T> classOfT) throws IOException {
+
         final List<T> objectList = new ArrayList<>();
         for (int i = 0; i < jsonList.size(); i++) {
             T object = mapper.treeToValue(jsonList.get(i), classOfT);
@@ -152,25 +160,17 @@ public abstract class BaseResourceTest {
         return objectList;
     }
 
-    protected <T> void assertTwoListAreSameIgnoringOrder(List<T> expectedList, List<T> actualList) {
+    /** Objects in the list should have a unique uuid identifier field **/
+    protected void assertTwoListAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
+
         assertEquals(expectedList.size(), actualList.size());
-        assertTrue("expected: " + expectedList.toString() + "\n" + "actual: " + actualList.toString(),
-                expectedList.containsAll(actualList) && actualList.containsAll(expectedList));
-    }
 
-    //TODO: bug in `assetClassHasAllRequiredFields` method. should check base class for property.
-    protected <T> void assetClassHasAllRequiredFields(Class<T> classOfT, List<String> requiredProperties) {
-        Field[] allFields = classOfT.getDeclaredFields();
-        List<String> nameOfFieldsOfT = new ArrayList<>();
-        for (Field field : allFields) {
-            if (!field.isSynthetic()) {
-                nameOfFieldsOfT.add(field.getName().trim().toLowerCase());
-            }
+        Set<String> expectedIds = new HashSet<>();
+        for (Object expected : expectedList) {
+            expectedIds.add(((BaseMetaData) expected).getUuid());
         }
-
-        for (String requiredProperty : requiredProperties) {
-            assertTrue("'" + requiredProperty + "' not Found.",
-                    nameOfFieldsOfT.contains(requiredProperty.trim().toLowerCase()));
+        for (Object actual : actualList) {
+           assertTrue(expectedIds.contains(((BaseMetaData) actual).getUuid()));
         }
     }
 }

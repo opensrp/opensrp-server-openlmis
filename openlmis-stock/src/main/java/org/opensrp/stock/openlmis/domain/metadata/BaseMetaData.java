@@ -12,6 +12,8 @@ public class BaseMetaData {
 
     @JsonProperty
     private String uuid;
+    @JsonProperty
+    private String type;
 
     protected BaseMetaData() {}
 
@@ -25,5 +27,13 @@ public class BaseMetaData {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
