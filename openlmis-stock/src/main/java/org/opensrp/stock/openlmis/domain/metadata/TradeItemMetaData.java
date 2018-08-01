@@ -1,18 +1,20 @@
 package org.opensrp.stock.openlmis.domain.metadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.opensrp.stock.openlmis.domain.Gtin;
+
+import java.util.List;
 
 public class TradeItemMetaData extends BaseMetaData {
 
+    @JsonProperty
+    private Gtin gtin;
 
     @JsonProperty
-    private String commodityTypeId;
+    private String manufacturerOfTradeItem;
 
     @JsonProperty
-    private String name;
-
-    @JsonProperty
-    private Long netContent;
+    private List<TradeItemClassificationMetaData> classifications;
 
     public TradeItemMetaData() {}
 
@@ -20,27 +22,27 @@ public class TradeItemMetaData extends BaseMetaData {
         super(id);
     }
 
-    public String getCommodityTypeId() {
-        return commodityTypeId;
+    public Gtin getGtin() {
+        return gtin;
     }
 
-    public void setCommodityTypeId(String commodityTypeId) {
-        this.commodityTypeId = commodityTypeId;
+    public void setGtin(Gtin gtin) {
+        this.gtin = gtin;
     }
 
-    public String getName() {
-        return name;
+    public String getManufacturerOfTradeItem() {
+        return manufacturerOfTradeItem;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setManufacturerOfTradeItem(String manufacturerOfTradeItem) {
+        this.manufacturerOfTradeItem = manufacturerOfTradeItem;
     }
 
-    public Long getNetContent() {
-        return netContent;
+    public List<TradeItemClassificationMetaData> getClassifications() {
+        return classifications;
     }
 
-    public void setNetContent(Long netContent) {
-        this.netContent = netContent;
+    public void setClassifications(List<TradeItemClassificationMetaData> classifications) {
+        this.classifications = classifications;
     }
 }

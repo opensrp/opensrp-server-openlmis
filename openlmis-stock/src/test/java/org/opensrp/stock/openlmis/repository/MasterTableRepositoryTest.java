@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
+import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,7 +160,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testUpdateShouldUpdateExistingMasterTableEntry() {
 
-        BaseMetaData metaData = new BaseMetaData(
+        DispensableMetaData metaData = new DispensableMetaData(
                 "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
@@ -174,7 +175,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         repository.update(updatedEntry);
 
         // assert all data matches
-        metaData = (BaseMetaData) repository.get(entry.getId()).getJson();
+        metaData = (DispensableMetaData) repository.get(entry.getId()).getJson();
         assertEquals(metaData.getUuid(), "identifier_2");
     }
 

@@ -5,13 +5,17 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.opensrp.stock.openlmis.domain.Gtin;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
+import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
+import org.opensrp.stock.openlmis.domain.metadata.TradeItemClassificationMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.opensrp.stock.openlmis.repository.MasterTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -44,18 +48,16 @@ public class TradeItemResourceTest extends BaseResourceTest {
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter");
+        setGtinAndClassifications(expectedTradeItem);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_1");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_1");
+        setGtinAndClassifications(expectedTradeItem);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
@@ -67,6 +69,11 @@ public class TradeItemResourceTest extends BaseResourceTest {
     @Test
     public void testSyncShouldRetrieveAllTradeItemsAfterACertainTime() throws Exception {
 
+        DispensableMetaData dispensableMetaData = new DispensableMetaData();
+        dispensableMetaData.setUuid("dispensable_uuid");
+        dispensableMetaData.setKeyDispensingUnit("key_dispensing_unit");
+        dispensableMetaData.setKeyRouteOfAdministration("route_of_administration");
+        dispensableMetaData.setKeySizeCode("size_code");
 
         List<Object> expectedTradeItems = new ArrayList<>();
 
@@ -74,9 +81,8 @@ public class TradeItemResourceTest extends BaseResourceTest {
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter");
+        setGtinAndClassifications(expectedTradeItem);
         repository.add(expectedTradeItem);
 
         // these trade items should sync
@@ -84,18 +90,16 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_1");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_1");
+        setGtinAndClassifications(expectedTradeItem);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_2"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_2");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_2");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_2");
+        setGtinAndClassifications(expectedTradeItem);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
@@ -107,15 +111,20 @@ public class TradeItemResourceTest extends BaseResourceTest {
     @Test
     public void testPostShouldCreateNewTradeItemsInDb() throws Exception {
 
+        DispensableMetaData dispensableMetaData = new DispensableMetaData();
+        dispensableMetaData.setUuid("dispensable_uuid");
+        dispensableMetaData.setKeyDispensingUnit("key_dispensing_unit");
+        dispensableMetaData.setKeyRouteOfAdministration("route_of_administration");
+        dispensableMetaData.setKeySizeCode("size_code");
+
         List<Object> expectedTradeItems = new ArrayList<>();
         JSONArray tradeItemsArr = new JSONArray();
         // trade item 1
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_1");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_1");
+        setGtinAndClassifications(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
@@ -124,9 +133,8 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_2"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_2");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_2");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_2");
+        setGtinAndClassifications(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
@@ -134,15 +142,20 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_3"
         );
-        expectedTradeItem.setCommodityTypeId("commodity_type_id_3");
-        expectedTradeItem.setNetContent(10L);
-        expectedTradeItem.setName("trade_item_3");
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_3");
+        setGtinAndClassifications(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
         JSONObject data = new JSONObject();
         data.put("trade_items", tradeItemsArr);
-        String dataString = data.toString().replace("\"{", "{").replace("}\"", "}").replace("\\", "");
+        String dataString =
+                data
+                .toString()
+                .replace("\"{", "{")
+                .replace("}\"", "}")
+                .replace("\\", "")
+                .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
         postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
 
         List<Object> actualTradeItems = new ArrayList<>();
@@ -151,6 +164,27 @@ public class TradeItemResourceTest extends BaseResourceTest {
         }
 
         assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
+    }
+
+    private void setGtinAndClassifications(TradeItemMetaData tradeItemMetaData) throws Exception {
+
+        Gtin gtin = new Gtin("859245888");
+        List<TradeItemClassificationMetaData> tradeItemClassificationMetaDatas = new ArrayList<>();
+        TradeItemClassificationMetaData tradeItemClassificationMetaData = new TradeItemClassificationMetaData(
+                "identifier_1",
+                null,
+                "classification_system",
+                "classification_id");
+        tradeItemClassificationMetaDatas.add(tradeItemClassificationMetaData);
+
+        tradeItemClassificationMetaData = new TradeItemClassificationMetaData(
+                "identifier_2",
+                null,
+                "classification_system",
+                "classification_id");
+        tradeItemClassificationMetaDatas.add(tradeItemClassificationMetaData);
+        tradeItemMetaData.setClassifications(tradeItemClassificationMetaDatas);
+        tradeItemMetaData.setGtin(gtin);
     }
 }
 
