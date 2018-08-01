@@ -161,7 +161,7 @@ public abstract class BaseResourceTest {
     }
 
     /** Objects in the list should have a unique uuid identifier field **/
-    protected void assertTwoListAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
+    protected void assertTwoListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
 
         assertEquals(expectedList.size(), actualList.size());
 

@@ -44,18 +44,24 @@ public class TradeItemResourceTest extends BaseResourceTest {
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item");
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_1");
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         List<Object> actualTradeItems = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
+        assertTwoListsAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
     }
 
     @Test
@@ -68,6 +74,9 @@ public class TradeItemResourceTest extends BaseResourceTest {
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item");
         repository.add(expectedTradeItem);
 
         // these trade items should sync
@@ -75,18 +84,24 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_1");
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_2"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_2");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_2");
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
         List<Object> actualTradeItems = getResponseAsList(BASE_URL + "sync", "last_server_version=" + timeBefore, status().isOk());
 
-        assertTwoListAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
+        assertTwoListsAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
     }
 
     @Test
@@ -98,6 +113,9 @@ public class TradeItemResourceTest extends BaseResourceTest {
         TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
                 "identifier_1"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_1");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_1");
         expectedTradeItems.add(expectedTradeItem);
 
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
@@ -106,6 +124,9 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_2"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_2");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_2");
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
@@ -113,6 +134,9 @@ public class TradeItemResourceTest extends BaseResourceTest {
         expectedTradeItem = new TradeItemMetaData(
                 "identifier_3"
         );
+        expectedTradeItem.setCommodityTypeId("commodity_type_id_3");
+        expectedTradeItem.setNetContent(10L);
+        expectedTradeItem.setName("trade_item_3");
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
@@ -126,7 +150,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
             actualTradeItems.add(entry.getJson());
         }
 
-       assertTwoListAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
+        assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
     }
 }
 
