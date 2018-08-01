@@ -1,5 +1,7 @@
 package org.opensrp.stock.openlmis.rest;
-
+;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,21 +91,42 @@ public class TradeItemResourceTest extends BaseResourceTest {
 
     @Test
     public void testPostShouldCreateNewTradeItemsInDb() throws Exception {
-//
-//        List<Object> expectedTradeItems = new ArrayList<>();
-//        TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
-//                "identifier"
-//        );
-//        expectedTradeItems.add(expectedTradeItem);
-//
-//        postRequestWithJsonContent(BASE_URL + "add", mapper.writeValueAsString(expectedTradeItem), status().isCreated());
-//
-//        List<Object> actualTradeItems = new ArrayList<>();
-//        for (MasterTableEntry entry : repository.getAll()) {
-//            actualTradeItems.add((TradeItemMetaData) entry.getJson());
-//        }
-//
-//        assertTwoListAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
+
+        List<Object> expectedTradeItems = new ArrayList<>();
+        JSONArray tradeItemsArr = new JSONArray();
+        // trade item 1
+        TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
+                "identifier_1"
+        );
+        expectedTradeItems.add(expectedTradeItem);
+
+        tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
+
+        // trade item 2
+        expectedTradeItem = new TradeItemMetaData(
+                "identifier_2"
+        );
+        expectedTradeItems.add(expectedTradeItem);
+        tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
+
+        // trade item 3
+        expectedTradeItem = new TradeItemMetaData(
+                "identifier_3"
+        );
+        expectedTradeItems.add(expectedTradeItem);
+        tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
+
+        JSONObject data = new JSONObject();
+        data.put("trade_items", tradeItemsArr);
+        String dataString = data.toString().replace("\"{", "{").replace("}\"", "}").replace("\\", "");
+        postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
+
+        List<Object> actualTradeItems = new ArrayList<>();
+        for (MasterTableEntry entry : repository.getAll()) {
+            actualTradeItems.add(entry.getJson());
+        }
+
+       assertTwoListAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
     }
 }
 

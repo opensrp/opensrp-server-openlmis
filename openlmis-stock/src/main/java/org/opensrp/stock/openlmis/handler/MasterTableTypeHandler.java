@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
-import org.opensrp.stock.openlmis.domain.metadata.BaseTypedMetaData;
 import org.postgresql.util.PGobject;
 
 import java.sql.CallableStatement;

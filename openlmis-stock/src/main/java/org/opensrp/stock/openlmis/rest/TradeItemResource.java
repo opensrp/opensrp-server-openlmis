@@ -60,15 +60,15 @@ public class TradeItemResource {
 
     @SuppressWarnings("unchecked")
     @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "/add")
-    public ResponseEntity<HttpStatus> save(@RequestBody String data) {
+    public ResponseEntity<HttpStatus> add(@RequestBody String data) {
 
         try {
-            JSONObject syncData = new JSONObject(data);
-            if (!syncData.has("trade_item")) {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("trade_items")) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<TradeItemMetaData> entries = (ArrayList<TradeItemMetaData>) gson.fromJson(syncData.getString("trade_items"),
+            List<TradeItemMetaData> entries = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString("trade_items"),
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
             for (TradeItemMetaData entry : entries) {
                 try {
