@@ -160,7 +160,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testUpdateShouldUpdateExistingMasterTableEntry() {
 
-        DispensableMetaData metaData = new DispensableMetaData(
+        ProgramMetaData metaData = new ProgramMetaData(
                 "identifier"
         );
         MasterTableEntry entry = repository.add(metaData);
@@ -168,15 +168,16 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         MasterTableEntry updatedEntry = new MasterTableEntry();
         updatedEntry.setId(entry.getId());
 
-        ProgramMetaData newMetaData = new ProgramMetaData(
+        DispensableMetaData newMetaData = new DispensableMetaData(
                 "identifier_2"
         );
         updatedEntry.setJson(newMetaData);
         repository.update(updatedEntry);
 
         // assert all data matches
-        metaData = (DispensableMetaData) repository.get(entry.getId()).getJson();
-        assertEquals(metaData.getUuid(), "identifier_2");
+        newMetaData = (DispensableMetaData) repository.get(entry.getId()).getJson();
+        assertEquals(newMetaData.getUuid(), "identifier_2");
+        assertEquals(newMetaData.getClass().getName(), DispensableMetaData.class.getName());
     }
 
     @Test
