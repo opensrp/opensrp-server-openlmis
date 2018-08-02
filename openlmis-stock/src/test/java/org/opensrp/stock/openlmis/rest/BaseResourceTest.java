@@ -91,6 +91,24 @@ public abstract class BaseResourceTest {
         return result;
     }
 
+    protected String getResponseAsString(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
+
+        String finalUrl = url;
+        if (parameter != null &&!parameter.isEmpty()) {
+            finalUrl = finalUrl + "?" + parameter;
+        }
+
+        MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).accept(MediaType.APPLICATION_JSON)).andDo(print())
+                .andExpect(expectedStatus).andReturn();
+
+        String responseString = mvcResult.getResponse().getContentAsString();
+        if (responseString.isEmpty()) {
+            return null;
+        }
+        return  responseString;
+    }
+
+
     protected byte[] getRequestAsByteArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
 
         String finalUrl = url;
@@ -118,7 +136,7 @@ public abstract class BaseResourceTest {
         return actualObj;
     }
 
-    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
+    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expecqtedStatus)
             throws Exception {
 
         List<BasicNameValuePair> paramList = new ArrayList<>();
