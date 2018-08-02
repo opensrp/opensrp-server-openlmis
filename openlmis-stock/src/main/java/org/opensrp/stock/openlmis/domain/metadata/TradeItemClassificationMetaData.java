@@ -2,8 +2,6 @@ package org.opensrp.stock.openlmis.domain.metadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.UUID;
-
 public class TradeItemClassificationMetaData extends BaseMetaData {
 
     private TradeItemMetaData tradeItem;
