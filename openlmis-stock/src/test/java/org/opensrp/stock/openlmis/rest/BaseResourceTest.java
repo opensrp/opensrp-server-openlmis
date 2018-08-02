@@ -136,7 +136,7 @@ public abstract class BaseResourceTest {
         return actualObj;
     }
 
-    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expecqtedStatus)
+    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
             throws Exception {
 
         List<BasicNameValuePair> paramList = new ArrayList<>();
