@@ -1,5 +1,5 @@
 package org.opensrp.stock.openlmis.rest;
-;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.After;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
