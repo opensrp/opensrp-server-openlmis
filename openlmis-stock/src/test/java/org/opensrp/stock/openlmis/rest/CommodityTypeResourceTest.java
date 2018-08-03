@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.Gtin;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.CommodityTypeMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;

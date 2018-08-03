@@ -8,10 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.Orderable;
-import org.opensrp.stock.openlmis.repository.MasterTableRepository;
 import org.opensrp.stock.openlmis.repository.OrderableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -149,7 +147,7 @@ public class OrderableResourceTest extends BaseResourceTest {
     public void testPostShouldCreateNewOrderablesInDb() throws Exception {
 
         List<Object> expectedOrderables = new ArrayList<>();
-        JSONArray tradeItemsArr = new JSONArray();
+        JSONArray orderablesArr = new JSONArray();
 
         // orderable 1
         Orderable expectedOrderable = new Orderable();
@@ -165,7 +163,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setTradeItemId("trade_item");
 
         expectedOrderables.add(expectedOrderable);
-        tradeItemsArr.put(mapper.writeValueAsString(expectedOrderable));
+        orderablesArr.put(mapper.writeValueAsString(expectedOrderable));
 
         // orderable 2
         expectedOrderable = new Orderable();
@@ -180,7 +178,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setTradeItemId("trade_item_1");
 
         expectedOrderables.add(expectedOrderable);
-        tradeItemsArr.put(mapper.writeValueAsString(expectedOrderable));
+        orderablesArr.put(mapper.writeValueAsString(expectedOrderable));
 
         // orderable 3
         expectedOrderable = new Orderable();
@@ -195,10 +193,10 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setTradeItemId("trade_item_2");
 
         expectedOrderables.add(expectedOrderable);
-        tradeItemsArr.put(mapper.writeValueAsString(expectedOrderable));
+        orderablesArr.put(mapper.writeValueAsString(expectedOrderable));
 
         JSONObject data = new JSONObject();
-        data.put("orderables", tradeItemsArr);
+        data.put("orderables", orderablesArr);
         String dataString =
                 data
                         .toString()

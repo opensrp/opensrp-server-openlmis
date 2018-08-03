@@ -25,9 +25,7 @@ import java.util.List;
 
 import static java.text.MessageFormat.format;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
