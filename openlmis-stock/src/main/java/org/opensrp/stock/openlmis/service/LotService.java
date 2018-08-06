@@ -17,8 +17,8 @@ public class LotService {
         return repository.getAll();
     }
 
-    public List<Lot> get(long prevServerVersion) {
-        return repository.get(prevServerVersion);
+    public List<Lot> get(long syncServerVersion) {
+        return repository.get(syncServerVersion);
     }
 
     // TODO: maybe add update endpoint

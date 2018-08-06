@@ -17,8 +17,8 @@ public class OrderableService {
         return repository.getAll();
     }
 
-    public List<Orderable> get(long prevServerVersion) {
-        return repository.get(prevServerVersion);
+    public List<Orderable> get(long syncServerVersion) {
+        return repository.get(syncServerVersion);
     }
 
     // TODO: maybe add update endpoint

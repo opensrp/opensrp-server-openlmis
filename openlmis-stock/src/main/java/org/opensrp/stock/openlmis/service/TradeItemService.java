@@ -26,9 +26,9 @@ public class TradeItemService {
         return tradeItemsMetaData;
     }
 
-    public List<TradeItemMetaData> get(long lastServerVersion) {
+    public List<TradeItemMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> tradeItems = repository.get("TradeItem", lastServerVersion);
+        List<MasterTableEntry> tradeItems = repository.get("TradeItem", syncServerVersion);
         List<TradeItemMetaData> tradeItemsMetaData = new ArrayList<>();
         for (MasterTableEntry tradeItem : tradeItems) {
             tradeItemsMetaData.add((TradeItemMetaData) tradeItem.getJson());

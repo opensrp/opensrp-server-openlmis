@@ -26,9 +26,9 @@ public class CommodityTypeService {
         return commodityTypesMetaData;
     }
 
-    public List<CommodityTypeMetaData> get(long lastServerVersion) {
+    public List<CommodityTypeMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> commodityTypes = repository.get("CommodityType", lastServerVersion);
+        List<MasterTableEntry> commodityTypes = repository.get("CommodityType", syncServerVersion);
         List<CommodityTypeMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {
             commodityTypesMetaData.add((CommodityTypeMetaData) commodityType.getJson());

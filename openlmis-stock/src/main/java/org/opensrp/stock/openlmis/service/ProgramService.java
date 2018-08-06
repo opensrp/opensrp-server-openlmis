@@ -26,9 +26,9 @@ public class ProgramService {
         return programsMetaData;
     }
 
-    public List<ProgramMetaData> get(long lastServerVersion) {
+    public List<ProgramMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> programs = repository.get("Program", lastServerVersion);
+        List<MasterTableEntry> programs = repository.get("Program", syncServerVersion);
         List<ProgramMetaData> programsMetaData = new ArrayList<>();
         for (MasterTableEntry program : programs) {
             programsMetaData.add((ProgramMetaData) program.getJson());
