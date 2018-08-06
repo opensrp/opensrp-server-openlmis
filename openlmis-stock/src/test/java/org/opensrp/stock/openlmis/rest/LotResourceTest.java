@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -121,7 +122,7 @@ public class LotResourceTest extends BaseResourceTest {
         repository.add(expectedLot);
         expectedLots.add(expectedLot);
 
-        String actualLotsString = getResponseAsString(BASE_URL + "sync", "last_server_version=" + timeBefore, status().isOk());
+        String actualLotsString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
         List<Object> actualLots = new Gson().fromJson(actualLotsString, new TypeToken<List<Lot>>(){}.getType());
 
         assertListsAreSameIgnoringOrder(actualLots, expectedLots);
@@ -179,7 +180,7 @@ public class LotResourceTest extends BaseResourceTest {
                         .replace("}\"", "}")
                         .replace("\\", "")
                         .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
-        postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
         List<Object> actualLots = new ArrayList<>();
         for (Lot lot : repository.getAll()) {

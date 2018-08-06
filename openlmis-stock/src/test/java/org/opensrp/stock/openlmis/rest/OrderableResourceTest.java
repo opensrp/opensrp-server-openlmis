@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -137,7 +138,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         repository.add(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
 
-        String actualOrderablesString = getResponseAsString(BASE_URL + "sync", "last_server_version=" + timeBefore, status().isOk());
+        String actualOrderablesString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "="+ timeBefore, status().isOk());
         List<Object> actualOrderables = new Gson().fromJson(actualOrderablesString, new TypeToken<List<Orderable>>(){}.getType());
 
         assertListsAreSameIgnoringOrder(actualOrderables, expectedOrderables);
@@ -204,7 +205,7 @@ public class OrderableResourceTest extends BaseResourceTest {
                         .replace("}\"", "}")
                         .replace("\\", "")
                         .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
-        postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
         List<Object> actualOrderables = new ArrayList<>();
         for (Orderable orderable : repository.getAll()) {

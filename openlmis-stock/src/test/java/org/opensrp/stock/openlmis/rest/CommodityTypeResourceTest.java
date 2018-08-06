@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -119,7 +120,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         repository.add(expectedCommodityType);
         expectedCommodityTypes.add(expectedCommodityType);
 
-        List<Object> actualCommodityTypes = getResponseAsList(BASE_URL + "sync", "last_server_version=" + timeBefore, status().isOk());
+        List<Object> actualCommodityTypes = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
         assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes);
     }
@@ -178,7 +179,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
                         .replace("}\"", "}")
                         .replace("\\", "")
                         .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
-        postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
         List<Object> actualCommodityTypes = new ArrayList<>();
         for (MasterTableEntry entry : repository.getAll()) {

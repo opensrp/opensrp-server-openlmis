@@ -19,6 +19,8 @@ public class Utils {
 
     public static int DEFAULT_FETCH_LIMIT = 1000;
 
+    public static final String SYNC_SERVER_VERSION = "sync_server_version";
+
     public static final Long getCurrentTime() {
         return System.nanoTime();
     }

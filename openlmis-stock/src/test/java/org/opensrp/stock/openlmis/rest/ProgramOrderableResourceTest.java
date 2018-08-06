@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -119,7 +120,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         repository.add(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
 
-        String actualProgramOrderablesString = getResponseAsString(BASE_URL + "sync", "last_server_version=" + timeBefore, status().isOk());
+        String actualProgramOrderablesString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
         List<Object> actualProgramOrderables = new Gson().fromJson(actualProgramOrderablesString, new TypeToken<List<ProgramOrderable>>(){}.getType());
 
         assertListsAreSameIgnoringOrder(actualProgramOrderables, expectedProgramOrderables);
@@ -176,7 +177,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
                         .replace("}\"", "}")
                         .replace("\\", "")
                         .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
-        postRequestWithJsonContent(BASE_URL + "add", dataString, status().isCreated());
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
         List<Object> actualProgramOrderables = new ArrayList<>();
         for (ProgramOrderable ProgramOrderable : repository.getAll()) {

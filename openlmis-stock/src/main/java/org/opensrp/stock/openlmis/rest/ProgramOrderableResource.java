@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
+import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -31,8 +32,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 @RequestMapping(value = "/rest/program_orderables")
 public class ProgramOrderableResource {
-
-    private static final String LAST_SERVER_VERSION = "last_server_version";
 
     @Autowired
     ProgramOrderableService programOrderableService;
@@ -51,7 +50,7 @@ public class ProgramOrderableResource {
     @ResponseBody
     protected List<ProgramOrderable> sync(HttpServletRequest request) {
         try {
-            long serverVersion = getLongFilter(LAST_SERVER_VERSION, request);
+            long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
             return programOrderableService.get(serverVersion);
         } catch (Exception e) {
             logger.error("", e);
@@ -60,7 +59,7 @@ public class ProgramOrderableResource {
     }
 
     @SuppressWarnings("unchecked")
-    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "/add")
+    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "/")
     public ResponseEntity<HttpStatus> add(@RequestBody String data) {
 
         try {
