@@ -8,7 +8,7 @@
                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <util:properties id="opensrp" location="classpath:/openlmis.properties"/>
+    <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
 
     <context:annotation-config/>
     <mvc:annotation-driven/>
