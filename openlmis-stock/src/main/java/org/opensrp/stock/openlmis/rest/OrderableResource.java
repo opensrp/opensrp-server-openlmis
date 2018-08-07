@@ -35,6 +35,7 @@ public class OrderableResource {
 
     @Autowired
     OrderableService orderableService;
+
     private static Logger logger = LoggerFactory.getLogger(OrderableResource.class.toString());
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
