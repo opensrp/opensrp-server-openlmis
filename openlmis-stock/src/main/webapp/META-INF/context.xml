@@ -1,6 +1,6 @@
 <Context>
 <Resource
-		name="jdbc/openSRPDB"
+		name="jdbc/openLMISDB"
 		auth="Container"
 		type="javax.sql.DataSource"
 		factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
@@ -15,10 +15,8 @@
 		testOnBorrow="true"
 		removeAbandoned="true"
 		removeAbandonedTimeout="233"
-		username="opensrp_admin"
+		username="openlmis_admin"
 		password="admin"
 		driverClassName="org.postgresql.Driver"
-		url="jdbc:postgresql://localhost:5432/opensrp"
-     />
-
+		url="jdbc:postgresql://localhost:5432/openlmis_test" />
 </Context>
