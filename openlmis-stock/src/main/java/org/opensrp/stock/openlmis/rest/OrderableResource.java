@@ -34,7 +34,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class OrderableResource {
 
     @Autowired
-    OrderableService orderableService;
+    private OrderableService orderableService;
 
     private static Logger logger = LoggerFactory.getLogger(OrderableResource.class.toString());
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")

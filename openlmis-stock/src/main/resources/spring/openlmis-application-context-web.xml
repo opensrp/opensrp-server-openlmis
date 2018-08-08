@@ -2,29 +2,29 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-    <context:property-placeholder location="classpath*:maven.properties,classpath*:activemq.properties,classpath*:opensrp.properties, ,classpath*:openlmis.properties"/>
-
-    <import resource="classpath:openlmis-application-context.xml"/>
-    <import resource="securityContext.xml"/>
+    <context:property-placeholder location="classpath*:opensrp.properties,classpath*:openlmis.properties"/>
 
     <mvc:default-servlet-handler/>
-<!--     <tx:annotation-driven proxy-target-class="true" />
-    <aop:aspectj-autoproxy proxy-target-class="true"/>--> 
-    
+
+    <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
+
     <context:annotation-config/>
 
-    <context:component-scan base-package="org.opensrp.stock.openlmis.domain" />
-    <context:component-scan base-package="org.opensrp.stock.openlmis.repository" />
-    <context:component-scan base-package="org.opensrp.stock.openlmis.service" />
-    <context:component-scan base-package="org.opensrp.stock.openlmis.rest" />
-    
-    
     <mvc:annotation-driven/>
+
+    <context:component-scan base-package="org.opensrp.stock.openlmis" />
+
+    <import resource="persistence_postgres.xml"/>
+
+<!--     <tx:annotation-driven proxy-target-class="true" />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>--> 
 
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -55,6 +55,7 @@
     </bean>
 
    <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
     <property name="dataSource" ref="jpaDataSource"/>
    </bean>

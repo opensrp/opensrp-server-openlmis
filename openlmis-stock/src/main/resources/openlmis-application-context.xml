@@ -11,9 +11,12 @@
     <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
 
     <context:annotation-config/>
+
+    <context:component-scan base-package="org.opensrp.stock.openlmis" />
+
     <mvc:annotation-driven/>
 
     <beans profile="postgres">
-        <import resource="persistence_postgres.xml"/>
+        <import resource="spring/persistence_postgres.xml"/>
     </beans>
 </beans>

@@ -9,7 +9,7 @@
 	<context:component-scan base-package="org.opensrp.stock.openlmis" />
 
 	<bean id="openSRPDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/openSRPDB" />
+		<property name="jndiName" value="java:comp/env/jdbc/openLMISDB" />
 	</bean>
 
 
