@@ -19,6 +19,9 @@ public class BaseMetaData {
     @JsonProperty
     private String uuid;
 
+    @JsonProperty
+    private long serverVersion;
+
     protected BaseMetaData() {}
 
     public BaseMetaData(String uuid) {
@@ -31,5 +34,13 @@ public class BaseMetaData {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public long getServerVersion() {
+        return serverVersion;
+    }
+
+    public void setServerVersion(long serverVersion) {
+        this.serverVersion = serverVersion;
     }
 }

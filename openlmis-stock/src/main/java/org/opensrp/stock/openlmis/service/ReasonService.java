@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.getMostRecentMasterDataEntry;
+
 @Service
 public class ReasonService {
 
@@ -29,6 +31,8 @@ public class ReasonService {
     public List<ReasonMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> commodityTypes = repository.get("Reason", syncServerVersion);
+        commodityTypes = getMostRecentMasterDataEntry(commodityTypes);
+
         List<ReasonMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {
             commodityTypesMetaData.add((ReasonMetaData) commodityType.getJson());

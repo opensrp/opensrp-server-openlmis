@@ -1,6 +1,7 @@
 package org.opensrp.stock.openlmis.util;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -12,6 +13,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.mysql.jdbc.StringUtils;
+import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -46,5 +48,16 @@ public class Utils {
 
     public static String getStringFilter(String filter, HttpServletRequest req) {
         return StringUtils.isEmptyOrWhitespaceOnly(req.getParameter(filter)) ? null : req.getParameter(filter);
+    }
+
+    public static List<MasterTableEntry> getMostRecentMasterDataEntry(List<MasterTableEntry> entries) {
+
+        // return the most recently updated list of master data for this type
+        if (entries.size() > 0) {
+            MasterTableEntry mostRecentEntry = entries.get(entries.size() - 1);
+            entries.clear();
+            entries.add(mostRecentEntry);
+        }
+        return entries;
     }
 }

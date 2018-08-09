@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.getMostRecentMasterDataEntry;
+
 @Service
 public class TradeItemService {
 
@@ -29,6 +31,8 @@ public class TradeItemService {
     public List<TradeItemMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> tradeItems = repository.get("TradeItem", syncServerVersion);
+        tradeItems = getMostRecentMasterDataEntry(tradeItems);
+
         List<TradeItemMetaData> tradeItemsMetaData = new ArrayList<>();
         for (MasterTableEntry tradeItem : tradeItems) {
             tradeItemsMetaData.add((TradeItemMetaData) tradeItem.getJson());

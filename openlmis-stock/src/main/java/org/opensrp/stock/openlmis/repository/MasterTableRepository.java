@@ -8,6 +8,7 @@ import org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapp
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -50,7 +51,10 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
             return;
         }
 
-        masterTableEntry.setServerVersion(getCurrentTime());
+        long serverVersion = getCurrentTime();
+        masterTableEntry.setServerVersion(serverVersion);
+        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
+
         int rowsAffected = masterTableMapper.insertSelectiveAndSetId(masterTableEntry);
         if (rowsAffected < 1 || masterTableEntry.getId() == null) {
             return;

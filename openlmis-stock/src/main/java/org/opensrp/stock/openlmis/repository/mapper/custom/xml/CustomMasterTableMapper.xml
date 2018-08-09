@@ -82,9 +82,10 @@
 
     <select id="selectByTypeAndServerVersion" resultMap="org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper.BaseResultMap">
         SELECT
-            mt.json
+            mt.json, mt.server_version
         FROM core.master_table mt JOIN core.master_metadata mm ON mt.id = mm.master_table_entry_id
-            WHERE mm.type = #{type} AND mt.server_version &gt; #{lastServerVersion}
+            WHERE mm.type = #{type} AND mt.server_version &gt;= #{lastServerVersion}
+        ORDER BY 2 ASC
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
