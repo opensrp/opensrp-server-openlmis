@@ -24,7 +24,8 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
  *
  */
 public class CustomCertificateSSLSocketFactory extends SSLSocketFactory {
-    SSLContext sslContext = SSLContext.getInstance("TLS");
+
+    private SSLContext sslContext = SSLContext.getInstance("TLS");
 
     public CustomCertificateSSLSocketFactory(KeyStore truststore) throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException, UnrecoverableKeyException {
         super(truststore);
@@ -33,9 +34,12 @@ public class CustomCertificateSSLSocketFactory extends SSLSocketFactory {
         System.setProperty("jsse.enableSNIExtension", "false");
 
         TrustManager tm = new X509TrustManager() {
+
+            @Override
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             }
 
+            @Override
             public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             }
 

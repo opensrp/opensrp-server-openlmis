@@ -34,9 +34,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class LotResource {
 
     @Autowired
-    LotService lotService;
+    private LotService lotService;
 
     private static Logger logger = LoggerFactory.getLogger(LotResource.class.toString());
+
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
 

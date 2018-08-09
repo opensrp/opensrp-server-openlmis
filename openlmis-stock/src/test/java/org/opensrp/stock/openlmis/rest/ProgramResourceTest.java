@@ -25,9 +25,6 @@ public class ProgramResourceTest extends BaseResourceTest {
     @Autowired
     private MasterTableRepository repository;
 
-    @Autowired
-    private ProgramResource programResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.master_table");

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LocationResource {
 
     @Autowired
-    LocationService locationService;
+    private LocationService locationService;
 
     public static final String LOCATION_ID = "id";
 

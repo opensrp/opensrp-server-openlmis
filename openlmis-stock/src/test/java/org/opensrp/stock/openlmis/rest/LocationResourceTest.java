@@ -8,9 +8,6 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 
 public class LocationResourceTest extends BaseResourceTest {
 
-    @Autowired
-    LocationResource locationResource;
-
     private final static String BASE_URL = "/rest/locations/";
 
     @Test

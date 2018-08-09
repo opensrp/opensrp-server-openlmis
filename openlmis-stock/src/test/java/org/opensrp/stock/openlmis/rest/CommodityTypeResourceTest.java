@@ -25,9 +25,6 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
     @Autowired
     private MasterTableRepository repository;
 
-    @Autowired
-    private CommodityTypeResource commodityTypeResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.master_table");

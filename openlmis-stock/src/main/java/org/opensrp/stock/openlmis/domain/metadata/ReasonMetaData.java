@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ReasonMetaData extends BaseMetaData {
 
     @JsonProperty
-    String name;
+    private String name;
     @JsonProperty
-    ProgramMetaData program;
+    private ProgramMetaData program;
     @JsonProperty
-    String description;
+    private String description;
     @JsonProperty
-    Boolean additive;
+    private Boolean additive;
 
     public ReasonMetaData() {}
 

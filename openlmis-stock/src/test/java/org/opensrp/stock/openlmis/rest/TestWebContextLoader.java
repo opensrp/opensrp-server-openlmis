@@ -27,7 +27,7 @@ public class TestWebContextLoader extends AbstractContextLoader {
         return new MockServletContext(warRootDir, resourceLoader) {
 
             public RequestDispatcher getNamedDispatcher(String path) {
-                return (path.equals("default")) ? new MockRequestDispatcher(path) : super.getNamedDispatcher(path);
+                return ("default".equals(path)) ? new MockRequestDispatcher(path) : super.getNamedDispatcher(path);
             }
         };
     }

@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Tree<K, T> {
 
-    Map<K, TreeNode<K, T>> map;
-    Map<K, Set<K>> parentChildren;
+    private Map<K, TreeNode<K, T>> map;
+    private Map<K, Set<K>> parentChildren;
 
     public Map<K, TreeNode<K, T>> getTree() {
         return Collections.unmodifiableMap(map);
@@ -96,7 +96,7 @@ public class Tree<K, T> {
         return null;
     }
 
-    TreeNode<K, T> removeNode(K id) {
+    public TreeNode<K, T> removeNode(K id) {
         // Check if id is any root node
         if (map.containsKey(id)) {
             return map.remove(id);

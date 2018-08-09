@@ -26,9 +26,6 @@ public class ReasonResourceTest extends BaseResourceTest {
     @Autowired
     private MasterTableRepository repository;
 
-    @Autowired
-    private ReasonResource reasonResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.master_table");

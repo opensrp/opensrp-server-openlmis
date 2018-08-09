@@ -20,7 +20,8 @@ public abstract class OpenmrsService {
     protected String OPENMRS_PWD;
 
     public static final SimpleDateFormat OPENMRS_DATE = new SimpleDateFormat("yyyy-MM-dd");
-    public OpenmrsService() {	}
+
+    public OpenmrsService() {}
 
     public OpenmrsService(String openmrsUrl, String user, String password) {
         OPENMRS_BASE_URL = openmrsUrl;
@@ -36,7 +37,7 @@ public abstract class OpenmrsService {
         return HttpUtil.removeEndingSlash(OPENMRS_BASE_URL);
     }
 
-    void setURL(String url) {
+    public void setURL(String url) {
         OPENMRS_BASE_URL = url;
     }
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class LocationService {
 
     @Autowired
-    OpenmrsLocationService locationService;
+    private OpenmrsLocationService locationService;
 
     public String getLocationHeirarchy(String locationIdOrName) throws JSONException {
         return new Gson().toJson(locationService.getLocationTreeOf(locationIdOrName));

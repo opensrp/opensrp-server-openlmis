@@ -29,9 +29,6 @@ public class LotResourceTest extends BaseResourceTest {
     @Autowired
     private LotRepository repository;
 
-    @Autowired
-    private LotResource lotmResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.lot");

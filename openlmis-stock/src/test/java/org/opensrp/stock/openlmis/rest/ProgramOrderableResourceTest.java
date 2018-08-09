@@ -29,9 +29,6 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
     @Autowired
     private ProgramOrderableRepository repository;
 
-    @Autowired
-    private ProgramOrderableResource ProgramOrderablemResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.program_orderable");

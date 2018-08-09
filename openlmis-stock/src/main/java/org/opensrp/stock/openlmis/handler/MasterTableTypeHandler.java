@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
 
-    public static final ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper().enableDefaultTyping();
+    public static final ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
 
     @Override
     public void setParameter(PreparedStatement ps, int i, BaseMetaData parameter, JdbcType jdbcType) throws SQLException {

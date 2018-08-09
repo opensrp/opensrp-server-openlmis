@@ -24,15 +24,13 @@ import java.security.KeyStore;
 @Component
 public class HttpUtil {
 
-    private HttpUtil() {
+    private final static DefaultHttpClient httpClient = init();
 
-    }
+    private HttpUtil() { }
 
     public enum AuthType {
         BASIC, TOKEN, NONE
     }
-
-    private final static DefaultHttpClient httpClient = init();
 
     public static DefaultHttpClient init() {
         try {
@@ -128,7 +126,7 @@ public class HttpUtil {
         }
     }
 
-    static HttpResponse createCustomResponseFrom(org.apache.http.HttpResponse response) throws IOException {
+    public static HttpResponse createCustomResponseFrom(org.apache.http.HttpResponse response) throws IOException {
         int statusCode = response.getStatusLine().getStatusCode();
         String entity = "";
         if (response.getEntity() != null) {
@@ -138,15 +136,14 @@ public class HttpUtil {
         return new HttpResponse(checkSuccessBasedOnHttpCode(statusCode), statusCode, entity);
     }
 
-    static boolean checkSuccessBasedOnHttpCode(int httpCode) {
+    public static boolean checkSuccessBasedOnHttpCode(int httpCode) {
         if (httpCode >= 400 && httpCode <= 599) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
-    static HttpRequestBase makeConnection(String url, String payload, RequestMethod method, AuthType authType,
+    public static HttpRequestBase makeConnection(String url, String payload, RequestMethod method, AuthType authType,
                                           String authString) throws URISyntaxException {
         String charset = "UTF-8";
 

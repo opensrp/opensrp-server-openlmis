@@ -16,11 +16,7 @@ public abstract class BaseDataObject {
 
     private Date dateVoided;
 
-
     private String voidReason;
-
-    public BaseDataObject() {}
-
 
     public Date getDateCreated() {
         return dateCreated;

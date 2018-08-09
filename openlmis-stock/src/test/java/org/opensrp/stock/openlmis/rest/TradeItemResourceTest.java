@@ -27,9 +27,6 @@ public class TradeItemResourceTest extends BaseResourceTest {
     @Autowired
     private MasterTableRepository repository;
 
-    @Autowired
-    private TradeItemResource tradeItemResource;
-
     @Before
     public void bootStrap() {
         truncateTable("core.master_table");
