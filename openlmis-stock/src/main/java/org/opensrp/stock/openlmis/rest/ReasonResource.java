@@ -43,7 +43,7 @@ public class ReasonResource {
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     protected List<ReasonMetaData> getAll() {
         return commodityTypeService.getAll();
@@ -62,7 +62,7 @@ public class ReasonResource {
     }
 
     @SuppressWarnings("unchecked")
-    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "/")
+    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "")
     public ResponseEntity<HttpStatus> add(@RequestBody String data) {
 
         try {

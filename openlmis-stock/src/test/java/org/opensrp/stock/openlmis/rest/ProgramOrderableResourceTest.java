@@ -24,7 +24,7 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 
 public class ProgramOrderableResourceTest extends BaseResourceTest {
 
-    private final static String BASE_URL = "/rest/program_orderables/";
+    private final static String BASE_URL = "/rest/program-orderables/";
 
     @Autowired
     private ProgramOrderableRepository repository;

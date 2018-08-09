@@ -30,7 +30,7 @@ import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@RequestMapping(value = "/rest/program_orderables")
+@RequestMapping(value = "/rest/program-orderables")
 public class ProgramOrderableResource {
 
     @Autowired
@@ -40,7 +40,7 @@ public class ProgramOrderableResource {
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
     protected List<ProgramOrderable> getAll() {
         return programOrderableService.getAll();
@@ -59,7 +59,7 @@ public class ProgramOrderableResource {
     }
 
     @SuppressWarnings("unchecked")
-    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "/")
+    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "")
     public ResponseEntity<HttpStatus> add(@RequestBody String data) {
 
         try {
