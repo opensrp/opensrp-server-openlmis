@@ -72,7 +72,7 @@ public class ProgramResourceTest extends BaseResourceTest {
 
         List<Object> actualPrograms = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualPrograms, expectedPrograms);
+        assertTwoListsAreSameIgnoringOrder(actualPrograms, expectedPrograms, false);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ProgramResourceTest extends BaseResourceTest {
 
         List<Object> actualPrograms = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualPrograms, expectedPrograms);
+        assertTwoListsAreSameIgnoringOrder(expectedPrograms, actualPrograms, true);
     }
 
     @Test
@@ -201,6 +201,6 @@ public class ProgramResourceTest extends BaseResourceTest {
             actualPrograms.add(entry.getJson());
         }
 
-        assertTwoListsAreSameIgnoringOrder(expectedPrograms, actualPrograms);
+        assertTwoListsAreSameIgnoringOrder(expectedPrograms, actualPrograms, false);
     }
 }

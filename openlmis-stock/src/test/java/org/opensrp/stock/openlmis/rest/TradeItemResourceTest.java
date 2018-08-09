@@ -60,7 +60,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
 
         List<Object> actualTradeItems = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
+        assertTwoListsAreSameIgnoringOrder(actualTradeItems, expectedTradeItems, false);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
 
         List<Object> actualTradeItems = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualTradeItems, expectedTradeItems);
+        assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems,true);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
             actualTradeItems.add(entry.getJson());
         }
 
-        assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems);
+        assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems, false);
     }
 
     private void setGtinAndClassifications(TradeItemMetaData tradeItemMetaData) throws Exception {

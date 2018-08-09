@@ -66,7 +66,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
 
         List<Object> actualCommodityTypes = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes);
+        assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes, false);
     }
 
     @Test
@@ -119,12 +119,11 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
 
         List<Object> actualCommodityTypes = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes);
+        assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, true);
     }
 
     @Test
     public void testPostShouldCreateNewCommodityTypesInDb() throws Exception {
-
 
         List<Object> expectedCommodityTypes = new ArrayList<>();
         JSONArray commodityTypesArr = new JSONArray();
@@ -183,7 +182,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
             actualCommodityTypes.add(entry.getJson());
         }
 
-        assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes);
+        assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, false);
     }
 
     private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {

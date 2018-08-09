@@ -63,7 +63,7 @@ public class ReasonResourceTest extends BaseResourceTest {
 
         List<Object> actualReasons = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualReasons, expectedReasons);
+        assertTwoListsAreSameIgnoringOrder(actualReasons, expectedReasons, false);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class ReasonResourceTest extends BaseResourceTest {
 
         List<Object> actualReasons = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualReasons, expectedReasons);
+        assertTwoListsAreSameIgnoringOrder(expectedReasons, actualReasons,true);
     }
 
     @Test
@@ -168,7 +168,7 @@ public class ReasonResourceTest extends BaseResourceTest {
             actualReasons.add(entry.getJson());
         }
 
-        assertTwoListsAreSameIgnoringOrder(expectedReasons, actualReasons);
+        assertTwoListsAreSameIgnoringOrder(expectedReasons, actualReasons, false);
     }
 
     private void setProgram(ReasonMetaData reasonMetaData) {

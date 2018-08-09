@@ -1,14 +1,13 @@
 package org.opensrp.stock.openlmis.repository;
 
-import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.MasterMetadataEntry;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.MasterTableEntryExample;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
