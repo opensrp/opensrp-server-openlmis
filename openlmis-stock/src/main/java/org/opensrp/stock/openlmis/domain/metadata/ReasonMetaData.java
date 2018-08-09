@@ -13,8 +13,6 @@ public class ReasonMetaData extends BaseMetaData {
     @JsonProperty
     private Boolean additive;
 
-    public ReasonMetaData() {}
-
     public String getName() {
         return name;
     }

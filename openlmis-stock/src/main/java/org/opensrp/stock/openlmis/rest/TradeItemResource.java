@@ -34,8 +34,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class TradeItemResource {
 
     @Autowired
-    TradeItemService tradeItemService;
+    private TradeItemService tradeItemService;
+
     private static Logger logger = LoggerFactory.getLogger(TradeItemResource.class.toString());
+
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
 

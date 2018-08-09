@@ -14,6 +14,8 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
+import org.opensrp.stock.openlmis.exception.HttpClientInitializationError;
+import org.opensrp.stock.openlmis.exception.HttpRequestError;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -53,7 +55,7 @@ public class HttpUtil {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new HttpClientInitializationError("Error initializing default http client");
         }
     }
 
@@ -84,7 +86,7 @@ public class HttpUtil {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new HttpRequestError(e.getMessage());
         }
     }
 
@@ -111,7 +113,7 @@ public class HttpUtil {
             return createCustomResponseFrom(response);
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new HttpRequestError(e.getMessage());
         }
     }
 
@@ -122,7 +124,7 @@ public class HttpUtil {
             return createCustomResponseFrom(response);
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new HttpRequestError(e.getMessage());
         }
     }
 
@@ -137,32 +139,22 @@ public class HttpUtil {
     }
 
     public static boolean checkSuccessBasedOnHttpCode(int httpCode) {
-        if (httpCode >= 400 && httpCode <= 599) {
-            return false;
-        }
-        return true;
+        return !(httpCode >= 400 && httpCode <= 599);
     }
 
     public static HttpRequestBase makeConnection(String url, String payload, RequestMethod method, AuthType authType,
                                           String authString) throws URISyntaxException {
         String charset = "UTF-8";
 
+        String formattedUrl = "";
         if (url.endsWith("/")) {
-            url = url.substring(0, url.lastIndexOf("/"));
+            formattedUrl = url.substring(0, url.lastIndexOf("/"));
         }
-        url = (url + (StringUtils.isBlank(payload) ? "" : ("?" + payload))).replaceAll(" ", "%20");
-        URI urlo = new URI(url);
+        formattedUrl = (formattedUrl + (StringUtils.isBlank(payload) ? "" : ("?" + payload))).replaceAll(" ", "%20");
+        URI urlo = new URI(formattedUrl);
 
-        HttpRequestBase requestBase = null;
-        if (method.equals(RequestMethod.GET)) {
-            requestBase = new HttpGet(urlo);
-        } else if (method.equals(RequestMethod.POST)) {
-            requestBase = new HttpPost(urlo);
-        } else if (method.equals(RequestMethod.PUT)) {
-            requestBase = new HttpPut(urlo);
-        } else if (method.equals(RequestMethod.DELETE)) {
-            requestBase = new HttpDelete(urlo);
-        }
+        HttpRequestBase requestBase = determineRequestBase(method, urlo);
+
         requestBase.setURI(urlo);
         requestBase.addHeader("Accept-Charset", charset);
 
@@ -175,8 +167,23 @@ public class HttpUtil {
             requestBase.addHeader("Authorization", "Token " + authString);
         }
 
-        System.out.println(url);
+        System.out.println(formattedUrl);
         return requestBase;
+    }
+
+    private static HttpRequestBase determineRequestBase(RequestMethod method, URI urlo) {
+
+        HttpRequestBase requestBase = null;
+        if (method.equals(RequestMethod.GET)) {
+            requestBase = new HttpGet(urlo);
+        } else if (method.equals(RequestMethod.POST)) {
+            requestBase = new HttpPost(urlo);
+        } else if (method.equals(RequestMethod.PUT)) {
+            requestBase = new HttpPut(urlo);
+        } else if (method.equals(RequestMethod.DELETE)) {
+            requestBase = new HttpDelete(urlo);
+        }
+        return  requestBase;
     }
 
     public static String removeEndingSlash(String str) {

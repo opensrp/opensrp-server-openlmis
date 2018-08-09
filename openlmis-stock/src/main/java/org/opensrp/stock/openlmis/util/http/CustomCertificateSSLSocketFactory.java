@@ -1,5 +1,6 @@
 package org.opensrp.stock.openlmis.util.http;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -37,10 +38,12 @@ public class CustomCertificateSSLSocketFactory extends SSLSocketFactory {
 
             @Override
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                System.out.println("Override method checkClientTrusted");
             }
 
             @Override
             public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                System.out.println("Override method checkServerTrusted");
             }
 
             public X509Certificate[] getAcceptedIssuers() {

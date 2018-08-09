@@ -1,7 +1,6 @@
 package org.opensrp.stock.openlmis.rest;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
