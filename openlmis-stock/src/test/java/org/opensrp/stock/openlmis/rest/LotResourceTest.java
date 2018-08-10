@@ -48,7 +48,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setActive(false);
         expectedLot.setId("id");
         expectedLot.setTradeItemId("trade_item_id");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setExpirationDate(getCurrentTime() - 20000L);
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
@@ -61,7 +61,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setExpirationDate(getCurrentTime());
         expectedLot.setId("id_1");
         expectedLot.setLotCode("lot_code_2");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
         repository.add(expectedLot);
@@ -85,7 +85,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setActive(false);
         expectedLot.setId("id");
         expectedLot.setTradeItemId("trade_item_id");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setExpirationDate(getCurrentTime() - 20000L);
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
@@ -101,7 +101,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setExpirationDate(getCurrentTime());
         expectedLot.setId("id_1");
         expectedLot.setLotCode("lot_code_1");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_1");
 
         repository.add(expectedLot);
@@ -113,7 +113,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setExpirationDate(getCurrentTime());
         expectedLot.setId("id_2");
         expectedLot.setLotCode("lot_code_2");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
         repository.add(expectedLot);
@@ -136,7 +136,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setActive(false);
         expectedLot.setId("id");
         expectedLot.setTradeItemId("trade_item_id");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setExpirationDate(getCurrentTime() - 20000L);
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
@@ -150,7 +150,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setExpirationDate(getCurrentTime());
         expectedLot.setId("id_1");
         expectedLot.setLotCode("lot_code_1");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_1");
 
         expectedLots.add(expectedLot);
@@ -162,7 +162,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setExpirationDate(getCurrentTime());
         expectedLot.setId("id_2");
         expectedLot.setLotCode("lot_code_2");
-        expectedLot.setManufuctureDate(getCurrentTime() - 20000L);
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
         expectedLots.add(expectedLot);

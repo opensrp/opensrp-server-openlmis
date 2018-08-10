@@ -29,7 +29,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -38,7 +38,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id_1");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.add(lot);
 
@@ -55,7 +55,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -64,7 +64,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         entry.setActive(true);
         entry.setExpirationDate(getCurrentTime());
         entry.setLotCode("lot_code_1");
-        entry.setManufuctureDate(getCurrentTime() - 20000L);
+        entry.setManufactureDate(getCurrentTime() - 20000L);
         entry.setTradeItemId("trade_item_id_1");
         repository.add(entry);
 
@@ -84,7 +84,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -93,7 +93,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id_1");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.add(lot);
 
@@ -110,7 +110,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -119,7 +119,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id_1");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.add(lot);
 
@@ -136,7 +136,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -145,7 +145,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id_1");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.add(lot);
 
@@ -161,7 +161,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -170,7 +170,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.update(lot);
 
@@ -191,7 +191,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 
@@ -200,7 +200,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id_1");
         lot.setLotCode("lot_code_2");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
         repository.add(lot);
 
@@ -217,7 +217,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setExpirationDate(getCurrentTime());
         lot.setId("id");
         lot.setLotCode("lot_code");
-        lot.setManufuctureDate(getCurrentTime() - 20000L);
+        lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
         repository.add(lot);
 

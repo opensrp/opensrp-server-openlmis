@@ -20,7 +20,7 @@ CREATE TABLE core.lot (
     id character varying NOT NULL,
     lot_code character varying NOT NULL,
     expiration_date bigint NOT NULL,
-    manufucture_date bigint NOT NULL,
+    manufacture_date bigint NOT NULL,
     trade_item_id character varying NOT NULL,
     active boolean,
     server_version bigint,
