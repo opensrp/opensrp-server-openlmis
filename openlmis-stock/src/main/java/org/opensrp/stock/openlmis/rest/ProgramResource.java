@@ -75,7 +75,7 @@ public class ProgramResource {
                 try {
                     programService.add(entry);
                 } catch (Exception e) {
-                    logger.error("Program " + entry.getUuid() == null ? "" : entry.getUuid() + " failed to sync", e);
+                    logger.error("Program " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {

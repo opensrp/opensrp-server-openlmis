@@ -67,7 +67,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
     public void testSyncShouldRetrieveAllTradeItemsAfterACertainTime() throws Exception {
 
         DispensableMetaData dispensableMetaData = new DispensableMetaData();
-        dispensableMetaData.setUuid("dispensable_uuid");
+        dispensableMetaData.setId("dispensable_uuid");
         dispensableMetaData.setKeyDispensingUnit("key_dispensing_unit");
         dispensableMetaData.setKeyRouteOfAdministration("route_of_administration");
         dispensableMetaData.setKeySizeCode("size_code");
@@ -109,7 +109,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
     public void testPostShouldCreateNewTradeItemsInDb() throws Exception {
 
         DispensableMetaData dispensableMetaData = new DispensableMetaData();
-        dispensableMetaData.setUuid("dispensable_uuid");
+        dispensableMetaData.setId("dispensable_uuid");
         dispensableMetaData.setKeyDispensingUnit("key_dispensing_unit");
         dispensableMetaData.setKeyRouteOfAdministration("route_of_administration");
         dispensableMetaData.setKeySizeCode("size_code");

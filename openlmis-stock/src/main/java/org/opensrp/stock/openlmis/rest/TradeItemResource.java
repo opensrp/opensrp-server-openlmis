@@ -75,7 +75,7 @@ public class TradeItemResource {
                 try {
                     tradeItemService.add(entry);
                 } catch (Exception e) {
-                    logger.error("TradeItem " + entry.getUuid() == null ? "" : entry.getUuid() + " failed to sync", e);
+                    logger.error("TradeItem " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {

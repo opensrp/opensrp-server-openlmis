@@ -45,7 +45,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description");
         expectedReason.setName("name");
-        expectedReason.setUuid("id");
+        expectedReason.setId("id");
         setProgram(expectedReason);
 
         repository.add(expectedReason);
@@ -55,7 +55,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description_1");
         expectedReason.setName("name_1");
-        expectedReason.setUuid("id_1");
+        expectedReason.setId("id_1");
         setProgram(expectedReason);
 
         repository.add(expectedReason);
@@ -78,7 +78,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description");
         expectedReason.setName("name");
-        expectedReason.setUuid("id");
+        expectedReason.setId("id");
         setProgram(expectedReason);
 
         repository.add(expectedReason);
@@ -91,7 +91,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description_1");
         expectedReason.setName("name_1");
-        expectedReason.setUuid("id_1");
+        expectedReason.setId("id_1");
         setProgram(expectedReason);
 
         repository.add(expectedReason);
@@ -102,7 +102,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description_2");
         expectedReason.setName("name_2");
-        expectedReason.setUuid("id_2");
+        expectedReason.setId("id_2");
         setProgram(expectedReason);
 
         repository.add(expectedReason);
@@ -124,7 +124,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description");
         expectedReason.setName("name");
-        expectedReason.setUuid("id");
+        expectedReason.setId("id");
         setProgram(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -135,7 +135,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description_1");
         expectedReason.setName("name_1");
-        expectedReason.setUuid("id_1");
+        expectedReason.setId("id_1");
         setProgram(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -146,7 +146,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setAdditive(true);
         expectedReason.setDescription("description_2");
         expectedReason.setName("name_2");
-        expectedReason.setUuid("id_2");
+        expectedReason.setId("id_2");
         setProgram(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -181,7 +181,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         program.setName("name");
         program.setEnableDatePhysicalStockCountCompleted(false);
         program.setCode(new Code("code"));
-        program.setUuid("id");
+        program.setId("id");
 
         reasonMetaData.setProgram(program);
     }

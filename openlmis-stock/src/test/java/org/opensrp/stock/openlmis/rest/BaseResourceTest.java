@@ -189,10 +189,10 @@ public abstract class BaseResourceTest {
 
         Set<String> expectedIds = new HashSet<>();
         for (Object expected : expectedList) {
-            expectedIds.add(((BaseMetaData) expected).getUuid());
+            expectedIds.add(((BaseMetaData) expected).getId());
         }
         for (Object actual : actualList) {
-           assertTrue(expectedIds.contains(((BaseMetaData) actual).getUuid()));
+           assertTrue(expectedIds.contains(((BaseMetaData) actual).getId()));
         }
     }
 }

@@ -75,7 +75,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         // assert all data matches
         baseMetaData = (BaseMetaData) masterTableEntry.getJson();
-        assertEquals(baseMetaData.getUuid(), metaData.getUuid());
+        assertEquals(baseMetaData.getId(), metaData.getId());
     }
 
     @Test
@@ -176,7 +176,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         // assert all data matches
         newMetaData = (DispensableMetaData) repository.get(entry.getId()).getJson();
-        assertEquals(newMetaData.getUuid(), "identifier_2");
+        assertEquals(newMetaData.getId(), "identifier_2");
         assertEquals(newMetaData.getClass().getName(), DispensableMetaData.class.getName());
     }
 

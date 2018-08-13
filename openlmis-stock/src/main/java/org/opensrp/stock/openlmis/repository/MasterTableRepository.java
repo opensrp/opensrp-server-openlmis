@@ -25,7 +25,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
 
     public MasterTableEntry add(BaseMetaData baseMetaData) {
 
-        if (baseMetaData == null || baseMetaData.getUuid() == null) {
+        if (baseMetaData == null || baseMetaData.getId() == null) {
             return null;
         }
 
@@ -174,7 +174,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     private MasterMetadataEntry convert(BaseMetaData metaData) {
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
-        masterMetadataEntry.setUuid(metaData.getUuid());
+        masterMetadataEntry.setUuid(metaData.getId());
         // strip MetaData from class name and set as type
         masterMetadataEntry.setType(metaData.getClass().getSimpleName().split("Meta")[0]);
 

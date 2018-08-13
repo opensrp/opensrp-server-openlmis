@@ -75,7 +75,7 @@ public class CommodityTypeResource {
                 try {
                     commodityTypeService.add(entry);
                 } catch (Exception e) {
-                    logger.error("CommodityType " + entry.getUuid() == null ? "" : entry.getUuid() + " failed to sync", e);
+                    logger.error("CommodityType " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {
