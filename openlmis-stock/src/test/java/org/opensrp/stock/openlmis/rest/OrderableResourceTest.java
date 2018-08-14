@@ -212,6 +212,60 @@ public class OrderableResourceTest extends BaseResourceTest {
         assertListsAreSameIgnoringOrder(expectedOrderables, actualOrderables);
     }
 
+    @Test
+    public void testPutShouldUpdateOrderablesInDb() throws Exception {
+
+        // orderable 1
+        Orderable orderable = new Orderable();
+
+        orderable.setCode("code");
+        orderable.setCommodityTypeId("commodity_type_id");
+        orderable.setDispensable(12);
+        orderable.setFullProductCode("full_product_code");
+        orderable.setId("id");
+        orderable.setNetContent(18);
+        orderable.setRoundToZero(true);
+        orderable.setPackRoundingThreshold(2);
+        orderable.setTradeItemId("trade_item");
+
+        repository.add(orderable);
+
+        // orderable 2
+        Orderable expectedOrderable = new Orderable();
+
+        expectedOrderable.setCode("code_1");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
+        expectedOrderable.setDispensable(18);
+        expectedOrderable.setFullProductCode("full_product_code_1");
+        expectedOrderable.setId("id");
+        expectedOrderable.setNetContent(12);
+        expectedOrderable.setRoundToZero(true);
+        expectedOrderable.setPackRoundingThreshold(3);
+        expectedOrderable.setTradeItemId("trade_item_1");
+
+        JSONArray orderablesArr = new JSONArray();
+        orderablesArr.put(mapper.writeValueAsString(expectedOrderable));
+
+        JSONObject data = new JSONObject();
+        data.put("orderables", orderablesArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        orderable = repository.get("id");
+        assertEquals(orderable.getCode(), expectedOrderable.getCode());
+        assertEquals(orderable.getFullProductCode(), expectedOrderable.getFullProductCode());
+        assertEquals(orderable.getCommodityTypeId(), expectedOrderable.getCommodityTypeId());
+        assertEquals(orderable.getTradeItemId(), expectedOrderable.getTradeItemId());
+    }
+
+
     public void assertListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
 
         assertEquals(expectedList.size(), actualList.size());

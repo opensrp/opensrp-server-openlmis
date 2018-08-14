@@ -28,6 +28,7 @@ import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/rest/orderables")
@@ -73,6 +74,32 @@ public class OrderableResource {
             for (Orderable entry : entries) {
                 try {
                     orderableService.add(entry);
+                } catch (Exception e) {
+                    logger.error("Orderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(format("Sync data processing failed with exception {0}.- ", e));
+            return new ResponseEntity<>(INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(CREATED);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(headers = { "Accept=application/json" }, method = PUT)
+    public ResponseEntity<HttpStatus> update(@RequestBody String data) {
+
+        try {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("orderables")) {
+                return new ResponseEntity<>(BAD_REQUEST);
+            }
+
+            List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString("orderables"),
+                    new TypeToken<ArrayList<Orderable>>() {}.getType());
+            for (Orderable entry : entries) {
+                try {
+                    orderableService.update(entry);
                 } catch (Exception e) {
                     logger.error("Orderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

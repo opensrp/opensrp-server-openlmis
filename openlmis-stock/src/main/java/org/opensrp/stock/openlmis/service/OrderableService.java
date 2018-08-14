@@ -21,8 +21,11 @@ public class OrderableService {
         return repository.get(syncServerVersion);
     }
 
-    // TODO: maybe add update endpoint
     public void add(Orderable orderable) {
         repository.add(orderable);
+    }
+
+    public void update(Orderable orderable) {
+        repository.update(orderable);
     }
 }
