@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -185,6 +186,54 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, false);
     }
 
+    @Test
+    public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
+
+        // CommodityType 1
+        CommodityTypeMetaData commodityType = new CommodityTypeMetaData(
+                "identifier"
+        );
+        commodityType.setClassificationId("classification_id");
+        commodityType.setClassificationSystem("classification_system");
+        commodityType.setName("commodity_name");
+        commodityType.setParentId("parent_id");
+        setParentAndChildrenAndTradeItems(commodityType);
+
+        MasterTableEntry entry = repository.add(commodityType);
+
+        // CommodityType 2
+        CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
+                "identifier"
+        );
+        expectedCommodityType.setClassificationId("classification_id_2");
+        expectedCommodityType.setClassificationSystem("classification_system_2");
+        expectedCommodityType.setName("commodity_name_2");
+        expectedCommodityType.setParentId("parent_id_2");
+        setParentAndChildrenAndTradeItems(expectedCommodityType);
+
+        JSONArray commodityTypesArr = new JSONArray();
+        commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
+
+        JSONObject data = new JSONObject();
+        data.put("commodity_types", commodityTypesArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        commodityType = (CommodityTypeMetaData) repository.get(entry.getId()).getJson();
+        assertEquals(expectedCommodityType.getId(), commodityType.getId());
+        assertEquals(expectedCommodityType.getClassificationId(), commodityType.getClassificationId());
+        assertEquals(expectedCommodityType.getClassificationSystem(), commodityType.getClassificationSystem());
+        assertEquals(expectedCommodityType.getName(), commodityType.getName());
+        assertEquals(expectedCommodityType.getParentId(), commodityType.getParentId());
+    }
+    
     private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {
 
         CommodityTypeMetaData parent = new CommodityTypeMetaData("parent_id");

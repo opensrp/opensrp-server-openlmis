@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.CommodityTypeMetaData;
 import org.opensrp.stock.openlmis.service.CommodityTypeService;
 import org.opensrp.stock.openlmis.util.Utils;
@@ -28,6 +29,7 @@ import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/rest/commodity-types")
@@ -40,6 +42,8 @@ public class CommodityTypeResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
+
+    private static String COMMODITY_TYPE = "CommodityType";
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -76,6 +80,34 @@ public class CommodityTypeResource {
                     commodityTypeService.add(entry);
                 } catch (Exception e) {
                     logger.error("CommodityType " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(format("Sync data processing failed with exception {0}.- ", e));
+            return new ResponseEntity<>(INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(CREATED);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(headers = { "Accept=application/json" }, method = PUT)
+    public ResponseEntity<HttpStatus> update(@RequestBody String data) {
+
+        try {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("commodity_types")) {
+                return new ResponseEntity<>(BAD_REQUEST);
+            }
+
+            List<CommodityTypeMetaData> commodityTypes = (ArrayList<CommodityTypeMetaData>) gson.fromJson(postData.getString("commodity_types"),
+                    new TypeToken<ArrayList<CommodityTypeMetaData>>() {}.getType());
+            for (CommodityTypeMetaData commodityType : commodityTypes) {
+                try {
+                    MasterTableEntry entry = commodityTypeService.get(COMMODITY_TYPE, commodityType.getId());
+                    entry.setJson(commodityType);
+                    commodityTypeService.update(entry);
+                } catch (Exception e) {
+                    logger.error("CommodityType " + commodityType.getId() == null ? "" : commodityType.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {
