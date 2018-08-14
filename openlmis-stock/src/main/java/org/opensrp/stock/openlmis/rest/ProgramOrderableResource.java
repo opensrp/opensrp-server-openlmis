@@ -40,7 +40,7 @@ public class ProgramOrderableResource {
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     protected List<ProgramOrderable> getAll() {
         return programOrderableService.getAll();
@@ -59,7 +59,7 @@ public class ProgramOrderableResource {
     }
 
     @SuppressWarnings("unchecked")
-    @RequestMapping(headers = { "Accept=application/json" }, method = POST, value = "")
+    @RequestMapping(headers = { "Accept=application/json" }, method = POST)
     public ResponseEntity<HttpStatus> add(@RequestBody String data) {
 
         try {
