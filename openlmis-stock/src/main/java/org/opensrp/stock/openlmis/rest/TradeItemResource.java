@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
+import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.opensrp.stock.openlmis.service.TradeItemService;
 import org.opensrp.stock.openlmis.util.Utils;
@@ -28,6 +29,7 @@ import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/rest/trade-items")
@@ -40,6 +42,8 @@ public class TradeItemResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
+
+    private String TRADE_ITEM = "TradeItem";
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -76,6 +80,34 @@ public class TradeItemResource {
                     tradeItemService.add(entry);
                 } catch (Exception e) {
                     logger.error("TradeItem " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(format("Sync data processing failed with exception {0}.- ", e));
+            return new ResponseEntity<>(INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(CREATED);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(headers = { "Accept=application/json" }, method = PUT)
+    public ResponseEntity<HttpStatus> update(@RequestBody String data) {
+
+        try {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("trade_items")) {
+                return new ResponseEntity<>(BAD_REQUEST);
+            }
+
+            List<TradeItemMetaData> tradeItems = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString("trade_items"),
+                    new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
+            for (TradeItemMetaData tradeItem : tradeItems) {
+                try {
+                    MasterTableEntry entry = tradeItemService.get(TRADE_ITEM, tradeItem.getId());
+                    entry.setJson(tradeItem);
+                    tradeItemService.update(entry);
+                } catch (Exception e) {
+                    logger.error("TradeItem " + tradeItem.getId() == null ? "" : tradeItem.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {

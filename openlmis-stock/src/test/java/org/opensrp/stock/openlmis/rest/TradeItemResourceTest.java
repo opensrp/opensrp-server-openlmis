@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -122,8 +124,8 @@ public class TradeItemResourceTest extends BaseResourceTest {
         );
         expectedTradeItem.setManufacturerOfTradeItem("manufactuter_1");
         setGtinAndClassifications(expectedTradeItem);
-        expectedTradeItems.add(expectedTradeItem);
 
+        expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
         // trade item 2
@@ -132,6 +134,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         );
         expectedTradeItem.setManufacturerOfTradeItem("manufactuter_2");
         setGtinAndClassifications(expectedTradeItem);
+
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
@@ -141,6 +144,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         );
         expectedTradeItem.setManufacturerOfTradeItem("manufactuter_3");
         setGtinAndClassifications(expectedTradeItem);
+
         expectedTradeItems.add(expectedTradeItem);
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
@@ -162,6 +166,46 @@ public class TradeItemResourceTest extends BaseResourceTest {
 
         assertTwoListsAreSameIgnoringOrder(expectedTradeItems, actualTradeItems, false);
     }
+
+
+    @Test
+    public void testPutShouldUpdateTradeItemsInDb() throws Exception {
+        // TradeItem 1
+        TradeItemMetaData tradeItem = new TradeItemMetaData(
+                "identifier"
+        );
+        tradeItem.setManufacturerOfTradeItem("manufactuter_1");
+        setGtinAndClassifications(tradeItem);
+
+        MasterTableEntry entry = repository.add(tradeItem);
+
+        // updated TradeItem
+        TradeItemMetaData expectedTradeItem = new TradeItemMetaData(
+                "identifier"
+        );
+        expectedTradeItem.setManufacturerOfTradeItem("manufactuter_2");
+        setGtinAndClassifications(expectedTradeItem);
+
+        JSONArray tradeItemsArr = new JSONArray();
+        tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
+
+        JSONObject data = new JSONObject();
+        data.put("trade_items", tradeItemsArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        tradeItem = (TradeItemMetaData) repository.get(entry.getId()).getJson();
+        assertEquals(expectedTradeItem.getId(), tradeItem.getId());
+        assertEquals(expectedTradeItem.getManufacturerOfTradeItem(), tradeItem.getManufacturerOfTradeItem());
+    }
+
 
     private void setGtinAndClassifications(TradeItemMetaData tradeItemMetaData) throws Exception {
 
