@@ -89,6 +89,14 @@
         LIMIT #{limit} OFFSET #{offset}
     </select>
 
+    <select id="selectByTypeAndId" resultMap="org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper.BaseResultMap">
+        SELECT
+            mt.id, mt.json
+        FROM core.master_table mt JOIN core.master_metadata mm ON mt.id = mm.master_table_entry_id
+            WHERE mm.type = #{type} AND mm.uuid = #{id}
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
     <insert id="insertSelectiveAndSetId" parameterType="org.opensrp.stock.openlmis.domain.MasterTableEntry"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
         <!--

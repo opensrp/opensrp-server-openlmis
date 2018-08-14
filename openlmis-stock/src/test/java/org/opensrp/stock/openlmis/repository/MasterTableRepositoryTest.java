@@ -2,8 +2,8 @@ package org.opensrp.stock.openlmis.repository;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
@@ -108,6 +108,21 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         assertEquals(masterTableEntries.size(), 2);
     }
 
+    @Test
+    public void testGetShouldRetrieveExistingMasterTableEntryByTypeAndId() {
+
+        BaseMetaData metaData = new BaseMetaData(
+                "identifier"
+        );
+        repository.add(metaData);
+
+        metaData = new TradeItemMetaData(
+                "identifier_2"
+        );
+        repository.add(metaData);
+
+        assertNotNull(repository.get("TradeItem", "identifier_2"));
+    }
 
     @Test
     public void testGetShouldRetrieveExistingMasterTableEntryByType() {
