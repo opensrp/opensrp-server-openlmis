@@ -40,8 +40,13 @@ public class ReasonService {
         return commodityTypesMetaData;
     }
 
-    // TODO: maybe add update endpoint
+    public MasterTableEntry get(String type, String id) {
+        return repository.get(type, id);
+    }
+
     public void add(BaseMetaData entry) {
         repository.add(entry);
     }
+
+    public void update(MasterTableEntry entry) { repository.update(entry); }
 }
