@@ -184,6 +184,54 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         assertListsAreSameIgnoringOrder(expectedProgramOrderables, actualProgramOrderables);
     }
 
+    @Test
+    public void testPutShouldUpdateProgramOrderablesInDb() throws Exception {
+
+        // ProgramOrderable 1
+        ProgramOrderable programOrderable = new ProgramOrderable();
+        programOrderable.setActive(true);
+        programOrderable.setDosesPerPatient(5);
+        programOrderable.setFullSupply(true);
+        programOrderable.setId("id");
+        programOrderable.setOrderableId("orderable_id");
+        programOrderable.setProgramId("program_id");
+
+        repository.add(programOrderable);
+
+        // updated ProgramOrderable
+        ProgramOrderable expectedProgramOrderable = new ProgramOrderable();
+        expectedProgramOrderable = new ProgramOrderable();
+        expectedProgramOrderable.setActive(true);
+        expectedProgramOrderable.setDosesPerPatient(5);
+        expectedProgramOrderable.setFullSupply(false);
+        expectedProgramOrderable.setId("id");
+        expectedProgramOrderable.setOrderableId("orderable_id_2");
+        expectedProgramOrderable.setProgramId("program_id_2");
+
+        JSONArray programOrderablesArr = new JSONArray();
+        programOrderablesArr.put(mapper.writeValueAsString(expectedProgramOrderable));
+
+        JSONObject data = new JSONObject();
+        data.put("program_orderables", programOrderablesArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        programOrderable = repository.get(programOrderable.getId());
+        assertEquals(expectedProgramOrderable.getId(), programOrderable.getId());
+        assertEquals(expectedProgramOrderable.getFullSupply(), programOrderable.getFullSupply());
+        assertEquals(expectedProgramOrderable.getDosesPerPatient(), programOrderable.getDosesPerPatient());
+        assertEquals(expectedProgramOrderable.getActive(), programOrderable.getActive());
+        assertEquals(expectedProgramOrderable.getOrderableId(), programOrderable.getOrderableId());
+        assertEquals(expectedProgramOrderable.getProgramId(), programOrderable.getProgramId());
+    }
+
     public void assertListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
 
         assertEquals(expectedList.size(), actualList.size());

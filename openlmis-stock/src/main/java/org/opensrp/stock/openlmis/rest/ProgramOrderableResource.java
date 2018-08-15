@@ -28,6 +28,7 @@ import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/rest/program-orderables")
@@ -75,6 +76,32 @@ public class ProgramOrderableResource {
                     programOrderableService.add(entry);
                 } catch (Exception e) {
                     logger.error("ProgramOrderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(format("Sync data processing failed with exception {0}.- ", e));
+            return new ResponseEntity<>(INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(CREATED);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(headers = { "Accept=application/json" }, method = PUT)
+    public ResponseEntity<HttpStatus> update(@RequestBody String data) {
+
+        try {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("program_orderables")) {
+                return new ResponseEntity<>(BAD_REQUEST);
+            }
+
+            List<ProgramOrderable> programOrderables = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString("program_orderables"),
+                    new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
+            for (ProgramOrderable programOrderable : programOrderables) {
+                try {
+                    programOrderableService.update(programOrderable);
+                } catch (Exception e) {
+                    logger.error("ProgramOrderable " + programOrderable.getId() == null ? "" : programOrderable.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {
