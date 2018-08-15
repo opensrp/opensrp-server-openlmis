@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.opensrp.stock.openlmis.util.Utils.COMMODITY_TYPES;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -168,7 +169,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
         JSONObject data = new JSONObject();
-        data.put("commodity_types", commodityTypesArr);
+        data.put(COMMODITY_TYPES, commodityTypesArr);
         String dataString =
                 data
                         .toString()
@@ -215,7 +216,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
         JSONObject data = new JSONObject();
-        data.put("commodity_types", commodityTypesArr);
+        data.put(COMMODITY_TYPES, commodityTypesArr);
         String dataString =
                 data
                         .toString()
@@ -233,7 +234,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         assertEquals(expectedCommodityType.getName(), commodityType.getName());
         assertEquals(expectedCommodityType.getParentId(), commodityType.getParentId());
     }
-    
+
     private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {
 
         CommodityTypeMetaData parent = new CommodityTypeMetaData("parent_id");

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sun.security.x509.CRLReasonCodeExtension.REASON;
+
 @Service
 public class ReasonService {
 
@@ -18,7 +20,7 @@ public class ReasonService {
 
     public List<ReasonMetaData> getAll() {
 
-        List<MasterTableEntry> commodityTypes = repository.get("Reason");
+        List<MasterTableEntry> commodityTypes = repository.get(REASON);
         List<ReasonMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {
             commodityTypesMetaData.add((ReasonMetaData) commodityType.getJson());
@@ -28,7 +30,7 @@ public class ReasonService {
 
     public List<ReasonMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> commodityTypes = repository.get("Reason", syncServerVersion);
+        List<MasterTableEntry> commodityTypes = repository.get(REASON, syncServerVersion);
 
         List<ReasonMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {

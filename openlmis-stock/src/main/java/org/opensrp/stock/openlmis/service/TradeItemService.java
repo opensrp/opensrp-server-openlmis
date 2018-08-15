@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.TRADE_ITEM;
+
 @Service
 public class TradeItemService {
 
@@ -18,7 +20,7 @@ public class TradeItemService {
 
     public List<TradeItemMetaData> getAll() {
 
-        List<MasterTableEntry> tradeItems = repository.get("TradeItem");
+        List<MasterTableEntry> tradeItems = repository.get(TRADE_ITEM);
         List<TradeItemMetaData> tradeItemsMetaData = new ArrayList<>();
         for (MasterTableEntry tradeItem : tradeItems) {
             tradeItemsMetaData.add((TradeItemMetaData) tradeItem.getJson());
@@ -28,7 +30,7 @@ public class TradeItemService {
 
     public List<TradeItemMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> tradeItems = repository.get("TradeItem", syncServerVersion);
+        List<MasterTableEntry> tradeItems = repository.get(TRADE_ITEM, syncServerVersion);
 
         List<TradeItemMetaData> tradeItemsMetaData = new ArrayList<>();
         for (MasterTableEntry tradeItem : tradeItems) {

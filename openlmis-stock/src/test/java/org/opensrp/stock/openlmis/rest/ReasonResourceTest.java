@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.opensrp.stock.openlmis.util.Utils.REASONS;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -154,7 +155,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
 
         JSONObject data = new JSONObject();
-        data.put("reasons", reasonsArr);
+        data.put(REASONS, reasonsArr);
         String dataString =
                 data
                         .toString()
@@ -197,7 +198,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
 
         JSONObject data = new JSONObject();
-        data.put("reasons", reasonsArr);
+        data.put(REASONS, reasonsArr);
         String dataString =
                 data
                         .toString()

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.PROGRAM;
+
 @Service
 public class ProgramService {
 
@@ -18,7 +20,7 @@ public class ProgramService {
 
     public List<ProgramMetaData> getAll() {
 
-        List<MasterTableEntry> programs = repository.get("Program");
+        List<MasterTableEntry> programs = repository.get(PROGRAM);
         List<ProgramMetaData> programsMetaData = new ArrayList<>();
         for (MasterTableEntry program : programs) {
             programsMetaData.add((ProgramMetaData) program.getJson());
@@ -28,7 +30,7 @@ public class ProgramService {
 
     public List<ProgramMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> programs = repository.get("Program", syncServerVersion);
+        List<MasterTableEntry> programs = repository.get(PROGRAM, syncServerVersion);
 
         List<ProgramMetaData> programsMetaData = new ArrayList<>();
         for (MasterTableEntry program : programs) {

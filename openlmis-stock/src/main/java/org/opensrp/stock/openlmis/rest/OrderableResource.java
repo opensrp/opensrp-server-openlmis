@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
+import static org.opensrp.stock.openlmis.util.Utils.ORDERABLES;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
@@ -65,11 +66,11 @@ public class OrderableResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("orderables")) {
+            if (!postData.has(ORDERABLES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString("orderables"),
+            List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString(ORDERABLES),
                     new TypeToken<ArrayList<Orderable>>() {}.getType());
             for (Orderable entry : entries) {
                 try {
@@ -91,11 +92,11 @@ public class OrderableResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("orderables")) {
+            if (!postData.has(ORDERABLES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString("orderables"),
+            List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString(ORDERABLES),
                     new TypeToken<ArrayList<Orderable>>() {}.getType());
             for (Orderable entry : entries) {
                 try {

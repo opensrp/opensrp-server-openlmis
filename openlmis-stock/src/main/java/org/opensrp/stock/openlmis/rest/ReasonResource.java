@@ -32,6 +32,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static sun.security.x509.CRLReasonCodeExtension.REASON;
+import static sun.security.x509.IssuingDistributionPointExtension.REASONS;
 
 @Controller
 @RequestMapping(value = "/rest/reasons")
@@ -44,8 +46,6 @@ public class ReasonResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
-
-    private final String REASON = "Reason";
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -71,11 +71,11 @@ public class ReasonResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("reasons")) {
+            if (!postData.has(REASONS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ReasonMetaData> entries = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString("reasons"),
+            List<ReasonMetaData> entries = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString(REASONS),
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
             for (ReasonMetaData entry : entries) {
                 try {
@@ -98,11 +98,11 @@ public class ReasonResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("reasons")) {
+            if (!postData.has(REASONS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ReasonMetaData> reasons = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString("reasons"),
+            List<ReasonMetaData> reasons = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString(REASONS),
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
             for (ReasonMetaData reason : reasons) {
                 try {

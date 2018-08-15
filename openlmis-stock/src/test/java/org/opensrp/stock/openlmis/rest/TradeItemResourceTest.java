@@ -19,6 +19,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
+import static org.opensrp.stock.openlmis.util.Utils.TRADE_ITEMS;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -149,7 +150,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
         JSONObject data = new JSONObject();
-        data.put("trade_items", tradeItemsArr);
+        data.put(TRADE_ITEMS, tradeItemsArr);
         String dataString =
                 data
                 .toString()
@@ -190,7 +191,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         tradeItemsArr.put(mapper.writeValueAsString(expectedTradeItem));
 
         JSONObject data = new JSONObject();
-        data.put("trade_items", tradeItemsArr);
+        data.put(TRADE_ITEMS, tradeItemsArr);
         String dataString =
                 data
                         .toString()

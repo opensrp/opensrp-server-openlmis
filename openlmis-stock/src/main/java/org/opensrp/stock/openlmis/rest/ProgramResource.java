@@ -25,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -42,8 +41,6 @@ public class ProgramResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
-
-    private String PROGRAM = "Program";
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -69,11 +66,11 @@ public class ProgramResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("programs")) {
+            if (!postData.has(PROGRAMS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ProgramMetaData> entries = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString("programs"),
+            List<ProgramMetaData> entries = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString(PROGRAMS),
                     new TypeToken<ArrayList<ProgramMetaData>>() {}.getType());
             for (ProgramMetaData entry : entries) {
                 try {
@@ -95,11 +92,11 @@ public class ProgramResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("programs")) {
+            if (!postData.has(PROGRAMS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ProgramMetaData> programs = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString("programs"),
+            List<ProgramMetaData> programs = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString(PROGRAMS),
                     new TypeToken<ArrayList<ProgramMetaData>>() {}.getType());
             for (ProgramMetaData program : programs) {
                 try {

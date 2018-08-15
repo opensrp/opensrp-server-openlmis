@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.opensrp.stock.openlmis.util.Utils.PROGRAM_ORDERABLES;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -166,7 +167,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         programOrderablesArr.put(mapper.writeValueAsString(expectedProgramOrderable));
 
         JSONObject data = new JSONObject();
-        data.put("program_orderables", programOrderablesArr);
+        data.put(PROGRAM_ORDERABLES, programOrderablesArr);
         String dataString =
                 data
                         .toString()
@@ -212,7 +213,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         programOrderablesArr.put(mapper.writeValueAsString(expectedProgramOrderable));
 
         JSONObject data = new JSONObject();
-        data.put("program_orderables", programOrderablesArr);
+        data.put(PROGRAM_ORDERABLES, programOrderablesArr);
         String dataString =
                 data
                         .toString()

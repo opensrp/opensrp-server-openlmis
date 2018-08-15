@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
+import static org.opensrp.stock.openlmis.util.Utils.LOTS;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
@@ -66,11 +67,11 @@ public class LotResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("lots")) {
+            if (!postData.has(LOTS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString("lots"),
+            List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString(LOTS),
                     new TypeToken<ArrayList<Lot>>() {}.getType());
             for (Lot entry : entries) {
                 try {
@@ -92,11 +93,11 @@ public class LotResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("lots")) {
+            if (!postData.has(LOTS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString("lots"),
+            List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString(LOTS),
                     new TypeToken<ArrayList<Lot>>() {}.getType());
             for (Lot entry : entries) {
                 try {

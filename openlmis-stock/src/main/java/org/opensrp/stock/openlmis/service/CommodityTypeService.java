@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.opensrp.stock.openlmis.util.Utils.COMMODITY_TYPE;
+
 @Service
 public class CommodityTypeService {
 
@@ -18,7 +20,7 @@ public class CommodityTypeService {
 
     public List<CommodityTypeMetaData> getAll() {
 
-        List<MasterTableEntry> commodityTypes = repository.get("CommodityType");
+        List<MasterTableEntry> commodityTypes = repository.get(COMMODITY_TYPE);
         List<CommodityTypeMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {
             commodityTypesMetaData.add((CommodityTypeMetaData) commodityType.getJson());
@@ -28,7 +30,7 @@ public class CommodityTypeService {
 
     public List<CommodityTypeMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> commodityTypes = repository.get("CommodityType", syncServerVersion);
+        List<MasterTableEntry> commodityTypes = repository.get(COMMODITY_TYPE, syncServerVersion);
 
         List<CommodityTypeMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {

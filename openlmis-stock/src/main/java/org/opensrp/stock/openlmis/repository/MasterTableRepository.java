@@ -7,6 +7,7 @@ import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +39,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableEntry;
     }
 
+    @Transactional
     @Override
     public void add(MasterTableEntry masterTableEntry) {
 
@@ -115,6 +117,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.selectByExample(entryExample);
     }
 
+    @Transactional
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 
@@ -144,6 +147,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.select(masterTableExample, 0, DEFAULT_FETCH_LIMIT);
     }
 
+    @Transactional
     @Override
     public Long safeRemove(MasterTableEntry masterTableEntry) {
 
@@ -158,6 +162,11 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         MasterTableEntryExample masterTableExample = new MasterTableEntryExample();
         masterTableExample.createCriteria().andIdEqualTo(masterTableEntry.getId()).andDateDeletedIsNull();
         masterTableMapper.updateByExample(masterTableEntry, masterTableExample);
+
+        // Safe remove metadata from  master metadata table
+        MasterMetadataEntry entry = convert((BaseMetaData) masterTableEntry.getJson());
+        entry.setMasterTableEntryId(masterTableEntry.getId());
+        masterMetadataRepository.safeRemove(entry);
 
         return masterTableEntry.getDateDeleted();
     }

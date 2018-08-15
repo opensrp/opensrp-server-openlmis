@@ -19,11 +19,33 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Utils {
 
-    public static int DEFAULT_FETCH_LIMIT = 1000;
+    public static final int DEFAULT_FETCH_LIMIT = 1000;
 
     public static final String SYNC_SERVER_VERSION = "sync_server_version";
 
-    public static final Long getCurrentTime() {
+    public static final String COMMODITY_TYPE = "CommodityType";
+
+    public static final String COMMODITY_TYPES = "commodity_types";
+
+    public static final String LOTS = "lots";
+
+    public static final String ORDERABLES = "orderables";
+
+    public static final String PROGRAM_ORDERABLES = "program_orderables";
+
+    public static final String PROGRAM = "Program";
+
+    public static final String PROGRAMS = "programs";
+
+    public static final String REASON = "Reason";
+
+    public static final String REASONS = "reasons";
+
+    public static  final String TRADE_ITEM = "TradeItem";
+
+    public final static String TRADE_ITEMS = "trade_items";
+
+    public static Long getCurrentTime() {
         return System.nanoTime();
     }
 

@@ -25,8 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -42,8 +41,6 @@ public class TradeItemResource {
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
-
-    private String TRADE_ITEM = "TradeItem";
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -69,11 +66,11 @@ public class TradeItemResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("trade_items")) {
+            if (!postData.has(TRADE_ITEMS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<TradeItemMetaData> entries = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString("trade_items"),
+            List<TradeItemMetaData> entries = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString(TRADE_ITEMS),
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
             for (TradeItemMetaData entry : entries) {
                 try {
@@ -95,11 +92,11 @@ public class TradeItemResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("trade_items")) {
+            if (!postData.has(TRADE_ITEMS)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<TradeItemMetaData> tradeItems = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString("trade_items"),
+            List<TradeItemMetaData> tradeItems = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString(TRADE_ITEMS),
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
             for (TradeItemMetaData tradeItem : tradeItems) {
                 try {

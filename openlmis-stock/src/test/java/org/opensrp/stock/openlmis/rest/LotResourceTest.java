@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.opensrp.stock.openlmis.util.Utils.LOTS;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -169,7 +170,7 @@ public class LotResourceTest extends BaseResourceTest {
         lotsArr.put(mapper.writeValueAsString(expectedLot));
 
         JSONObject data = new JSONObject();
-        data.put("lots", lotsArr);
+        data.put(LOTS, lotsArr);
         String dataString =
                 data
                         .toString()
@@ -214,7 +215,7 @@ public class LotResourceTest extends BaseResourceTest {
         lotsArr.put(mapper.writeValueAsString(expectedLot));
 
         JSONObject data = new JSONObject();
-        data.put("lots", lotsArr);
+        data.put(LOTS, lotsArr);
         String dataString =
                 data
                         .toString()

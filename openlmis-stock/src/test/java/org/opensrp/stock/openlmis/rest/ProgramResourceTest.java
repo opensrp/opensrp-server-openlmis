@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.opensrp.stock.openlmis.util.Utils.PROGRAMS;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -188,7 +189,7 @@ public class ProgramResourceTest extends BaseResourceTest {
         expectedPrograms.add(expectedProgram);
 
         JSONObject data = new JSONObject();
-        data.put("programs", programsArr);
+        data.put(PROGRAMS, programsArr);
         String dataString =
                         data.toString()
                         .replace("\"{", "{")
@@ -240,7 +241,7 @@ public class ProgramResourceTest extends BaseResourceTest {
         programsArr.put(mapper.writeValueAsString(expectedProgram));
 
         JSONObject data = new JSONObject();
-        data.put("programs", programsArr);
+        data.put(PROGRAMS, programsArr);
         String dataString =
                 data
                         .toString()

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
+import static org.opensrp.stock.openlmis.util.Utils.PROGRAM_ORDERABLES;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
@@ -65,11 +66,11 @@ public class ProgramOrderableResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("program_orderables")) {
+            if (!postData.has(PROGRAM_ORDERABLES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ProgramOrderable> entries = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString("program_orderables"),
+            List<ProgramOrderable> entries = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString(PROGRAM_ORDERABLES),
                     new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
             for (ProgramOrderable entry : entries) {
                 try {
@@ -91,11 +92,11 @@ public class ProgramOrderableResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has("program_orderables")) {
+            if (!postData.has(PROGRAM_ORDERABLES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ProgramOrderable> programOrderables = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString("program_orderables"),
+            List<ProgramOrderable> programOrderables = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString(PROGRAM_ORDERABLES),
                     new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
             for (ProgramOrderable programOrderable : programOrderables) {
                 try {
