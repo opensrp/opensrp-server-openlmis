@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
@@ -202,5 +203,63 @@ public class ProgramResourceTest extends BaseResourceTest {
         }
 
         assertTwoListsAreSameIgnoringOrder(expectedPrograms, actualPrograms, false);
+    }
+
+    @Test
+    public void testPutShouldUpdateProgramsInDb() throws Exception {
+
+        // program 1
+        ProgramMetaData program = new ProgramMetaData(
+                "identifier"
+        );
+        program.setActive(true);
+        program.setCode(new Code("code"));
+        program.setName("program_name");
+        program.setDescription("program_description");
+        program.setEnableDatePhysicalStockCountCompleted(true);
+        program.setPeriodsSkippable(false);
+        program.setShowNonFullSupplyTab(false);
+        program.setSkipAuthorization(true);
+
+        MasterTableEntry entry = repository.add(program);
+
+        // Program 2
+        ProgramMetaData expectedProgram = new ProgramMetaData(
+                "identifier"
+        );
+        expectedProgram.setActive(true);
+        expectedProgram.setCode(new Code("code_1"));
+        expectedProgram.setName("program_name_1");
+        expectedProgram.setDescription("program_description_1");
+        expectedProgram.setEnableDatePhysicalStockCountCompleted(true);
+        expectedProgram.setPeriodsSkippable(false);
+        expectedProgram.setShowNonFullSupplyTab(true);
+        expectedProgram.setSkipAuthorization(true);
+
+        JSONArray programsArr = new JSONArray();
+        programsArr.put(mapper.writeValueAsString(expectedProgram));
+
+        JSONObject data = new JSONObject();
+        data.put("programs", programsArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        program = (ProgramMetaData) repository.get(entry.getId()).getJson();
+        assertEquals(expectedProgram.getId(), program.getId());
+        assertEquals(expectedProgram.getActive(), program.getActive());
+        assertEquals(expectedProgram.getCode(), program.getCode());
+        assertEquals(expectedProgram.getName(), program.getName());
+        assertEquals(expectedProgram.getDescription(), program.getDescription());
+        assertEquals(expectedProgram.getEnableDatePhysicalStockCountCompleted(), program.getEnableDatePhysicalStockCountCompleted());
+        assertEquals(expectedProgram.getPeriodsSkippable(), program.getPeriodsSkippable());
+        assertEquals(expectedProgram.getShowNonFullSupplyTab(), program.getShowNonFullSupplyTab());
+        assertEquals(expectedProgram.getSkipAuthorization(), program.getSkipAuthorization());
     }
 }
