@@ -39,7 +39,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableEntry;
     }
 
-    @Transactional
+    
     @Override
     public void add(MasterTableEntry masterTableEntry) {
 
@@ -117,7 +117,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.selectByExample(entryExample);
     }
 
-    @Transactional
+    
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 
@@ -147,7 +147,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.select(masterTableExample, 0, DEFAULT_FETCH_LIMIT);
     }
 
-    @Transactional
+    
     @Override
     public Long safeRemove(MasterTableEntry masterTableEntry) {
 

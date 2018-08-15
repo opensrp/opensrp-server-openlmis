@@ -196,11 +196,7 @@ public abstract class BaseResourceTest {
     /** Objects in the list should have a unique uuid identifier field **/
     protected void assertTwoListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList, boolean isSync) {
 
-        if (isSync) {
-            assertEquals(1, actualList.size());
-        } else {
-            assertEquals(expectedList.size(), actualList.size());
-        }
+        assertEquals(expectedList.size(), actualList.size());
 
         Set<String> expectedIds = new HashSet<>();
         for (Object expected : expectedList) {
