@@ -25,15 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.text.MessageFormat.format;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
-import static sun.security.x509.CRLReasonCodeExtension.REASON;
-import static sun.security.x509.IssuingDistributionPointExtension.REASONS;
+
 
 @Controller
 @RequestMapping(value = "/rest/reasons")
@@ -106,7 +104,10 @@ public class ReasonResource {
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
             for (ReasonMetaData reason : reasons) {
                 try {
-                    MasterTableEntry entry = reasonService.get(REASON, reason.getId());
+                    MasterTableEntry entry = reasonService.get(REASON
+
+
+                            , reason.getId());
                     entry.setJson(reason);
                     reasonService.update(entry);
                 } catch (Exception e) {

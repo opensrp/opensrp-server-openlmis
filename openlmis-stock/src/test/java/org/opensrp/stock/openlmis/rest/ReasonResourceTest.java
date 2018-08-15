@@ -110,7 +110,6 @@ public class ReasonResourceTest extends BaseResourceTest {
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
 
-
         List<Object> actualReasons = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
 
         assertTwoListsAreSameIgnoringOrder(expectedReasons, actualReasons,true);

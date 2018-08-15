@@ -7,10 +7,10 @@ import org.opensrp.stock.openlmis.repository.MasterTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static org.opensrp.stock.openlmis.util.Utils.REASON;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static sun.security.x509.CRLReasonCodeExtension.REASON;
 
 @Service
 public class ReasonService {
@@ -47,5 +47,7 @@ public class ReasonService {
         repository.add(entry);
     }
 
-    public void update(MasterTableEntry entry) { repository.update(entry); }
+    public void update(MasterTableEntry entry) {
+        repository.update(entry);
+    }
 }
