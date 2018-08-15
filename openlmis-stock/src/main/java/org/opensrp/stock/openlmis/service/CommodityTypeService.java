@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.opensrp.stock.openlmis.util.Utils.getMostRecentMasterDataEntry;
-
 @Service
 public class CommodityTypeService {
 
@@ -31,7 +29,6 @@ public class CommodityTypeService {
     public List<CommodityTypeMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> commodityTypes = repository.get("CommodityType", syncServerVersion);
-        commodityTypes = getMostRecentMasterDataEntry(commodityTypes);
 
         List<CommodityTypeMetaData> commodityTypesMetaData = new ArrayList<>();
         for (MasterTableEntry commodityType : commodityTypes) {

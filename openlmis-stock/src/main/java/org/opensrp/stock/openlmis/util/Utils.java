@@ -49,15 +49,4 @@ public class Utils {
     public static String getStringFilter(String filter, HttpServletRequest req) {
         return StringUtils.isEmptyOrWhitespaceOnly(req.getParameter(filter)) ? null : req.getParameter(filter);
     }
-
-    public static List<MasterTableEntry> getMostRecentMasterDataEntry(List<MasterTableEntry> entries) {
-
-        // return the most recently updated list of master data for this type
-        if (entries.size() > 0) {
-            MasterTableEntry mostRecentEntry = entries.get(entries.size() - 1);
-            entries.clear();
-            entries.add(mostRecentEntry);
-        }
-        return entries;
-    }
 }
