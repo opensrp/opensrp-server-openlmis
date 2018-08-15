@@ -18,4 +18,9 @@ public class LocationResourceTest extends BaseResourceTest {
     public void testGetLocationHierarchyByNameShouldGetLocationHierarchy() throws Exception {
         assertNotNull(getResponseAsString(BASE_URL + "Fort Jameson", null, status().isOk()));
     }
+
+    @Test
+    public void testGetLocationHierarchy() throws Exception {
+        assertNotNull(getResponseAsString(BASE_URL, null, status().isOk()));
+    }
 }

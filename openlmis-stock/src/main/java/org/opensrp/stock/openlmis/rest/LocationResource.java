@@ -23,4 +23,11 @@ public class LocationResource {
     protected String getLocationHeirarchy(@PathVariable String id) throws JSONException {
         return locationService.getLocationHeirarchy(id);
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    protected String getLocationHeirarchy() throws JSONException {
+        return locationService.getLocationHeirarchy();
+    }
 }
+

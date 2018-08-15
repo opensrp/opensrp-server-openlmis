@@ -17,10 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.TRADE_ITEMS;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class TradeItemResourceTest extends BaseResourceTest {

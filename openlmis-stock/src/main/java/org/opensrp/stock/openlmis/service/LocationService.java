@@ -15,4 +15,8 @@ public class LocationService {
     public String getLocationHeirarchy(String locationIdOrName) throws JSONException {
         return new Gson().toJson(locationService.getLocationTreeOf(locationIdOrName));
     }
+
+    public String getLocationHeirarchy() throws JSONException {
+        return new Gson().toJson(locationService.getLocationTree());
+    }
 }

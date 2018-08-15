@@ -1,21 +1,11 @@
 package org.opensrp.stock.openlmis.util;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
+import com.google.gson.*;
+import com.mysql.jdbc.StringUtils;
 import org.joda.time.DateTime;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.mysql.jdbc.StringUtils;
-import org.opensrp.stock.openlmis.domain.MasterTableEntry;
-
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Type;
 
 public class Utils {
 
