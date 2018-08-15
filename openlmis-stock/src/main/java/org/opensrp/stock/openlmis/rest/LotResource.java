@@ -28,6 +28,7 @@ import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
 import static org.opensrp.stock.openlmis.util.Utils.getLongFilter;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
 @RequestMapping(value = "/rest/lots")
@@ -74,6 +75,32 @@ public class LotResource {
             for (Lot entry : entries) {
                 try {
                     lotService.add(entry);
+                } catch (Exception e) {
+                    logger.error("Lot " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(format("Sync data processing failed with exception {0}.- ", e));
+            return new ResponseEntity<>(INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(CREATED);
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(headers = { "Accept=application/json" }, method = PUT)
+    public ResponseEntity<HttpStatus> update(@RequestBody String data) {
+
+        try {
+            JSONObject postData = new JSONObject(data);
+            if (!postData.has("lots")) {
+                return new ResponseEntity<>(BAD_REQUEST);
+            }
+
+            List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString("lots"),
+                    new TypeToken<ArrayList<Lot>>() {}.getType());
+            for (Lot entry : entries) {
+                try {
+                    lotService.update(entry);
                 } catch (Exception e) {
                     logger.error("Lot " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

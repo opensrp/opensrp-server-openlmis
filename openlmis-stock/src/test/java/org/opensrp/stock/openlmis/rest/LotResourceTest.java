@@ -187,6 +187,53 @@ public class LotResourceTest extends BaseResourceTest {
         assertListsAreSameIgnoringOrder(expectedLots, actualLots);
     }
 
+    @Test
+    public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
+
+        // Lot 1
+        Lot lot = new Lot();
+        lot.setActive(false);
+        lot.setId("id");
+        lot.setTradeItemId("trade_item_id");
+        lot.setManufactureDate(getCurrentTime() - 20000L);
+        lot.setExpirationDate(getCurrentTime() - 20000L);
+        lot.setLotCode("lot_code");
+
+        repository.add(lot);
+
+        // updated Lot
+        Lot expectedLot = new Lot();
+        expectedLot.setActive(false);
+        expectedLot.setExpirationDate(getCurrentTime());
+        expectedLot.setId("id");
+        expectedLot.setLotCode("lot_code_2");
+        expectedLot.setManufactureDate(getCurrentTime() - 20000L);
+        expectedLot.setTradeItemId("trade_item_id_2");
+
+        JSONArray lotsArr = new JSONArray();
+        lotsArr.put(mapper.writeValueAsString(expectedLot));
+
+        JSONObject data = new JSONObject();
+        data.put("lots", lotsArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+
+        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        lot = repository.get(lot.getId());
+        assertEquals(expectedLot.getId(), lot.getId());
+        assertEquals(expectedLot.getActive(), lot.getActive());
+        assertEquals(expectedLot.getLotCode(), lot.getLotCode());
+        assertEquals(expectedLot.getExpirationDate(), lot.getExpirationDate());
+        assertEquals(expectedLot.getTradeItemId(), lot.getTradeItemId());
+        assertEquals(expectedLot.getManufactureDate(), lot.getManufactureDate());
+    }
+    
     public void assertListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList) {
 
         assertEquals(expectedList.size(), actualList.size());

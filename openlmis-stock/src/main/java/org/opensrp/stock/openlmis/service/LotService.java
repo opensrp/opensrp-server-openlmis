@@ -21,8 +21,11 @@ public class LotService {
         return repository.get(syncServerVersion);
     }
 
-    // TODO: maybe add update endpoint
     public void add(Lot lot) {
         repository.add(lot);
+    }
+
+    public void update(Lot lot) {
+        repository.update(lot);
     }
 }
