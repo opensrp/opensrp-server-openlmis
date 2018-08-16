@@ -7,7 +7,6 @@ import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.repository.mapper.custom.CustomMasterTableMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
