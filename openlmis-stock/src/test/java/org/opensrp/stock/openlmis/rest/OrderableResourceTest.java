@@ -47,10 +47,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         Orderable expectedOrderable = new Orderable();
 
-        expectedOrderable.setCode("code");
-        expectedOrderable.setCommodityTypeId("commodity_type_id");
-        expectedOrderable.setDispensable(12);
         expectedOrderable.setFullProductCode("full_product_code");
+        expectedOrderable.setCommodityTypeId("commodity_type_id");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code");
         expectedOrderable.setId("id");
         expectedOrderable.setNetContent(18);
         expectedOrderable.setRoundToZero(true);
@@ -62,10 +62,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         expectedOrderable = new Orderable();
 
-        expectedOrderable.setCode("code_1");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
-        expectedOrderable.setDispensable(18);
         expectedOrderable.setFullProductCode("full_product_code_1");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_1");
         expectedOrderable.setId("id_1");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -91,10 +91,10 @@ public class OrderableResourceTest extends BaseResourceTest {
         // orderable 1
         Orderable expectedOrderable = new Orderable();
 
-        expectedOrderable.setCode("code");
-        expectedOrderable.setCommodityTypeId("commodity_type_id");
-        expectedOrderable.setDispensable(12);
         expectedOrderable.setFullProductCode("full_product_code");
+        expectedOrderable.setCommodityTypeId("commodity_type_id");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code");
         expectedOrderable.setId("id");
         expectedOrderable.setNetContent(18);
         expectedOrderable.setRoundToZero(true);
@@ -108,10 +108,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         // orderable 2
         expectedOrderable = new Orderable();
-        expectedOrderable.setCode("code_1");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
-        expectedOrderable.setDispensable(18);
         expectedOrderable.setFullProductCode("full_product_code_1");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_1");
         expectedOrderable.setId("id_1");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -123,10 +123,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         // orderable 3
         expectedOrderable = new Orderable();
-        expectedOrderable.setCode("code_2");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_2");
-        expectedOrderable.setDispensable(10);
         expectedOrderable.setFullProductCode("full_product_code_2");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_2");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_2");
         expectedOrderable.setId("id_2");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -151,10 +151,10 @@ public class OrderableResourceTest extends BaseResourceTest {
         // orderable 1
         Orderable expectedOrderable = new Orderable();
 
-        expectedOrderable.setCode("code");
-        expectedOrderable.setCommodityTypeId("commodity_type_id");
-        expectedOrderable.setDispensable(12);
         expectedOrderable.setFullProductCode("full_product_code");
+        expectedOrderable.setCommodityTypeId("commodity_type_id");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code");
         expectedOrderable.setId("id");
         expectedOrderable.setNetContent(18);
         expectedOrderable.setRoundToZero(true);
@@ -166,10 +166,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         // orderable 2
         expectedOrderable = new Orderable();
-        expectedOrderable.setCode("code_1");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
-        expectedOrderable.setDispensable(18);
         expectedOrderable.setFullProductCode("full_product_code_1");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_1");
         expectedOrderable.setId("id_1");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -181,10 +181,10 @@ public class OrderableResourceTest extends BaseResourceTest {
 
         // orderable 3
         expectedOrderable = new Orderable();
-        expectedOrderable.setCode("code_2");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_2");
-        expectedOrderable.setDispensable(10);
         expectedOrderable.setFullProductCode("full_product_code_2");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_2");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_2");
         expectedOrderable.setId("id_2");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -219,10 +219,10 @@ public class OrderableResourceTest extends BaseResourceTest {
         // orderable 1
         Orderable orderable = new Orderable();
 
-        orderable.setCode("code");
-        orderable.setCommodityTypeId("commodity_type_id");
-        orderable.setDispensable(12);
         orderable.setFullProductCode("full_product_code");
+        orderable.setCommodityTypeId("commodity_type_id");
+        orderable.setDispensableId("dispensble_id");
+        orderable.setFullProductName("full_product_code");
         orderable.setId("id");
         orderable.setNetContent(18);
         orderable.setRoundToZero(true);
@@ -234,10 +234,10 @@ public class OrderableResourceTest extends BaseResourceTest {
         // orderable 2
         Orderable expectedOrderable = new Orderable();
 
-        expectedOrderable.setCode("code_1");
-        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
-        expectedOrderable.setDispensable(18);
         expectedOrderable.setFullProductCode("full_product_code_1");
+        expectedOrderable.setCommodityTypeId("commodity_type_id_1");
+        expectedOrderable.setDispensableId("dispensble_id");
+        expectedOrderable.setFullProductName("full_product_code_1");
         expectedOrderable.setId("id");
         expectedOrderable.setNetContent(12);
         expectedOrderable.setRoundToZero(true);
@@ -260,8 +260,8 @@ public class OrderableResourceTest extends BaseResourceTest {
         putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
         orderable = repository.get("id");
-        assertEquals(orderable.getCode(), expectedOrderable.getCode());
         assertEquals(orderable.getFullProductCode(), expectedOrderable.getFullProductCode());
+        assertEquals(orderable.getFullProductName(), expectedOrderable.getFullProductName());
         assertEquals(orderable.getCommodityTypeId(), expectedOrderable.getCommodityTypeId());
         assertEquals(orderable.getTradeItemId(), expectedOrderable.getTradeItemId());
     }

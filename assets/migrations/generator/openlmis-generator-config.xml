@@ -14,13 +14,13 @@
         <javaClientGenerator targetPackage="org.opensrp.stock.openlmis.repository.mapper"
                              targetProject="openlmis-stock/src/main/java" type="XMLMAPPER" />
 
-        <!-- comment out tables whose models you would not want generated
-        <table schema="core" tableName="orderable" />
+        <!-- comment out tables whose models you would not want generated -->
         <table schema="core" tableName="program_orderable" />
         <table schema="core" tableName="master_table" domainObjectName="MasterTableEntry">
             <columnOverride column="json" typeHandler="org.opensrp.stock.openlmis.handler.MasterTableTypeHandler"  />
         </table>
-        <table schema="core" tableName="master_metadata" domainObjectName="MasterMetadataEntry"/> -->
+        <table schema="core" tableName="master_metadata" domainObjectName="MasterMetadataEntry"/>
         <table schema="core" tableName="lot"/>
+        <table schema="core" tableName="orderable" />
     </context>
 </generatorConfiguration>
