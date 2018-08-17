@@ -5,7 +5,7 @@
             location="/Users/vkaruri/Desktop/Ona_Projects/opensrp-server-openlmis/assets/migrations/drivers/postgresql-42.2.1.jar" />
     <context id="core">
         <!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin> -->
-        <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/opensrp"
+        <jdbcConnection connectionURL="jdbc:postgresql://localhost:5432/openlmis"
                         driverClass="org.postgresql.Driver" password="admin" userId="openlmis_admin" />
         <javaModelGenerator targetPackage="org.opensrp.stock.openlmis.domain"
                             targetProject="openlmis-stock/src/main/java" />
