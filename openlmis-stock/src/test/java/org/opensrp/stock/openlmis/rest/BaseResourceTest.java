@@ -52,18 +52,22 @@ public abstract class BaseResourceTest {
 
     protected ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
 
-    protected static String tableName;
+    protected static List<String> tableNames = new ArrayList<>();
 
     @Before
     public void setUp() {
         setMockMvc();
     }
 
-    protected void truncateTable(String tableName) {
+    protected void truncateTables() {
+        Connection connection = null;
         try {
-            Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("TRUNCATE " + tableName);
+            for (String tableName : tableNames) {
+                connection = DataSourceUtils.getConnection(openLmisDataSource);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("TRUNCATE " + tableName);
+                connection.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

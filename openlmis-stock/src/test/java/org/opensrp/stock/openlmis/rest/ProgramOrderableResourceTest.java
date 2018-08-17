@@ -32,12 +32,13 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
 
     @Before
     public void bootStrap() {
-        truncateTable("core.program_orderable");
+        tableNames.add("core.program_orderable");
+        truncateTables();
     }
 
     @After
     public void tearDown() {
-        truncateTable("core.program_orderable");
+        truncateTables();
     }
 
     @Test

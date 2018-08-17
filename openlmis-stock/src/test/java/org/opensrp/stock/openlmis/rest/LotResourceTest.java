@@ -32,12 +32,13 @@ public class LotResourceTest extends BaseResourceTest {
 
     @Before
     public void bootStrap() {
-        truncateTable("core.lot");
+        tableNames.add("core.lot");
+        truncateTables();
     }
 
     @After
     public void tearDown() {
-        truncateTable("core.lot");
+        truncateTables();
     }
 
     @Test

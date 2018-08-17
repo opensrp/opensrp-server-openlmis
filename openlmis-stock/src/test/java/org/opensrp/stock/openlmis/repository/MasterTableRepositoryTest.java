@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.Code;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
-import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,9 +248,5 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         entry = repository.get(entry.getId());
 
         assertNotNull(entry.getDateDeleted());
-    }
-
-    private void addMasterTableMetadata() {
-
     }
 }

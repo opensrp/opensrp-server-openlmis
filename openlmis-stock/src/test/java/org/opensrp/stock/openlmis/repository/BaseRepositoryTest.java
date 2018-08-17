@@ -32,6 +32,7 @@ public abstract class BaseRepositoryTest {
                 Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
                 Statement statement = connection.createStatement();
                 statement.executeUpdate("TRUNCATE " + tableName);
+                connection.close();
             }
         } catch (Exception e) {
             e.printStackTrace();

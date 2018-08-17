@@ -30,12 +30,14 @@ public class ReasonResourceTest extends BaseResourceTest {
 
     @Before
     public void bootStrap() {
-        truncateTable("core.master_table");
+        tableNames.add("core.master_table");
+        tableNames.add("core.master_metadata");
+        truncateTables();
     }
 
     @After
     public void tearDown() {
-        truncateTable("core.master_table");
+        truncateTables();
     }
 
     @Test
