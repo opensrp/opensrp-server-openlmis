@@ -18,7 +18,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
 
     @BeforeClass
     public static void bootStrap() {
-        tableName = "core.lot";
+        tableNames.add("core.lot");
     }
 
     @Test

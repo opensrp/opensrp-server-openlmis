@@ -47,7 +47,9 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         }
 
         // MasterTableEntry already exists
-        if (retrievePrimaryKey(masterTableEntry) != null) {
+        String metaDataType = masterTableEntry.getJson().getClass().getSimpleName();
+        String metaDataId = ((BaseMetaData) masterTableEntry.getJson()).getId();
+        if (get(metaDataType, metaDataId) != null || get(masterTableEntry.getId()) != null) {
             return;
         }
 
@@ -64,32 +66,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         MasterMetadataEntry entry =  convert((BaseMetaData) masterTableEntry.getJson());
         entry.setMasterTableEntryId(masterTableEntry.getId());
         masterMetadataRepository.add(entry);
-    }
-
-    private Long retrievePrimaryKey(MasterTableEntry masterTableEntry) {
-
-        Object uniqueId = getUniqueField(masterTableEntry);
-        if (uniqueId == null) {
-            return null;
-        }
-        Long id = (Long) uniqueId;
-
-        MasterTableEntryExample masterTableEntryExample = new MasterTableEntryExample();
-        masterTableEntryExample.createCriteria().andIdEqualTo(id);
-
-        List<MasterTableEntry> result = masterTableMapper.selectByExample(masterTableEntryExample);
-        if (result.size() == 0) {
-            return null;
-        }
-        return masterTableEntry.getId();
-    }
-
-    private Object getUniqueField(MasterTableEntry masterTableEntry) {
-
-        if (masterTableEntry == null) {
-            return null;
-        }
-        return masterTableEntry.getId();
     }
 
     @Override
@@ -120,22 +96,19 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 
+        BaseMetaData metaDataEntry = (BaseMetaData) masterTableEntry.getJson();
+        String metaDataType = metaDataEntry.getClass().getSimpleName().split("Meta")[0];
+        List<MasterMetadataEntry> result = masterMetadataRepository.get(metaDataEntry.getId(), metaDataType);
+
+        // update master data in master table
+        MasterMetadataEntry lastEntry = result.get(result.size() - 1);
+        masterTableEntry.setId(lastEntry.getMasterTableEntryId());
         masterTableEntry.setServerVersion(getCurrentTime());
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
-
-        // Add or update metadata to master metadata table
-        MasterMetadataEntry entry = convert((BaseMetaData) masterTableEntry.getJson());
-        entry.setMasterTableEntryId(masterTableEntry.getId());
-        List<MasterMetadataEntry> result = masterMetadataRepository.get(entry.getUuid(), entry.getClass().getName());
-
-        if (result != null && result.size() > 0) {
-            MasterMetadataEntry lastEntry = result.get(result.size() - 1);
-            entry.setId(lastEntry.getId());
-            entry.setServerVersion(getCurrentTime());
-            masterMetadataRepository.update(entry);
-        } else {
-            masterMetadataRepository.add(entry);
-        }
+        // update metadata in master metadata table
+        metaDataEntry.setId(lastEntry.getUuid());
+        metaDataEntry.setServerVersion(getCurrentTime());
+        masterMetadataRepository.update(convert(metaDataEntry));
     }
 
     @Override

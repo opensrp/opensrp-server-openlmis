@@ -94,12 +94,10 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
 
     private boolean isDuplicateEntry(MasterMetadataEntry metadataEntry) {
 
-        Long id = metadataEntry.getId();
-        if (id == null) {
-            return false;
-        }
+        String uuid = metadataEntry.getUuid();
+        String type = metadataEntry.getType();
         MasterMetadataEntryExample metadataEntryExample = new MasterMetadataEntryExample();
-        metadataEntryExample.createCriteria().andIdEqualTo(id);
+        metadataEntryExample.createCriteria().andUuidEqualTo(uuid).andTypeEqualTo(type);
 
         List<MasterMetadataEntry> result = metadataEntryMapper.selectByExample(metadataEntryExample);
         return (result.size() != 0 ? true : false);
