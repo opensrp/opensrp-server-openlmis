@@ -40,7 +40,7 @@ public class TradeItemClassificationResource {
     private static Logger logger = LoggerFactory.getLogger(TradeItemClassificationResource.class.toString());
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-            .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
+            .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
