@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
 import org.opensrp.stock.openlmis.service.DispensableService;
-import org.opensrp.stock.openlmis.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,7 @@ import java.util.List;
 
 import static java.text.MessageFormat.format;
 import static org.opensrp.stock.openlmis.util.Utils.*;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
@@ -42,7 +39,7 @@ public class DispensableResource {
     private static Logger logger = LoggerFactory.getLogger(DispensableResource.class.toString());
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-            .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
+            .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody

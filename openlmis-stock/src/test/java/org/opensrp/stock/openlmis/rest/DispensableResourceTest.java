@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.Gtin;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.DispensableMetaData;
 import org.opensrp.stock.openlmis.repository.MasterTableRepository;
@@ -15,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.opensrp.stock.openlmis.util.Utils.DISPENSABLES;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class DispensableResourceTest extends BaseResourceTest {
