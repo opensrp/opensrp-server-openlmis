@@ -31,9 +31,14 @@ public class Utils {
 
     public static final String REASONS = "reasons";
 
-    public static  final String TRADE_ITEM = "TradeItem";
+    public static final String TRADE_ITEM = "TradeItem";
 
-    public final static String TRADE_ITEMS = "trade_items";
+    public static final  String TRADE_ITEMS = "trade_items";
+
+    public static final String DISPENSABLE = "Dispensable";
+
+    public static final String DISPENSABLES = "dispensables";
+
 
     public static Long getCurrentTime() {
         return System.nanoTime();
