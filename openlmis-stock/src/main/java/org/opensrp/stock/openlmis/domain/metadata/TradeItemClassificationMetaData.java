@@ -12,6 +12,8 @@ public class TradeItemClassificationMetaData extends BaseMetaData {
 
     public TradeItemClassificationMetaData() { }
 
+    public TradeItemClassificationMetaData(String id) { super(id); }
+
     public TradeItemClassificationMetaData(String id, TradeItemMetaData tradeItem, String classificationSystem, String classificationId) {
         super(id);
         this.tradeItem = tradeItem;
