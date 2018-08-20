@@ -17,6 +17,6 @@
     <mvc:annotation-driven/>
 
     <beans profile="postgres">
-        <import resource="spring/persistence_postgres.xml"/>
+        <import resource="openlmis-persistence-postgres.xml"/>
     </beans>
 </beans>
