@@ -39,6 +39,10 @@ public class Utils {
 
     public static final String DISPENSABLES = "dispensables";
 
+    public static final String TRADE_ITEM_CLASSIFICATION = "TradeItemClassification";
+
+    public static final String TRADE_ITEM_CLASSIFICATIONS = "trade_item_classifications";
+
 
     public static Long getCurrentTime() {
         return System.nanoTime();
