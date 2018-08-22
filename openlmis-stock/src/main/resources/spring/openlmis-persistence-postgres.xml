@@ -8,26 +8,26 @@
 
 	<context:component-scan base-package="org.opensrp.stock.openlmis" />
 
-	<bean id="openSRPDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<bean id="openLMISDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/jdbc/openLMISDB" />
 	</bean>
 
 
 	<tx:annotation-driven transaction-manager="openSRPTransactionManager" />
-	<bean id="openSRPTransactionManager"
+	<bean id="openLMISTransactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="openSRPDataSource" />
+		<property name="dataSource" ref="openLMISDataSource" />
 	</bean>
 
-	<bean id="OpenSRPSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="openSRPDataSource" />
+	<bean id="OpenLMISSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="openLMISDataSource" />
 		<property name="typeAliasesPackage" value="org.opensrp.stock.openlmis.domain" />
 		<property name="mapperLocations"
 			value="classpath*:org/opensrp/stock/openlmis/repository/mapper/**/*.xml" />
 	</bean>
 
-	<bean id="OpenSRPSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="OpenSRPSqlSessionFactory" />
+	<bean id="OpenLMISSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="OpenLMISSqlSessionFactory" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
