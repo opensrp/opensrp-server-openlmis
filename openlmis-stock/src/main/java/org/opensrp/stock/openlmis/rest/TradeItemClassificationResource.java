@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemClassificationMetaData;
 import org.opensrp.stock.openlmis.service.TradeItemClassificationService;
-import org.opensrp.stock.openlmis.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
