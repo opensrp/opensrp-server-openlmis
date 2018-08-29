@@ -1,6 +1,5 @@
 package org.opensrp.stock.openlmis.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
@@ -13,16 +12,17 @@ public final class StockCardLineItemReason {
     @JsonProperty
     private String description;
 
+    @JsonProperty
     private String reasonType;
 
+    @JsonProperty
     private String reasonCategory;
 
+    @JsonProperty
     private Boolean isFreeTextAllowed;
 
+    @JsonProperty
     private List<String> tags;
-
-
-    public StockCardLineItemReason() { }
 
     /**
      * Creates new instance based on data from the domain object.
@@ -64,12 +64,12 @@ public final class StockCardLineItemReason {
         this.description = description;
     }
 
-    public Boolean getFreeTextAllowed() {
+    public Boolean getIsFreeTextAllowed() {
         return isFreeTextAllowed;
     }
 
-    public void setFreeTextAllowed(Boolean freeTextAllowed) {
-        isFreeTextAllowed = freeTextAllowed;
+    public void setIsFreeTextAllowed(Boolean isFreeTextAllowed) {
+        this.isFreeTextAllowed = isFreeTextAllowed;
     }
 
     public List<String> getTags() {

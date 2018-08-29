@@ -205,7 +205,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         stockCardLineItemReason.setReasonCategory("reason_category");
         stockCardLineItemReason.setReasonType("reason_type");
         stockCardLineItemReason.setDescription("description");
-        stockCardLineItemReason.setFreeTextAllowed(true);
+        stockCardLineItemReason.setIsFreeTextAllowed(true);
         stockCardLineItemReason.setName("name");
 
         reason.setStockCardLineItemReason(stockCardLineItemReason);
