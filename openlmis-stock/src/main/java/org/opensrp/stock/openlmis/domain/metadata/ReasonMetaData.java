@@ -1,47 +1,38 @@
 package org.opensrp.stock.openlmis.domain.metadata;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.opensrp.stock.openlmis.domain.StockCardLineItemReason;
 
 public class ReasonMetaData extends BaseMetaData {
 
     @JsonProperty
-    private String name;
+    private String programId;
     @JsonProperty
-    private ProgramMetaData program;
+    private String facilityType;
     @JsonProperty
-    private String description;
-    @JsonProperty
-    private Boolean additive;
+    private StockCardLineItemReason stockCardLineItemReason;
 
-    public String getName() {
-        return name;
+    public String getProgramId() {
+        return programId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProgramId(String programId) {
+        this.programId = programId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFacilityType() {
+        return facilityType;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFacilityType(String facilityType) {
+        this.facilityType = facilityType;
     }
 
-    public ProgramMetaData getProgram() {
-        return program;
+    public StockCardLineItemReason getStockCardLineItemReason() {
+        return stockCardLineItemReason;
     }
 
-    public void setProgram(ProgramMetaData program) {
-        this.program = program;
-    }
-
-    public Boolean getAdditive() {
-        return additive;
-    }
-
-    public void setAdditive(Boolean additive) {
-        this.additive = additive;
+    public void setStockCardLineItemReason(StockCardLineItemReason stockCardLineItemReason) {
+        this.stockCardLineItemReason = stockCardLineItemReason;
     }
 }

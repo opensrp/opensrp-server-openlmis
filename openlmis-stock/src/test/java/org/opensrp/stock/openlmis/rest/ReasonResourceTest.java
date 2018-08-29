@@ -5,9 +5,8 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.Code;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
-import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
+import org.opensrp.stock.openlmis.domain.StockCardLineItemReason;
 import org.opensrp.stock.openlmis.domain.metadata.ReasonMetaData;
 import org.opensrp.stock.openlmis.repository.MasterTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.opensrp.stock.openlmis.util.Utils.REASONS;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class ReasonResourceTest extends BaseResourceTest {
@@ -46,21 +43,19 @@ public class ReasonResourceTest extends BaseResourceTest {
         List<Object> expectedReasons = new ArrayList<>();
 
         ReasonMetaData expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description");
-        expectedReason.setName("name");
         expectedReason.setId("id");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id");
+        expectedReason.setFacilityType("facility_type");
+        setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
 
         expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description_1");
-        expectedReason.setName("name_1");
         expectedReason.setId("id_1");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_1");
+        expectedReason.setFacilityType("facility_type_1");
+        setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
@@ -79,12 +74,10 @@ public class ReasonResourceTest extends BaseResourceTest {
 
         // commodity type 1
         ReasonMetaData expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description");
-        expectedReason.setName("name");
         expectedReason.setId("id");
-        setProgram(expectedReason);
-
+        expectedReason.setProgramId("program_id");
+        expectedReason.setFacilityType("facility_type");
+        setStockCardLineItemReason(expectedReason);
         repository.add(expectedReason);
 
         // these commodity types should sync
@@ -92,22 +85,20 @@ public class ReasonResourceTest extends BaseResourceTest {
         // commodity type 2
         long timeBefore = getCurrentTime();
         expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description_1");
-        expectedReason.setName("name_1");
         expectedReason.setId("id_1");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_1");
+        expectedReason.setFacilityType("facility_type_1");
+        setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
 
         // commodity type 3
         expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description_2");
-        expectedReason.setName("name_2");
         expectedReason.setId("id_2");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_2");
+        expectedReason.setFacilityType("facility_type_2");
+        setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
@@ -124,33 +115,30 @@ public class ReasonResourceTest extends BaseResourceTest {
         JSONArray reasonsArr = new JSONArray();
         // commodity type 1
         ReasonMetaData expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description");
-        expectedReason.setName("name");
         expectedReason.setId("id");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id");
+        expectedReason.setFacilityType("facility_type");
+        setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
 
         // commodity type 2
         expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description_1");
-        expectedReason.setName("name_1");
         expectedReason.setId("id_1");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_1");
+        expectedReason.setFacilityType("facility_type_1");
+        setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
 
         // commodity type 3
         expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(true);
-        expectedReason.setDescription("description_2");
-        expectedReason.setName("name_2");
         expectedReason.setId("id_2");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_2");
+        expectedReason.setFacilityType("facility_type_2");
+        setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
@@ -179,21 +167,18 @@ public class ReasonResourceTest extends BaseResourceTest {
 
         // Reason 1
         ReasonMetaData reason = new ReasonMetaData();
-        reason.setAdditive(true);
-        reason.setDescription("description");
-        reason.setName("name");
         reason.setId("id");
-        setProgram(reason);
+        reason.setProgramId("program_id");
+        reason.setFacilityType("facility_type");
 
         MasterTableEntry entry = repository.add(reason);
 
         // updated Reason
         ReasonMetaData expectedReason = new ReasonMetaData();
-        expectedReason.setAdditive(false);
-        expectedReason.setDescription("description_1");
-        expectedReason.setName("name_1");
         expectedReason.setId("id");
-        setProgram(expectedReason);
+        expectedReason.setProgramId("program_id_1");
+        expectedReason.setFacilityType("facility_type_1");
+        setStockCardLineItemReason(expectedReason);
 
         JSONArray reasonsArr = new JSONArray();
         reasonsArr.put(mapper.writeValueAsString(expectedReason));
@@ -212,23 +197,17 @@ public class ReasonResourceTest extends BaseResourceTest {
 
         reason = (ReasonMetaData) repository.get(entry.getId()).getJson();
         assertEquals(expectedReason.getId(), reason.getId());
-        assertEquals(expectedReason.getAdditive(), reason.getAdditive());
-        assertEquals(expectedReason.getDescription(), reason.getDescription());
-        assertEquals(expectedReason.getName(), reason.getName());
     }
 
-    private void setProgram(ReasonMetaData reasonMetaData) {
+    private void setStockCardLineItemReason(ReasonMetaData reason) {
 
-        ProgramMetaData program = new ProgramMetaData();
-        program.setSkipAuthorization(true);
-        program.setShowNonFullSupplyTab(false);
-        program.setPeriodsSkippable(false);
-        program.setDescription("description");
-        program.setName("name");
-        program.setEnableDatePhysicalStockCountCompleted(false);
-        program.setCode(new Code("code"));
-        program.setId("id");
+        StockCardLineItemReason stockCardLineItemReason = new StockCardLineItemReason();
+        stockCardLineItemReason.setReasonCategory("reason_category");
+        stockCardLineItemReason.setReasonType("reason_type");
+        stockCardLineItemReason.setDescription("description");
+        stockCardLineItemReason.setFreeTextAllowed(true);
+        stockCardLineItemReason.setName("name");
 
-        reasonMetaData.setProgram(program);
+        reason.setStockCardLineItemReason(stockCardLineItemReason);
     }
 }
