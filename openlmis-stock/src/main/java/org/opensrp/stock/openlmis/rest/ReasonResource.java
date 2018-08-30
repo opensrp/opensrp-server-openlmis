@@ -101,10 +101,7 @@ public class ReasonResource {
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
             for (ReasonMetaData reason : reasons) {
                 try {
-                    MasterTableEntry entry = reasonService.get(REASON
-
-
-                            , reason.getId());
+                    MasterTableEntry entry = reasonService.get(REASON, reason.getId());
                     entry.setJson(reason);
                     reasonService.update(entry);
                 } catch (Exception e) {
