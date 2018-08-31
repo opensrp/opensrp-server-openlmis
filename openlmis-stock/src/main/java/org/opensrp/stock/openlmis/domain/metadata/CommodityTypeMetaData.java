@@ -15,8 +15,6 @@ public class CommodityTypeMetaData extends BaseMetaData {
     @JsonProperty
     private String classificationId;
     @JsonProperty
-    private String parentId;
-    @JsonProperty
     private List<CommodityTypeMetaData> children;
     @JsonProperty
     private List<TradeItemMetaData> tradeItems;
@@ -57,14 +55,6 @@ public class CommodityTypeMetaData extends BaseMetaData {
 
     public void setClassificationId(String classificationId) {
         this.classificationId = classificationId;
-    }
-
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
     }
 
     public List<CommodityTypeMetaData> getChildren() {
