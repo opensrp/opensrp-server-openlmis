@@ -35,7 +35,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_2");
@@ -47,7 +47,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         List<Orderable> orderables = repository.get("id", "trade_item_id", "commodity_type_id");
 
@@ -55,7 +55,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testAddShouldNotAddNewOrderableIfDuplicate() {
+    public void testAddShouldUpdateOrderableIfExists() {
 
         Orderable orderable = new Orderable();
         orderable.setId("id");
@@ -67,7 +67,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         Orderable entry = new Orderable();
         entry.setId(orderable.getId());
@@ -79,9 +79,9 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         entry.setNetContent(20);
         entry.setPackRoundingThreshold(3);
         entry.setRoundToZero(true);
-        repository.add(entry);
+        repository.addOrUpdate(entry);
 
-        entry = repository.get(orderable.getId());
+        orderable = repository.get(orderable.getId());
         assertEquals(entry.getFullProductCode(), orderable.getFullProductCode());
         assertEquals(entry.getCommodityTypeId(), orderable.getCommodityTypeId());
         assertEquals(entry.getTradeItemId(), orderable.getTradeItemId());
@@ -105,7 +105,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_1");
@@ -117,7 +117,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
 
         List<Orderable> orderables = repository.get("id_2", "trade_item_id_2", "commodity_type_id_2");
@@ -137,7 +137,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_1");
@@ -149,7 +149,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         Orderable result = repository.get("id_2");
         assertNotNull(result);
@@ -170,7 +170,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_1");
@@ -182,7 +182,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         List<Orderable> result = repository.get(timeBeforeInsertion);
         assertEquals(result.size(), 2);
@@ -201,7 +201,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_3");
@@ -237,7 +237,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
         orderable.setId("id_2");
@@ -249,7 +249,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(40);
         orderable.setPackRoundingThreshold(4);
         orderable.setRoundToZero(true);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         List<Orderable> orderables = repository.getAll();
         assertEquals(orderables.size(), 2);
@@ -268,7 +268,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(10);
         orderable.setPackRoundingThreshold(2);
         orderable.setRoundToZero(false);
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         Long timeStamp = repository.safeRemove(orderable);
         Orderable result = repository.get(orderable.getId());

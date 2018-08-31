@@ -3,7 +3,6 @@ package org.opensrp.stock.openlmis.repository;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensrp.stock.openlmis.domain.ProgramOrderable;
-import org.opensrp.stock.openlmis.repository.ProgramOrderableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_2");
@@ -41,14 +40,14 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.get("id", "program_id", "orderable_id");
         assertEquals(programOrderables.size(), 1);
     }
 
     @Test
-    public void testAddShouldNotAddNewProgramOrderableIfDuplicate() {
+    public void testAddShouldUpdateProgramOrderableIfExists() {
 
         ProgramOrderable programOrderable = new ProgramOrderable();
         programOrderable.setId("id");
@@ -57,18 +56,18 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(2);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(false);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         ProgramOrderable entry = new ProgramOrderable();
-        programOrderable.setId(programOrderable.getId());
-        programOrderable.setProgramId("program_id");
-        programOrderable.setOrderableId("orderable_id");
-        programOrderable.setDosesPerPatient(2);
-        programOrderable.setActive(true);
-        programOrderable.setFullSupply(false);
-        repository.add(entry);
+        entry.setId(programOrderable.getId());
+        entry.setProgramId("program_id_2");
+        entry.setOrderableId("orderable_id_2");
+        entry.setDosesPerPatient(2);
+        entry.setActive(true);
+        entry.setFullSupply(false);
+        repository.addOrUpdate(entry);
 
-        entry = repository.get(programOrderable.getId());
+        programOrderable = repository.get(programOrderable.getId());
         assertEquals(entry.getProgramId(), programOrderable.getProgramId());
         assertEquals(entry.getOrderableId(), programOrderable.getOrderableId());
         assertEquals(entry.getDosesPerPatient(), programOrderable.getDosesPerPatient());
@@ -86,7 +85,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_1");
@@ -95,7 +94,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.get("id_2", "program_id_2", "orderable_id_2");
         assertEquals(programOrderables.size(), 1);
@@ -111,7 +110,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_1");
@@ -120,7 +119,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         ProgramOrderable result = repository.get("id_3");
         assertNotNull(result);
@@ -138,7 +137,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_1");
@@ -147,7 +146,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         List<ProgramOrderable> result = repository.get(timeBeforeInsertion);
         assertEquals(result.size(), 2);
@@ -164,7 +163,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_4");
@@ -195,7 +194,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
         programOrderable.setId("id_6");
@@ -204,7 +203,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         List<ProgramOrderable> programOrderables = repository.getAll();
         assertEquals(programOrderables.size(), 2);
@@ -220,7 +219,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         Long timeStamp = repository.safeRemove(programOrderable);
         ProgramOrderable result = repository.get(programOrderable.getId());

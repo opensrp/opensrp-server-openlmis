@@ -73,7 +73,7 @@ public class TradeItemResource {
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
             for (TradeItemMetaData entry : entries) {
                 try {
-                    tradeItemService.add(entry);
+                    tradeItemService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("TradeItem " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

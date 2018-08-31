@@ -6,7 +6,7 @@ public interface BaseRepository<T> {
 
     T get(Object id);
 
-    void add(T entity);
+    void addOrUpdate(T entity);
 
     void update(T entity);
 

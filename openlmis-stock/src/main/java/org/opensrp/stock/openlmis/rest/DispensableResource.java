@@ -73,7 +73,7 @@ public class DispensableResource {
                     new TypeToken<ArrayList<DispensableMetaData>>() {}.getType());
             for (DispensableMetaData entry : entries) {
                 try {
-                    dispensableService.add(entry);
+                    dispensableService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("Dispensable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

@@ -19,16 +19,17 @@ public class MasterMetadataRepository implements BaseRepository<MasterMetadataEn
     private CustomMasterMetadataEntryMapper metadataEntryMapper;
 
     @Override
-    public void add(MasterMetadataEntry metadataEntry) {
+    public void addOrUpdate(MasterMetadataEntry metadataEntry) {
 
         if (metadataEntry == null || metadataEntry.getMasterTableEntryId() == null) {
             return;
         }
+        metadataEntry.setServerVersion(getCurrentTime());
         // MasterMetadataEntry already exists
         if (isDuplicateEntry(metadataEntry)) {
+            update(metadataEntry);
             return;
         }
-        metadataEntry.setServerVersion(getCurrentTime());
         metadataEntryMapper.insertSelectiveAndSetId(metadataEntry);
     }
 

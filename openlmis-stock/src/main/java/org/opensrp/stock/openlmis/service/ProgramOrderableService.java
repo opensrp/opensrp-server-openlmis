@@ -21,8 +21,8 @@ public class ProgramOrderableService {
         return repository.get(syncServerVersion);
     }
 
-    public void add(ProgramOrderable programOrderable) {
-        repository.add(programOrderable);
+    public void addOrUpdate(ProgramOrderable programOrderable) {
+        repository.addOrUpdate(programOrderable);
     }
 
     public ProgramOrderable get(String id) {

@@ -73,7 +73,7 @@ public class CommodityTypeResource {
                     new TypeToken<ArrayList<CommodityTypeMetaData>>() {}.getType());
             for (CommodityTypeMetaData entry : entries) {
                 try {
-                    commodityTypeService.add(entry);
+                    commodityTypeService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("CommodityType " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

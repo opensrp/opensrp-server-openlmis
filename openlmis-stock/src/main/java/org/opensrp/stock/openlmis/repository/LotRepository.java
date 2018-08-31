@@ -18,16 +18,17 @@ public class LotRepository implements BaseRepository<Lot> {
     private LotMapper lotMapper;
 
     @Override
-    public void add(Lot lot) {
+    public void addOrUpdate(Lot lot) {
 
         if (lot == null || lot.getId() == null) {
             return;
         }
+        lot.setServerVersion(getCurrentTime());
         // Lot already exists
         if (retrievePrimaryKey(lot) != null) {
+            update(lot);
             return;
         }
-        lot.setServerVersion(getCurrentTime());
         lotMapper.insert(lot);
     }
 

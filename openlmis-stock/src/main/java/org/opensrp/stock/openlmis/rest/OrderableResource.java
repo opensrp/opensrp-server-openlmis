@@ -71,7 +71,7 @@ public class OrderableResource {
                     new TypeToken<ArrayList<Orderable>>() {}.getType());
             for (Orderable entry : entries) {
                 try {
-                    orderableService.add(entry);
+                    orderableService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("Orderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

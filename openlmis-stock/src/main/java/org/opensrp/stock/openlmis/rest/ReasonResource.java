@@ -74,7 +74,7 @@ public class ReasonResource {
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
             for (ReasonMetaData entry : entries) {
                 try {
-                    reasonService.add(entry);
+                    reasonService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("Reason " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

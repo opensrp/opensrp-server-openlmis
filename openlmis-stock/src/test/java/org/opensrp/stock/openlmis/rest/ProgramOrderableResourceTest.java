@@ -54,7 +54,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setOrderableId("orderable_id");
         expectedProgramOrderable.setProgramId("program_id");
 
-        repository.add(expectedProgramOrderable);
+        repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
 
         expectedProgramOrderable = new ProgramOrderable();
@@ -65,7 +65,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setOrderableId("orderable_id_1");
         expectedProgramOrderable.setProgramId("program_id_1");
 
-        repository.add(expectedProgramOrderable);
+        repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
 
         String actualProgramOrderablesString = getResponseAsString(BASE_URL, null, status().isOk());
@@ -90,7 +90,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setOrderableId("orderable_id");
         expectedProgramOrderable.setProgramId("program_id");
 
-        repository.add(expectedProgramOrderable);
+        repository.addOrUpdate(expectedProgramOrderable);
 
         // these trade items should sync
         long timeBefore = getCurrentTime();
@@ -104,7 +104,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setOrderableId("orderable_id_1");
         expectedProgramOrderable.setProgramId("program_id_1");
 
-        repository.add(expectedProgramOrderable);
+        repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
 
         // ProgramOrderable 3
@@ -116,7 +116,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setOrderableId("orderable_id_2");
         expectedProgramOrderable.setProgramId("program_id_2");
 
-        repository.add(expectedProgramOrderable);
+        repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
 
         String actualProgramOrderablesString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
@@ -198,7 +198,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         programOrderable.setOrderableId("orderable_id");
         programOrderable.setProgramId("program_id");
 
-        repository.add(programOrderable);
+        repository.addOrUpdate(programOrderable);
 
         // updated ProgramOrderable
         ProgramOrderable expectedProgramOrderable = new ProgramOrderable();

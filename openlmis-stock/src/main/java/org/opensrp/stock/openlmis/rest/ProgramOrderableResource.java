@@ -71,7 +71,7 @@ public class ProgramOrderableResource {
                     new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
             for (ProgramOrderable entry : entries) {
                 try {
-                    programOrderableService.add(entry);
+                    programOrderableService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("ProgramOrderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

@@ -31,7 +31,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -40,7 +40,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         List<Lot> lots = repository.getAll();
 
@@ -48,7 +48,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testAddShouldNotAddNewLotIfDuplicate() {
+    public void testAddShouldUpdateLotIfExists() {
 
         Lot lot = new Lot();
         lot.setActive(true);
@@ -57,7 +57,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         Lot entry = new Lot();
         entry.setId(lot.getId());
@@ -66,9 +66,9 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         entry.setLotCode("lot_code_1");
         entry.setManufactureDate(getCurrentTime() - 20000L);
         entry.setTradeItemId("trade_item_id_1");
-        repository.add(entry);
+        repository.addOrUpdate(entry);
 
-        entry = repository.get(lot.getId());
+        lot = repository.get(lot.getId());
         assertEquals(entry.getId(), lot.getId());
         assertEquals(entry.getLotCode(), lot.getLotCode());
         assertEquals(entry.getTradeItemId(), lot.getTradeItemId());
@@ -86,7 +86,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -95,7 +95,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
 
         List<Lot> lots = repository.get("id_1", "trade_item_id_2", "lot_code_2");
@@ -112,7 +112,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -121,7 +121,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         assertNotNull(repository.get("id_1"));
     }
@@ -138,7 +138,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -147,7 +147,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         List<Lot> result = repository.get(timeBeforeInsertion);
         assertEquals(result.size(), 2);
@@ -163,7 +163,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -193,7 +193,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         lot = new Lot();
         lot.setActive(true);
@@ -202,7 +202,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         List<Lot> lots = repository.getAll();
 
@@ -219,7 +219,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         Long timeStamp = repository.safeRemove(lot);
         Lot result = repository.get(lot.getId());

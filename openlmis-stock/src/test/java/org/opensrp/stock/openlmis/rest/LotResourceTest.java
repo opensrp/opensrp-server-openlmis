@@ -55,7 +55,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         expectedLot = new Lot();
@@ -66,7 +66,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         String actualLotsString = getResponseAsString(BASE_URL, null, status().isOk());
@@ -92,7 +92,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
 
         // these trade items should sync
         long timeBefore = getCurrentTime();
@@ -106,7 +106,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_1");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         // lot 3
@@ -118,7 +118,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         String actualLotsString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
@@ -201,7 +201,7 @@ public class LotResourceTest extends BaseResourceTest {
         lot.setExpirationDate(getCurrentTime() - 20000L);
         lot.setLotCode("lot_code");
 
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         // updated Lot
         Lot expectedLot = new Lot();

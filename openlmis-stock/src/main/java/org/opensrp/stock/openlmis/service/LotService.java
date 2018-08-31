@@ -21,8 +21,8 @@ public class LotService {
         return repository.get(syncServerVersion);
     }
 
-    public void add(Lot lot) {
-        repository.add(lot);
+    public void addOrUpdate(Lot lot) {
+        repository.addOrUpdate(lot);
     }
 
     public void update(Lot lot) {

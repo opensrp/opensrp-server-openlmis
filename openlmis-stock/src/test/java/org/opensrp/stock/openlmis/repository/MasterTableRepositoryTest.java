@@ -36,7 +36,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         MasterTableEntry masterTableEntry = new MasterTableEntry();
         masterTableEntry.setJson(metaData);
-        repository.add(masterTableEntry);
+        repository.addOrUpdate(masterTableEntry);
 
         masterTableEntry = repository.get(masterTableEntry.getId());
         assertNotNull(masterTableEntry);
@@ -57,26 +57,41 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     }
 
     @Test
-    public void testAddShouldNotAddNewMasterTableEntryIfDuplicate() {
+    public void testAddShouldUpdateMasterTableEntryIfExists() {
 
-        BaseMetaData metaData = new BaseMetaData(
+        ProgramMetaData metaData = new ProgramMetaData(
                 "identifier"
         );
-        MasterTableEntry entry = repository.add(metaData);
+        metaData.setCode(new Code("code"));
+        metaData.setName("program");
+        metaData.setDescription("description");
+        metaData.setEnableDatePhysicalStockCountCompleted(true);
+        metaData.setPeriodsSkippable(false);
+        metaData.setShowNonFullSupplyTab(false);
+        metaData.setSkipAuthorization(true);
+        repository.add(metaData);
 
-        BaseMetaData baseMetaData = new BaseMetaData(
-                "identifier_2"
+        ProgramMetaData newMetaData = new ProgramMetaData(
+                "identifier"
         );
-        MasterTableEntry masterTableEntry = new MasterTableEntry();
-        masterTableEntry.setId(entry.getId());
-        masterTableEntry.setJson(baseMetaData);
-
-        repository.add(masterTableEntry);
-        masterTableEntry = repository.get(entry.getId());
+        newMetaData.setCode(new Code("code_1"));
+        newMetaData.setName("program_1");
+        newMetaData.setDescription("description_1");
+        newMetaData.setEnableDatePhysicalStockCountCompleted(true);
+        newMetaData.setPeriodsSkippable(true);
+        newMetaData.setShowNonFullSupplyTab(false);
+        newMetaData.setSkipAuthorization(false);
+        repository.add(newMetaData);
 
         // assert all data matches
-        baseMetaData = (BaseMetaData) masterTableEntry.getJson();
-        assertEquals(baseMetaData.getId(), metaData.getId());
+        metaData = (ProgramMetaData) repository.get("Program", "identifier").getJson();
+        assertEquals(newMetaData.getId(), metaData.getId());
+        assertEquals(newMetaData.getName(), metaData.getName());
+        assertEquals(newMetaData.getDescription(), metaData.getDescription());
+        assertEquals(newMetaData.getEnableDatePhysicalStockCountCompleted(), metaData.getEnableDatePhysicalStockCountCompleted());
+        assertEquals(newMetaData.getPeriodsSkippable(), metaData.getPeriodsSkippable());
+        assertEquals(newMetaData.getShowNonFullSupplyTab(), metaData.getShowNonFullSupplyTab());
+        assertEquals(newMetaData.getSkipAuthorization(), metaData.getSkipAuthorization());
     }
 
     @Test

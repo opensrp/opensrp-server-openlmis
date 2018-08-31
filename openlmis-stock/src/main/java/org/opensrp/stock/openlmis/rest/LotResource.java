@@ -72,7 +72,7 @@ public class LotResource {
                     new TypeToken<ArrayList<Lot>>() {}.getType());
             for (Lot entry : entries) {
                 try {
-                    lotService.add(entry);
+                    lotService.addOrUpdate(entry);
                 } catch (Exception e) {
                     logger.error("Lot " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

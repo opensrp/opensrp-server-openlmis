@@ -18,16 +18,17 @@ public class OrderableRepository implements BaseRepository<Orderable> {
     private OrderableMapper orderableMapper;
 
     @Override
-    public void add(Orderable orderable) {
+    public void addOrUpdate(Orderable orderable) {
 
         if (orderable == null || orderable.getId() == null) {
             return;
         }
+        orderable.setServerVersion(getCurrentTime());
         // Orderable already exists
         if (retrievePrimaryKey(orderable) != null) {
+            update(orderable);
             return;
         }
-        orderable.setServerVersion(getCurrentTime());
         orderableMapper.insert(orderable);
     }
 
