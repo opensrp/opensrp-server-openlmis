@@ -190,6 +190,50 @@ public class LotResourceTest extends BaseResourceTest {
     }
 
     @Test
+    public void testPostShouldUpdateExistingLotsInDB() throws Exception {
+
+        JSONArray lotsArr = new JSONArray();
+
+        // original lot
+        Lot originalLot = new Lot();
+        originalLot.setActive(false);
+        originalLot.setId("id");
+        originalLot.setTradeItemId("trade_item_id");
+        originalLot.setManufactureDate(getCurrentTime() - 20000L);
+        originalLot.setExpirationDate(getCurrentTime() - 20000L);
+        originalLot.setLotCode("lot_code");
+        originalLot.setTradeItemId("trade_item");
+
+        repository.addOrUpdate(originalLot);
+
+        // updated lot
+        Lot updatedLot = new Lot();
+        updatedLot.setActive(true);
+        updatedLot.setExpirationDate(getCurrentTime());
+        updatedLot.setId("id");
+        updatedLot.setLotCode("lot_code_1");
+        updatedLot.setManufactureDate(getCurrentTime() - 20000L);
+        updatedLot.setTradeItemId("trade_item_id_1");
+        lotsArr.put(mapper.writeValueAsString(updatedLot));
+
+        JSONObject data = new JSONObject();
+        data.put(LOTS, lotsArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        originalLot = repository.get("id");
+        assertEquals(updatedLot.getActive(), originalLot.getActive());
+        assertEquals(updatedLot.getLotCode(), originalLot.getLotCode());
+        assertEquals(updatedLot.getTradeItemId(), originalLot.getTradeItemId());
+    }
+
+    @Test
     public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
 
         // Lot 1

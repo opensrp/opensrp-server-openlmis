@@ -28,7 +28,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         if (baseMetaData == null || baseMetaData.getId() == null) {
             return null;
         }
-
         MasterTableEntry masterTableEntry = convert(baseMetaData, null);
         masterTableEntry.setServerVersion(getCurrentTime());
         addOrUpdate(masterTableEntry);
@@ -51,17 +50,16 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         String metaDataId = ((BaseMetaData) masterTableEntry.getJson()).getId();
         long serverVersion = getCurrentTime();
         masterTableEntry.setServerVersion(serverVersion);
+        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
         if (get(metaDataType, metaDataId) != null || get(masterTableEntry.getId()) != null) {
             update(masterTableEntry);
             return;
         }
 
-        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
         int rowsAffected = masterTableMapper.insertSelectiveAndSetId(masterTableEntry);
         if (rowsAffected < 1 || masterTableEntry.getId() == null) {
             return;
         }
-
         // Add metadata to master metadata table
         MasterMetadataEntry entry =  convert((BaseMetaData) masterTableEntry.getJson());
         entry.setMasterTableEntryId(masterTableEntry.getId());
@@ -103,8 +101,12 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         // update master data in master table
         MasterMetadataEntry lastEntry = result.get(result.size() - 1);
         masterTableEntry.setId(lastEntry.getMasterTableEntryId());
-        masterTableEntry.setServerVersion(getCurrentTime());
+
+        long serverVersion = getCurrentTime();
+        masterTableEntry.setServerVersion(serverVersion);
+        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
+
         // update metadata in master metadata table
         metaDataEntry.setId(lastEntry.getUuid());
         metaDataEntry.setServerVersion(getCurrentTime());

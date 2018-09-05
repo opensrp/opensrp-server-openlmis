@@ -45,7 +45,6 @@ public class LotRepository implements BaseRepository<Lot> {
     }
 
     public List<Lot> get(long prevServerVersion) {
-
         LotExample lotExample = new LotExample();
         lotExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
         return lotMapper.selectByExample(lotExample);
