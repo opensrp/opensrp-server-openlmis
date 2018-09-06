@@ -24,7 +24,6 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
         if (programOrderable == null || programOrderable.getId() == null) {
             return;
         }
-        programOrderable.setServerVersion(getCurrentTime());
         // ProgramOrderable already exists
         if (retrievePrimaryKey(programOrderable) != null) {
             update(programOrderable);
@@ -52,7 +51,6 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
 
     @Override
     public void update(ProgramOrderable programOrderable) {
-        programOrderable.setServerVersion(getCurrentTime());
         programOrderableMapper.updateByPrimaryKey(programOrderable);
     }
 

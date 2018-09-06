@@ -23,7 +23,6 @@ public class OrderableRepository implements BaseRepository<Orderable> {
         if (orderable == null || orderable.getId() == null) {
             return;
         }
-        orderable.setServerVersion(getCurrentTime());
         // Orderable already exists
         if (retrievePrimaryKey(orderable) != null) {
             update(orderable);
@@ -53,7 +52,6 @@ public class OrderableRepository implements BaseRepository<Orderable> {
 
     @Override
     public void update(Orderable orderable) {
-        orderable.setServerVersion(getCurrentTime());
         orderableMapper.updateByPrimaryKey(orderable);
     }
 

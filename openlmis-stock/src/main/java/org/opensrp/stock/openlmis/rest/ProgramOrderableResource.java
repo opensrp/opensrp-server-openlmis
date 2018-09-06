@@ -69,9 +69,12 @@ public class ProgramOrderableResource {
 
             List<ProgramOrderable> entries = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString(PROGRAM_ORDERABLES),
                     new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ProgramOrderable entry : entries) {
                 try {
+                    entry.setServerVersion(serverVersion);
                     programOrderableService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("ProgramOrderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -95,9 +98,12 @@ public class ProgramOrderableResource {
 
             List<ProgramOrderable> programOrderables = (ArrayList<ProgramOrderable>) gson.fromJson(postData.getString(PROGRAM_ORDERABLES),
                     new TypeToken<ArrayList<ProgramOrderable>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ProgramOrderable programOrderable : programOrderables) {
                 try {
+                    programOrderable.setServerVersion(serverVersion);
                     programOrderableService.update(programOrderable);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("ProgramOrderable " + programOrderable.getId() == null ? "" : programOrderable.getId() + " failed to sync", e);
                 }

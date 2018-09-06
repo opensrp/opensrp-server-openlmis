@@ -72,9 +72,12 @@ public class ReasonResource {
 
             List<ReasonMetaData> entries = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString(REASONS),
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ReasonMetaData entry : entries) {
                 try {
+                    entry.setServerVersion(serverVersion);
                     reasonService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Reason " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -99,11 +102,14 @@ public class ReasonResource {
 
             List<ReasonMetaData> reasons = (ArrayList<ReasonMetaData>) gson.fromJson(postData.getString(REASONS),
                     new TypeToken<ArrayList<ReasonMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ReasonMetaData reason : reasons) {
                 try {
                     MasterTableEntry entry = reasonService.get(REASON, reason.getId());
                     entry.setJson(reason);
+                    entry.setServerVersion(serverVersion);
                     reasonService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Reason " + reason.getId() == null ? "" : reason.getId() + " failed to sync", e);
                 }

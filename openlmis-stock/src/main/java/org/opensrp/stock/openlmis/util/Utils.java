@@ -45,7 +45,7 @@ public class Utils {
 
 
     public static Long getCurrentTime() {
-        return System.nanoTime();
+        return System.currentTimeMillis();
     }
 
     public static class DateTimeTypeConverter implements JsonSerializer<DateTime>, JsonDeserializer<DateTime> {

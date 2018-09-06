@@ -23,7 +23,6 @@ public class LotRepository implements BaseRepository<Lot> {
         if (lot == null || lot.getId() == null) {
             return;
         }
-        lot.setServerVersion(getCurrentTime());
         // Lot already exists
         if (retrievePrimaryKey(lot) != null) {
             update(lot);
@@ -52,7 +51,6 @@ public class LotRepository implements BaseRepository<Lot> {
 
     @Override
     public void update(Lot lot) {
-        lot.setServerVersion(getCurrentTime());
         lotMapper.updateByPrimaryKey(lot);
     }
 

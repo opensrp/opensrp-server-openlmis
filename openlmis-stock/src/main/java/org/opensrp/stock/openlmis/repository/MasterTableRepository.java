@@ -29,7 +29,7 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
             return null;
         }
         MasterTableEntry masterTableEntry = convert(baseMetaData, null);
-        masterTableEntry.setServerVersion(getCurrentTime());
+        masterTableEntry.setServerVersion(baseMetaData.getServerVersion());
         addOrUpdate(masterTableEntry);
         if (masterTableEntry.getId() == null) {
             return null;
@@ -48,9 +48,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         // MasterTableEntry already exists
         String metaDataType = masterTableEntry.getJson().getClass().getSimpleName().split("Meta")[0];
         String metaDataId = ((BaseMetaData) masterTableEntry.getJson()).getId();
-        long serverVersion = getCurrentTime();
-        masterTableEntry.setServerVersion(serverVersion);
-        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
         if (get(metaDataType, metaDataId) != null || get(masterTableEntry.getId()) != null) {
             update(masterTableEntry);
             return;
@@ -102,14 +99,11 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         MasterMetadataEntry lastEntry = result.get(result.size() - 1);
         masterTableEntry.setId(lastEntry.getMasterTableEntryId());
 
-        long serverVersion = getCurrentTime();
-        masterTableEntry.setServerVersion(serverVersion);
-        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(serverVersion);
+        ((BaseMetaData) masterTableEntry.getJson()).setServerVersion(masterTableEntry.getServerVersion());
         masterTableMapper.updateByPrimaryKey(masterTableEntry);
 
         // update metadata in master metadata table
         metaDataEntry.setId(lastEntry.getUuid());
-        metaDataEntry.setServerVersion(getCurrentTime());
         masterMetadataRepository.update(convert(metaDataEntry));
     }
 
