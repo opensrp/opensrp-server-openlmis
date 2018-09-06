@@ -103,6 +103,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setId("id_1");
         expectedProgramOrderable.setOrderableId("orderable_id_1");
         expectedProgramOrderable.setProgramId("program_id_1");
+        expectedProgramOrderable.setServerVersion(timeBefore + 1);
 
         repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);
@@ -115,6 +116,7 @@ public class ProgramOrderableResourceTest extends BaseResourceTest {
         expectedProgramOrderable.setId("id_2");
         expectedProgramOrderable.setOrderableId("orderable_id_2");
         expectedProgramOrderable.setProgramId("program_id_2");
+        expectedProgramOrderable.setServerVersion(timeBefore + 1);
 
         repository.addOrUpdate(expectedProgramOrderable);
         expectedProgramOrderables.add(expectedProgramOrderable);

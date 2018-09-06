@@ -105,6 +105,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code_1");
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_1");
+        expectedLot.setServerVersion(timeBefore + 1);
 
         repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
@@ -117,6 +118,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code_2");
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
+        expectedLot.setServerVersion(timeBefore + 2);
 
         repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);

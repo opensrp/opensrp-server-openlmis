@@ -138,6 +138,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id");
+        lot.setServerVersion(timeBeforeInsertion + 1);
         repository.addOrUpdate(lot);
 
         lot = new Lot();
@@ -147,6 +148,7 @@ public class LotRepositoryTest extends BaseRepositoryTest {
         lot.setLotCode("lot_code_2");
         lot.setManufactureDate(getCurrentTime() - 20000L);
         lot.setTradeItemId("trade_item_id_2");
+        lot.setServerVersion(timeBeforeInsertion + 2);
         repository.addOrUpdate(lot);
 
         List<Lot> result = repository.get(timeBeforeInsertion);

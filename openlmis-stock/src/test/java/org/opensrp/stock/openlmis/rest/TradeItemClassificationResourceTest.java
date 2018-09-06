@@ -89,6 +89,7 @@ public class TradeItemClassificationResourceTest extends BaseResourceTest {
         expectedTradeItemClassification.setClassificationId("classification_id_1");
         expectedTradeItemClassification.setClassificationSystem("classification_system_1");
         expectedTradeItemClassification.setTradeItem(new TradeItemMetaData("trade_item_1"));
+        expectedTradeItemClassification.setServerVersion(timeBefore + 1);
 
         repository.add(expectedTradeItemClassification);
         expectedTradeItemClassifications.add(expectedTradeItemClassification);
@@ -99,6 +100,7 @@ public class TradeItemClassificationResourceTest extends BaseResourceTest {
         expectedTradeItemClassification.setClassificationId("classification_id_2");
         expectedTradeItemClassification.setClassificationSystem("classification_system_2");
         expectedTradeItemClassification.setTradeItem(new TradeItemMetaData("trade_item_2"));
+        expectedTradeItemClassification.setServerVersion(timeBefore + 2);
 
         repository.add(expectedTradeItemClassification);
         expectedTradeItemClassifications.add(expectedTradeItemClassification);

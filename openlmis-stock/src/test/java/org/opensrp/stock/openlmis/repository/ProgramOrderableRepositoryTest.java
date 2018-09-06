@@ -137,6 +137,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
+        programOrderable.setServerVersion(timeBeforeInsertion + 1);
         repository.addOrUpdate(programOrderable);
 
         programOrderable = new ProgramOrderable();
@@ -146,6 +147,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
         programOrderable.setDosesPerPatient(3);
         programOrderable.setActive(true);
         programOrderable.setFullSupply(true);
+        programOrderable.setServerVersion(timeBeforeInsertion + 2);
         repository.addOrUpdate(programOrderable);
 
         List<ProgramOrderable> result = repository.get(timeBeforeInsertion);

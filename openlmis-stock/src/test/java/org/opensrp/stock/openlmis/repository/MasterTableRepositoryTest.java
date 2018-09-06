@@ -113,11 +113,13 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         BaseMetaData metaData = new BaseMetaData(
                 "identifier"
         );
+        metaData.setServerVersion(timeBeforeInsertion + 1);
         repository.add(metaData);
 
         metaData = new BaseMetaData(
                 "identifier_2"
         );
+        metaData.setServerVersion(timeBeforeInsertion + 2);
         repository.add(metaData);
 
         List<MasterTableEntry> masterTableEntries = repository.get(timeBeforeInsertion);
@@ -170,17 +172,20 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         BaseMetaData metaData = new TradeItemMetaData(
                 "identifier"
         );
+        metaData.setServerVersion(timeBeforeInsertion + 1);
         repository.add(metaData);
 
         metaData = new TradeItemMetaData(
                 "identifier_2"
         );
+        metaData.setServerVersion(timeBeforeInsertion + 2);
         repository.add(metaData);
 
 
         metaData = new ProgramMetaData(
                 "identifier_3"
         );
+        metaData.setServerVersion(timeBeforeInsertion + 3);
         repository.add(metaData);
 
         List<MasterTableEntry> masterTableEntries = repository.get("TradeItem", timeBeforeInsertion);
@@ -215,6 +220,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         newMetaData.setShowNonFullSupplyTab(false);
         newMetaData.setSkipAuthorization(false);
         updatedEntry.setJson(newMetaData);
+        updatedEntry.setServerVersion(getCurrentTime());
         repository.update(updatedEntry);
 
         // assert all data matches

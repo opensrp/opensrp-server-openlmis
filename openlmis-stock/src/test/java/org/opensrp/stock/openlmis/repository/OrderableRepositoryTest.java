@@ -170,6 +170,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
+        orderable.setServerVersion(timeBeforeInsertion + 1);
         repository.addOrUpdate(orderable);
 
         orderable = new Orderable();
@@ -182,6 +183,7 @@ public class OrderableRepositoryTest extends BaseRepositoryTest {
         orderable.setNetContent(20);
         orderable.setPackRoundingThreshold(3);
         orderable.setRoundToZero(true);
+        orderable.setServerVersion(timeBeforeInsertion + 2);
         repository.addOrUpdate(orderable);
 
         List<Orderable> result = repository.get(timeBeforeInsertion);

@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.opensrp.stock.openlmis.util.Utils.COMMODITY_TYPES;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class CommodityTypeResourceTest extends BaseResourceTest {
@@ -94,8 +92,8 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
 
         // these commodity types should sync
 
-        // commodity type 2
         long timeBefore = getCurrentTime();
+        // commodity type 2
         expectedCommodityType = new CommodityTypeMetaData(
                 "identifier_1"
         );
@@ -104,6 +102,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setName("commodity_name_1");
         expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
+        expectedCommodityType.setServerVersion(timeBefore + 1);
 
         repository.add(expectedCommodityType);
         expectedCommodityTypes.add(expectedCommodityType);
@@ -116,6 +115,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationSystem("classification_system_2");
         expectedCommodityType.setName("commodity_name_2");
         expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
+        expectedCommodityType.setServerVersion(timeBefore + 2);
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         repository.add(expectedCommodityType);

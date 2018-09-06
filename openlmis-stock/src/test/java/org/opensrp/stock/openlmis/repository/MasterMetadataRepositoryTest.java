@@ -111,12 +111,14 @@ public class MasterMetadataRepositoryTest extends BaseRepositoryTest {
         entry.setUuid("uuid");
         entry.setType("type");
         entry.setMasterTableEntryId(93412038L);
+        entry.setServerVersion(timeBeforeInsertion + 1);
         repository.addOrUpdate(entry);
 
         MasterMetadataEntry masterMetadataEntry = new MasterMetadataEntry();
         masterMetadataEntry.setUuid("uuid_2");
         masterMetadataEntry.setType("type_2");
         masterMetadataEntry.setMasterTableEntryId(93412038L);
+        masterMetadataEntry.setServerVersion(timeBeforeInsertion + 2);
         repository.addOrUpdate(masterMetadataEntry);
 
         List<MasterMetadataEntry> entries = repository.get(timeBeforeInsertion);

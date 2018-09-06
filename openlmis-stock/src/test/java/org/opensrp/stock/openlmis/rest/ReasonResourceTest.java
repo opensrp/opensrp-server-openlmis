@@ -89,6 +89,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setProgramId("program_id_1");
         expectedReason.setFacilityType("facility_type_1");
         setStockCardLineItemReason(expectedReason);
+        expectedReason.setServerVersion(timeBefore + 1);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
@@ -99,6 +100,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason.setProgramId("program_id_2");
         expectedReason.setFacilityType("facility_type_2");
         setStockCardLineItemReason(expectedReason);
+        expectedReason.setServerVersion(timeBefore + 2);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);

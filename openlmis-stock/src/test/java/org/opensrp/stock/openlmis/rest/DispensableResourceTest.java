@@ -86,6 +86,7 @@ public class DispensableResourceTest extends BaseResourceTest {
         expectedDispensable.setKeySizeCode("size_code_1");
         expectedDispensable.setKeyRouteOfAdministration("route_of_administration_1");
         expectedDispensable.setKeyDispensingUnit("dispensing_unit_1");
+        expectedDispensable.setServerVersion(timeBefore + 1);
 
         repository.add(expectedDispensable);
         expectedDispensables.add(expectedDispensable);
@@ -96,6 +97,7 @@ public class DispensableResourceTest extends BaseResourceTest {
         expectedDispensable.setKeySizeCode("size_code_2");
         expectedDispensable.setKeyRouteOfAdministration("route_of_administration_2");
         expectedDispensable.setKeyDispensingUnit("dispensing_unit_2");
+        expectedDispensable.setServerVersion(timeBefore + 2);
 
         repository.add(expectedDispensable);
         expectedDispensables.add(expectedDispensable);

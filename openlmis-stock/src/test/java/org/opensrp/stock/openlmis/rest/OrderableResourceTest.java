@@ -118,6 +118,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setRoundToZero(true);
         expectedOrderable.setPackRoundingThreshold(3);
         expectedOrderable.setTradeItemId("trade_item_1");
+        expectedOrderable.setServerVersion(timeBefore + 1);
 
         repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
@@ -133,6 +134,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setRoundToZero(true);
         expectedOrderable.setPackRoundingThreshold(5);
         expectedOrderable.setTradeItemId("trade_item_2");
+        expectedOrderable.setServerVersion(timeBefore + 2);
 
         repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
