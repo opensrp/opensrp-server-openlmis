@@ -71,9 +71,12 @@ public class TradeItemResource {
 
             List<TradeItemMetaData> entries = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString(TRADE_ITEMS),
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (TradeItemMetaData entry : entries) {
                 try {
-                    tradeItemService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    tradeItemService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("TradeItem " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -97,11 +100,14 @@ public class TradeItemResource {
 
             List<TradeItemMetaData> tradeItems = (ArrayList<TradeItemMetaData>) gson.fromJson(postData.getString(TRADE_ITEMS),
                     new TypeToken<ArrayList<TradeItemMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (TradeItemMetaData tradeItem : tradeItems) {
                 try {
                     MasterTableEntry entry = tradeItemService.get(TRADE_ITEM, tradeItem.getId());
                     entry.setJson(tradeItem);
+                    entry.setServerVersion(serverVersion);
                     tradeItemService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("TradeItem " + tradeItem.getId() == null ? "" : tradeItem.getId() + " failed to sync", e);
                 }

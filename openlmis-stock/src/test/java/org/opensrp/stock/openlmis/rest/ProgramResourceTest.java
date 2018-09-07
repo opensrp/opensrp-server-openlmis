@@ -112,6 +112,7 @@ public class ProgramResourceTest extends BaseResourceTest {
         expectedProgram.setPeriodsSkippable(false);
         expectedProgram.setShowNonFullSupplyTab(true);
         expectedProgram.setSkipAuthorization(true);
+        expectedProgram.setServerVersion(timeBefore + 1);
 
         repository.add(expectedProgram);
         expectedPrograms.add(expectedProgram);
@@ -127,6 +128,7 @@ public class ProgramResourceTest extends BaseResourceTest {
         expectedProgram.setPeriodsSkippable(false);
         expectedProgram.setShowNonFullSupplyTab(false);
         expectedProgram.setSkipAuthorization(true);
+        expectedProgram.setServerVersion(timeBefore + 2);
 
         repository.add(expectedProgram);
         expectedPrograms.add(expectedProgram);

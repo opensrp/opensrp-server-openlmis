@@ -69,9 +69,12 @@ public class OrderableResource {
 
             List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString(ORDERABLES),
                     new TypeToken<ArrayList<Orderable>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (Orderable entry : entries) {
                 try {
-                    orderableService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    orderableService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Orderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -95,9 +98,12 @@ public class OrderableResource {
 
             List<Orderable> entries = (ArrayList<Orderable>) gson.fromJson(postData.getString(ORDERABLES),
                     new TypeToken<ArrayList<Orderable>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (Orderable entry : entries) {
                 try {
+                    entry.setServerVersion(serverVersion);
                     orderableService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Orderable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

@@ -19,17 +19,16 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
     private CustomProgramOrderableMapper programOrderableMapper;
 
     @Override
-    public void add(ProgramOrderable programOrderable) {
+    public void addOrUpdate(ProgramOrderable programOrderable) {
         
         if (programOrderable == null || programOrderable.getId() == null) {
             return;
         }
-
         // ProgramOrderable already exists
         if (retrievePrimaryKey(programOrderable) != null) {
+            update(programOrderable);
             return;
         }
-        programOrderable.setServerVersion(getCurrentTime());
         programOrderableMapper.insert(programOrderable);
     }
 
@@ -52,7 +51,6 @@ public class ProgramOrderableRepository implements BaseRepository<ProgramOrderab
 
     @Override
     public void update(ProgramOrderable programOrderable) {
-        programOrderable.setServerVersion(getCurrentTime());
         programOrderableMapper.updateByPrimaryKey(programOrderable);
     }
 

@@ -21,8 +21,8 @@ public class OrderableService {
         return repository.get(syncServerVersion);
     }
 
-    public void add(Orderable orderable) {
-        repository.add(orderable);
+    public void addOrUpdate(Orderable orderable) {
+        repository.addOrUpdate(orderable);
     }
 
     public void update(Orderable orderable) {

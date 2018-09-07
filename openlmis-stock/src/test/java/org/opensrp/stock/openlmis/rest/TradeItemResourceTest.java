@@ -91,6 +91,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         );
         expectedTradeItem.setManufacturerOfTradeItem("manufactuter_1");
         setGtinAndClassifications(expectedTradeItem);
+        expectedTradeItem.setServerVersion(timeBefore + 1);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 
@@ -99,6 +100,7 @@ public class TradeItemResourceTest extends BaseResourceTest {
         );
         expectedTradeItem.setManufacturerOfTradeItem("manufactuter_2");
         setGtinAndClassifications(expectedTradeItem);
+        expectedTradeItem.setServerVersion(timeBefore + 2);
         repository.add(expectedTradeItem);
         expectedTradeItems.add(expectedTradeItem);
 

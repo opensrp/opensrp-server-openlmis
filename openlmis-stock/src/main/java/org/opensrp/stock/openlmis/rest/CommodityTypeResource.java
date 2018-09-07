@@ -71,9 +71,12 @@ public class CommodityTypeResource {
 
             List<CommodityTypeMetaData> entries = (ArrayList<CommodityTypeMetaData>) gson.fromJson(postData.getString(COMMODITY_TYPES),
                     new TypeToken<ArrayList<CommodityTypeMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (CommodityTypeMetaData entry : entries) {
                 try {
-                    commodityTypeService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    commodityTypeService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("CommodityType " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -97,11 +100,14 @@ public class CommodityTypeResource {
 
             List<CommodityTypeMetaData> commodityTypes = (ArrayList<CommodityTypeMetaData>) gson.fromJson(postData.getString(COMMODITY_TYPES),
                     new TypeToken<ArrayList<CommodityTypeMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (CommodityTypeMetaData commodityType : commodityTypes) {
                 try {
                     MasterTableEntry entry = commodityTypeService.get(COMMODITY_TYPE, commodityType.getId());
                     entry.setJson(commodityType);
+                    entry.setServerVersion(serverVersion);
                     commodityTypeService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("CommodityType " + commodityType.getId() == null ? "" : commodityType.getId() + " failed to sync", e);
                 }

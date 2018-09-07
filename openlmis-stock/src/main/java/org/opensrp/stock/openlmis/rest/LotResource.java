@@ -70,9 +70,12 @@ public class LotResource {
 
             List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString(LOTS),
                     new TypeToken<ArrayList<Lot>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (Lot entry : entries) {
                 try {
-                    lotService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    lotService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Lot " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -96,9 +99,12 @@ public class LotResource {
 
             List<Lot> entries = (ArrayList<Lot>) gson.fromJson(postData.getString(LOTS),
                     new TypeToken<ArrayList<Lot>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (Lot entry : entries) {
                 try {
+                    entry.setServerVersion(serverVersion);
                     lotService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Lot " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }

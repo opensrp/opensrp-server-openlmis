@@ -71,9 +71,12 @@ public class TradeItemClassificationResource {
 
             List<TradeItemClassificationMetaData> entries = (ArrayList<TradeItemClassificationMetaData>) gson.fromJson(postData.getString(TRADE_ITEM_CLASSIFICATIONS),
                     new TypeToken<ArrayList<TradeItemClassificationMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (TradeItemClassificationMetaData entry : entries) {
                 try {
-                    tradeItemClassificationService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    tradeItemClassificationService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("TradeItemClassification " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -97,11 +100,14 @@ public class TradeItemClassificationResource {
 
             List<TradeItemClassificationMetaData> tradeItemClassifications = (ArrayList<TradeItemClassificationMetaData>) gson.fromJson(postData.getString(TRADE_ITEM_CLASSIFICATIONS),
                     new TypeToken<ArrayList<TradeItemClassificationMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (TradeItemClassificationMetaData tradeItemClassification : tradeItemClassifications) {
                 try {
                     MasterTableEntry entry = tradeItemClassificationService.get(TRADE_ITEM_CLASSIFICATION, tradeItemClassification.getId());
                     entry.setJson(tradeItemClassification);
+                    entry.setServerVersion(serverVersion);
                     tradeItemClassificationService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("TradeItemClassification " + tradeItemClassification.getId() == null ? "" : tradeItemClassification.getId() + " failed to sync", e);
                 }

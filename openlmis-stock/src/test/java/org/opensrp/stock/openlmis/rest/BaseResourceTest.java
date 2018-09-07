@@ -113,7 +113,6 @@ public abstract class BaseResourceTest {
         return  responseString;
     }
 
-
     protected byte[] getRequestAsByteArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
 
         String finalUrl = url;

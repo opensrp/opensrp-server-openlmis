@@ -15,9 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.opensrp.stock.openlmis.util.Utils.COMMODITY_TYPES;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class CommodityTypeResourceTest extends BaseResourceTest {
@@ -50,7 +48,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id");
         expectedCommodityType.setClassificationSystem("classification_system");
         expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParentId("parent_id");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         repository.add(expectedCommodityType);
@@ -62,7 +60,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id_1");
         expectedCommodityType.setClassificationSystem("classification_system_1");
         expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParentId("parent_id_1");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         repository.add(expectedCommodityType);
@@ -87,23 +85,24 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id");
         expectedCommodityType.setClassificationSystem("classification_system");
         expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParentId("parent_id");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         repository.add(expectedCommodityType);
 
         // these commodity types should sync
 
-        // commodity type 2
         long timeBefore = getCurrentTime();
+        // commodity type 2
         expectedCommodityType = new CommodityTypeMetaData(
                 "identifier_1"
         );
         expectedCommodityType.setClassificationId("classification_id_1");
         expectedCommodityType.setClassificationSystem("classification_system_1");
         expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParentId("parent_id_1");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
+        expectedCommodityType.setServerVersion(timeBefore + 1);
 
         repository.add(expectedCommodityType);
         expectedCommodityTypes.add(expectedCommodityType);
@@ -115,7 +114,8 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id_2");
         expectedCommodityType.setClassificationSystem("classification_system_2");
         expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParentId("parent_id_2");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
+        expectedCommodityType.setServerVersion(timeBefore + 2);
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         repository.add(expectedCommodityType);
@@ -138,7 +138,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id");
         expectedCommodityType.setClassificationSystem("classification_system");
         expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParentId("parent_id");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         expectedCommodityTypes.add(expectedCommodityType);
@@ -151,7 +151,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id_1");
         expectedCommodityType.setClassificationSystem("classification_system_1");
         expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParentId("parent_id_1");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         expectedCommodityTypes.add(expectedCommodityType);
@@ -164,7 +164,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id_2");
         expectedCommodityType.setClassificationSystem("classification_system_2");
         expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParentId("parent_id_2");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         expectedCommodityTypes.add(expectedCommodityType);
@@ -199,7 +199,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         commodityType.setClassificationId("classification_id");
         commodityType.setClassificationSystem("classification_system");
         commodityType.setName("commodity_name");
-        commodityType.setParentId("parent_id");
+        commodityType.setParent(new CommodityTypeMetaData("parent_id"));
         setParentAndChildrenAndTradeItems(commodityType);
 
         MasterTableEntry entry = repository.add(commodityType);
@@ -211,7 +211,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         expectedCommodityType.setClassificationId("classification_id_2");
         expectedCommodityType.setClassificationSystem("classification_system_2");
         expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParentId("parent_id_2");
+        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
         setParentAndChildrenAndTradeItems(expectedCommodityType);
 
         JSONArray commodityTypesArr = new JSONArray();
@@ -234,7 +234,7 @@ public class CommodityTypeResourceTest extends BaseResourceTest {
         assertEquals(expectedCommodityType.getClassificationId(), commodityType.getClassificationId());
         assertEquals(expectedCommodityType.getClassificationSystem(), commodityType.getClassificationSystem());
         assertEquals(expectedCommodityType.getName(), commodityType.getName());
-        assertEquals(expectedCommodityType.getParentId(), commodityType.getParentId());
+        assertEquals(expectedCommodityType.getParent().getId(), commodityType.getParent().getId());
     }
 
     private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {

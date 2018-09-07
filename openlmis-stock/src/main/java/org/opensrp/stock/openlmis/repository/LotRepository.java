@@ -18,16 +18,16 @@ public class LotRepository implements BaseRepository<Lot> {
     private LotMapper lotMapper;
 
     @Override
-    public void add(Lot lot) {
+    public void addOrUpdate(Lot lot) {
 
         if (lot == null || lot.getId() == null) {
             return;
         }
         // Lot already exists
         if (retrievePrimaryKey(lot) != null) {
+            update(lot);
             return;
         }
-        lot.setServerVersion(getCurrentTime());
         lotMapper.insert(lot);
     }
 
@@ -44,7 +44,6 @@ public class LotRepository implements BaseRepository<Lot> {
     }
 
     public List<Lot> get(long prevServerVersion) {
-
         LotExample lotExample = new LotExample();
         lotExample.createCriteria().andServerVersionBetween(prevServerVersion, getCurrentTime());
         return lotMapper.selectByExample(lotExample);
@@ -52,7 +51,6 @@ public class LotRepository implements BaseRepository<Lot> {
 
     @Override
     public void update(Lot lot) {
-        lot.setServerVersion(getCurrentTime());
         lotMapper.updateByPrimaryKey(lot);
     }
 

@@ -71,9 +71,12 @@ public class ProgramResource {
 
             List<ProgramMetaData> entries = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString(PROGRAMS),
                     new TypeToken<ArrayList<ProgramMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ProgramMetaData entry : entries) {
                 try {
+                    entry.setServerVersion(serverVersion);
                     programService.add(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Program " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -97,11 +100,14 @@ public class ProgramResource {
 
             List<ProgramMetaData> programs = (ArrayList<ProgramMetaData>) gson.fromJson(postData.getString(PROGRAMS),
                     new TypeToken<ArrayList<ProgramMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (ProgramMetaData program : programs) {
                 try {
                     MasterTableEntry entry = programService.get(PROGRAM, program.getId());
                     entry.setJson(program);
+                    entry.setServerVersion(serverVersion);
                     programService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Program " + program.getId() == null ? "" : program.getId() + " failed to sync", e);
                 }

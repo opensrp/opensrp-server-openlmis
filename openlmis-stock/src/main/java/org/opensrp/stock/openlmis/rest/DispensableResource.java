@@ -71,9 +71,12 @@ public class DispensableResource {
 
             List<DispensableMetaData> entries = (ArrayList<DispensableMetaData>) gson.fromJson(postData.getString(DISPENSABLES),
                     new TypeToken<ArrayList<DispensableMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (DispensableMetaData entry : entries) {
                 try {
-                    dispensableService.add(entry);
+                    entry.setServerVersion(serverVersion);
+                    dispensableService.addOrUpdate(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Dispensable " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
@@ -97,11 +100,14 @@ public class DispensableResource {
 
             List<DispensableMetaData> dispensables = (ArrayList<DispensableMetaData>) gson.fromJson(postData.getString(DISPENSABLES),
                     new TypeToken<ArrayList<DispensableMetaData>>() {}.getType());
+            long serverVersion = getCurrentTime();
             for (DispensableMetaData dispensable : dispensables) {
                 try {
                     MasterTableEntry entry = dispensableService.get(DISPENSABLE, dispensable.getId());
                     entry.setJson(dispensable);
+                    entry.setServerVersion(serverVersion);
                     dispensableService.update(entry);
+                    serverVersion++;
                 } catch (Exception e) {
                     logger.error("Dispensable " + dispensable.getId() == null ? "" : dispensable.getId() + " failed to sync", e);
                 }

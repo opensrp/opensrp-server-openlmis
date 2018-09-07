@@ -55,7 +55,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         expectedLot = new Lot();
@@ -66,7 +66,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         String actualLotsString = getResponseAsString(BASE_URL, null, status().isOk());
@@ -92,7 +92,7 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code");
         expectedLot.setTradeItemId("trade_item");
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
 
         // these trade items should sync
         long timeBefore = getCurrentTime();
@@ -105,8 +105,9 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code_1");
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_1");
+        expectedLot.setServerVersion(timeBefore + 1);
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         // lot 3
@@ -117,8 +118,9 @@ public class LotResourceTest extends BaseResourceTest {
         expectedLot.setLotCode("lot_code_2");
         expectedLot.setManufactureDate(getCurrentTime() - 20000L);
         expectedLot.setTradeItemId("trade_item_id_2");
+        expectedLot.setServerVersion(timeBefore + 2);
 
-        repository.add(expectedLot);
+        repository.addOrUpdate(expectedLot);
         expectedLots.add(expectedLot);
 
         String actualLotsString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
@@ -190,6 +192,50 @@ public class LotResourceTest extends BaseResourceTest {
     }
 
     @Test
+    public void testPostShouldUpdateExistingLotsInDB() throws Exception {
+
+        JSONArray lotsArr = new JSONArray();
+
+        // original lot
+        Lot originalLot = new Lot();
+        originalLot.setActive(false);
+        originalLot.setId("id");
+        originalLot.setTradeItemId("trade_item_id");
+        originalLot.setManufactureDate(getCurrentTime() - 20000L);
+        originalLot.setExpirationDate(getCurrentTime() - 20000L);
+        originalLot.setLotCode("lot_code");
+        originalLot.setTradeItemId("trade_item");
+
+        repository.addOrUpdate(originalLot);
+
+        // updated lot
+        Lot updatedLot = new Lot();
+        updatedLot.setActive(true);
+        updatedLot.setExpirationDate(getCurrentTime());
+        updatedLot.setId("id");
+        updatedLot.setLotCode("lot_code_1");
+        updatedLot.setManufactureDate(getCurrentTime() - 20000L);
+        updatedLot.setTradeItemId("trade_item_id_1");
+        lotsArr.put(mapper.writeValueAsString(updatedLot));
+
+        JSONObject data = new JSONObject();
+        data.put(LOTS, lotsArr);
+        String dataString =
+                data
+                        .toString()
+                        .replace("\"{", "{")
+                        .replace("}\"", "}")
+                        .replace("\\", "")
+                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+
+        originalLot = repository.get("id");
+        assertEquals(updatedLot.getActive(), originalLot.getActive());
+        assertEquals(updatedLot.getLotCode(), originalLot.getLotCode());
+        assertEquals(updatedLot.getTradeItemId(), originalLot.getTradeItemId());
+    }
+
+    @Test
     public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
 
         // Lot 1
@@ -201,7 +247,7 @@ public class LotResourceTest extends BaseResourceTest {
         lot.setExpirationDate(getCurrentTime() - 20000L);
         lot.setLotCode("lot_code");
 
-        repository.add(lot);
+        repository.addOrUpdate(lot);
 
         // updated Lot
         Lot expectedLot = new Lot();

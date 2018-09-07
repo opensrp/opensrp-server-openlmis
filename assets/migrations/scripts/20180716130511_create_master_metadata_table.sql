@@ -28,6 +28,8 @@ CREATE TABLE core.master_metadata (
     OIDS=FALSE
 ) TABLESPACE core_space;
 
+CREATE INDEX metadata_id ON core.master_metadata(uuid, type);
+
 -- //@UNDO
 -- SQL to undo the change goes here.
 DROP TABLE core.master_metadata;

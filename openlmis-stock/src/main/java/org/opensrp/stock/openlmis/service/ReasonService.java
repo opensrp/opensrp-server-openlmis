@@ -43,7 +43,7 @@ public class ReasonService {
         return repository.get(type, id);
     }
 
-    public void add(BaseMetaData entry) {
+    public void addOrUpdate(BaseMetaData entry) {
         repository.add(entry);
     }
 

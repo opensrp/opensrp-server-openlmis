@@ -58,7 +58,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setPackRoundingThreshold(2);
         expectedOrderable.setTradeItemId("trade_item");
 
-        repository.add(expectedOrderable);
+        repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
 
         expectedOrderable = new Orderable();
@@ -73,7 +73,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setPackRoundingThreshold(3);
         expectedOrderable.setTradeItemId("trade_item_1");
 
-        repository.add(expectedOrderable);
+        repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
 
         String actualOrderablesString = getResponseAsString(BASE_URL, null, status().isOk());
@@ -102,7 +102,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setPackRoundingThreshold(2);
         expectedOrderable.setTradeItemId("trade_item");
 
-        repository.add(expectedOrderable);
+        repository.addOrUpdate(expectedOrderable);
 
         // these trade items should sync
         long timeBefore = getCurrentTime();
@@ -118,8 +118,9 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setRoundToZero(true);
         expectedOrderable.setPackRoundingThreshold(3);
         expectedOrderable.setTradeItemId("trade_item_1");
+        expectedOrderable.setServerVersion(timeBefore + 1);
 
-        repository.add(expectedOrderable);
+        repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
 
         // orderable 3
@@ -133,8 +134,9 @@ public class OrderableResourceTest extends BaseResourceTest {
         expectedOrderable.setRoundToZero(true);
         expectedOrderable.setPackRoundingThreshold(5);
         expectedOrderable.setTradeItemId("trade_item_2");
+        expectedOrderable.setServerVersion(timeBefore + 2);
 
-        repository.add(expectedOrderable);
+        repository.addOrUpdate(expectedOrderable);
         expectedOrderables.add(expectedOrderable);
 
         String actualOrderablesString = getResponseAsString(BASE_URL + "sync", SYNC_SERVER_VERSION + "="+ timeBefore, status().isOk());
@@ -230,7 +232,7 @@ public class OrderableResourceTest extends BaseResourceTest {
         orderable.setPackRoundingThreshold(2);
         orderable.setTradeItemId("trade_item");
 
-        repository.add(orderable);
+        repository.addOrUpdate(orderable);
 
         // orderable 2
         Orderable expectedOrderable = new Orderable();
