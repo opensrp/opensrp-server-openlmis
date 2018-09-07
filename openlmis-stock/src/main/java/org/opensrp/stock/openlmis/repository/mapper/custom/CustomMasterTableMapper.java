@@ -16,4 +16,6 @@ public interface CustomMasterTableMapper extends MasterTableEntryMapper {
     List<MasterTableEntry> selectByType(@Param("type") String type, @Param("offset") int offset, @Param("limit") int limit);
 
     List<MasterTableEntry> selectByTypeAndServerVersion(@Param("type") String type, @Param("lastServerVersion") long lastServerVersion, @Param("offset") int offset, @Param("limit") int limit);
+
+    MasterTableEntry selectByTypeAndId(@Param("type") String type, @Param("id") String id, @Param("offset") int offset, @Param("limit") int limit);
 }

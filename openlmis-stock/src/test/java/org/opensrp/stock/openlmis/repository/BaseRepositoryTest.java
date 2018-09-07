@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-openlmis-application-context.xml")
@@ -17,19 +19,21 @@ public abstract class BaseRepositoryTest {
 
     @Autowired
     private DataSource openLmisDataSource;
-    protected static String tableName;
+    protected static List<String> tableNames = new ArrayList<>();
 
     @Before
     public void setUp() {
-        truncateTables(tableName);
+        truncateTables();
     }
 
-    private void truncateTables(String tableName) {
-
+    private void truncateTables() {
         try {
-            Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("TRUNCATE " + tableName);
+            for (String tableName : tableNames) {
+                Connection connection = DataSourceUtils.getConnection(openLmisDataSource);
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("TRUNCATE " + tableName);
+                connection.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

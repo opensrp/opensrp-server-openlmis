@@ -19,7 +19,7 @@ public class ProgramOrderableRepositoryTest extends BaseRepositoryTest {
 
     @BeforeClass
     public static void bootStrap() {
-        tableName = "core.program_orderable";
+        tableNames.add("core.program_orderable");
     }
 
     @Test

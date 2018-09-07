@@ -1,10 +1,9 @@
 package org.opensrp.stock.openlmis.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.ektorp.impl.StdObjectMapperFactory;
 import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.postgresql.util.PGobject;
 
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 
 public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
 
-    public static final ObjectMapper mapper = new StdObjectMapperFactory().createObjectMapper();
+    public static final ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
 
     @Override
     public void setParameter(PreparedStatement ps, int i, BaseMetaData parameter, JdbcType jdbcType) throws SQLException {
@@ -40,7 +39,8 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);
@@ -54,7 +54,8 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);
@@ -68,7 +69,8 @@ public class MasterTableTypeHandler implements TypeHandler<BaseMetaData> {
             if (StringUtils.isBlank(jsonString)) {
                 return null;
             }
-            return mapper.readValue(jsonString, BaseMetaData.class);
+            BaseMetaData result = mapper.readValue(jsonString, BaseMetaData.class);
+            return result;
         }
         catch (Exception e) {
             throw new SQLException(e);

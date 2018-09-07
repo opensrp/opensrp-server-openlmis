@@ -18,12 +18,12 @@
 -- Migration SQL that makes the change goes here.
 CREATE TABLE core.orderable (
     id character varying NOT NULL,
-    code character varying,
     full_product_code character varying,
+    full_product_name character varying,
     net_content integer,
     pack_rounding_threshold integer,
     round_to_zero boolean,
-    dispensable integer,
+    dispensable_id character varying,
     trade_item_id character varying,
     commodity_type_id character varying,
     server_version bigint,

@@ -2,8 +2,9 @@ package org.opensrp.stock.openlmis.repository;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
+import org.opensrp.stock.openlmis.domain.Code;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
+import org.opensrp.stock.openlmis.domain.metadata.BaseMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.ProgramMetaData;
 import org.opensrp.stock.openlmis.domain.metadata.TradeItemMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
     @BeforeClass
     public static void bootStrap() {
-        tableName = "core.master_table";
+        tableNames.add("core.master_table");
+        tableNames.add("core.master_metadata");
     }
 
     @Test
@@ -74,7 +76,7 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
 
         // assert all data matches
         baseMetaData = (BaseMetaData) masterTableEntry.getJson();
-        assertEquals(baseMetaData.getUuid(), metaData.getUuid());
+        assertEquals(baseMetaData.getId(), metaData.getId());
     }
 
     @Test
@@ -107,6 +109,21 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
         assertEquals(masterTableEntries.size(), 2);
     }
 
+    @Test
+    public void testGetShouldRetrieveExistingMasterTableEntryByTypeAndId() {
+
+        BaseMetaData metaData = new BaseMetaData(
+                "identifier"
+        );
+        repository.add(metaData);
+
+        metaData = new TradeItemMetaData(
+                "identifier_2"
+        );
+        repository.add(metaData);
+
+        assertNotNull(repository.get("TradeItem", "identifier_2"));
+    }
 
     @Test
     public void testGetShouldRetrieveExistingMasterTableEntryByType() {
@@ -159,23 +176,41 @@ public class MasterTableRepositoryTest extends BaseRepositoryTest {
     @Test
     public void testUpdateShouldUpdateExistingMasterTableEntry() {
 
-        BaseMetaData metaData = new BaseMetaData(
+        ProgramMetaData metaData = new ProgramMetaData(
                 "identifier"
         );
+        metaData.setCode(new Code("code"));
+        metaData.setName("program");
+        metaData.setDescription("description");
+        metaData.setEnableDatePhysicalStockCountCompleted(true);
+        metaData.setPeriodsSkippable(false);
+        metaData.setShowNonFullSupplyTab(false);
+        metaData.setSkipAuthorization(true);
         MasterTableEntry entry = repository.add(metaData);
 
         MasterTableEntry updatedEntry = new MasterTableEntry();
-        updatedEntry.setId(entry.getId());
-
         ProgramMetaData newMetaData = new ProgramMetaData(
-                "identifier_2"
+                "identifier"
         );
+        newMetaData.setCode(new Code("code_1"));
+        newMetaData.setName("program_1");
+        newMetaData.setDescription("description_1");
+        newMetaData.setEnableDatePhysicalStockCountCompleted(true);
+        newMetaData.setPeriodsSkippable(true);
+        newMetaData.setShowNonFullSupplyTab(false);
+        newMetaData.setSkipAuthorization(false);
         updatedEntry.setJson(newMetaData);
         repository.update(updatedEntry);
 
         // assert all data matches
-        metaData = (BaseMetaData) repository.get(entry.getId()).getJson();
-        assertEquals(metaData.getUuid(), "identifier_2");
+        metaData = (ProgramMetaData) repository.get(entry.getId()).getJson();
+        assertEquals(newMetaData.getId(), metaData.getId());
+        assertEquals(newMetaData.getName(), metaData.getName());
+        assertEquals(newMetaData.getDescription(), metaData.getDescription());
+        assertEquals(newMetaData.getEnableDatePhysicalStockCountCompleted(), metaData.getEnableDatePhysicalStockCountCompleted());
+        assertEquals(newMetaData.getPeriodsSkippable(), metaData.getPeriodsSkippable());
+        assertEquals(newMetaData.getShowNonFullSupplyTab(), metaData.getShowNonFullSupplyTab());
+        assertEquals(newMetaData.getSkipAuthorization(), metaData.getSkipAuthorization());
     }
 
     @Test

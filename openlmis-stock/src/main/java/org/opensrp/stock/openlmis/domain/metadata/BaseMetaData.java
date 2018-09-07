@@ -1,29 +1,46 @@
 package org.opensrp.stock.openlmis.domain.metadata;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonSubTypes;
-import org.codehaus.jackson.annotate.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({ @JsonSubTypes.Type(value = ProgramMetaData.class, name = "Program"),
-        @JsonSubTypes.Type(value = CommodityTypeMetaData.class, name = "CommodityType"),
-        @JsonSubTypes.Type(value = TradeItemMetaData.class, name = "TradeItem") })
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
+
+@JsonSubTypes({ @JsonSubTypes.Type(value = ProgramMetaData.class, name = "program"),
+        @JsonSubTypes.Type(value = CommodityTypeMetaData.class, name = "commodity_type"),
+        @JsonSubTypes.Type(value = TradeItemMetaData.class, name = "trade_item"),
+        @JsonSubTypes.Type(value = DispensableMetaData.class, name = "dispensable"),
+        @JsonSubTypes.Type(value = TradeItemClassificationMetaData.class, name = "trade_item_classification"),
+        @JsonSubTypes.Type(value = ReasonMetaData.class, name = "reason")})
+@JsonIgnoreProperties({"type"})
 public class BaseMetaData {
 
     @JsonProperty
-    private String uuid;
+    private String id;
+
+    @JsonProperty
+    private long serverVersion;
 
     protected BaseMetaData() {}
 
-    public BaseMetaData(String uuid) {
-        this.uuid = uuid;
+    public BaseMetaData(String id) {
+        this.id = id;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getId() {
+        return id;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getServerVersion() {
+        return serverVersion;
+    }
+
+    public void setServerVersion(long serverVersion) {
+        this.serverVersion = serverVersion;
     }
 }

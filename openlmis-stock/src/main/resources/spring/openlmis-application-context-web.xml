@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <context:property-placeholder location="classpath*:opensrp.properties,classpath*:openlmis.properties"/>
+
+    <mvc:default-servlet-handler/>
+
+    <util:properties id="opensrp" location="classpath:/opensrp.properties"/>
+
+    <context:annotation-config/>
+
+    <mvc:annotation-driven/>
+
+    <context:component-scan base-package="org.opensrp.stock.openlmis" />
+
+    <import resource="persistence_postgres.xml"/>
+
+<!--     <tx:annotation-driven proxy-target-class="true" />
+    <aop:aspectj-autoproxy proxy-target-class="true"/>--> 
+
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max upload size in bytes -->
+        <property name="maxUploadSize" value="${file.maxUploadSize}" /> <!-- 20MB -->
+    </bean>
+    
+<!--    <jpa:repositories base-package="org.opensrp.web" entity-manager-factory-ref="jpaEntityManagerFactory" transaction-manager-ref="jpaTransactionManager"/>
+ -->
+    <bean id="jpaDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="database" value="${jdbc.backend}"/>
+    </bean>
+
+    <bean id="jpaEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="jpaDataSource"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <!-- spring based scanning for entity classes-->
+        <property name="packagesToScan" value="org.opensrp.stock.openlmis.domain"/>
+    </bean>
+
+   <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="jpaDataSource"/>
+   </bean>
+    
+</beans>
