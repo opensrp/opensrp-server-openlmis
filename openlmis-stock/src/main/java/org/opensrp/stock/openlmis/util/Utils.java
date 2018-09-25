@@ -47,6 +47,10 @@ public class Utils {
 
     public static final String FACILITY_PROGRAMS = "facility_programs";
 
+    public static final String VALID_DESTINATION = "ValidDestination";
+
+    public static final String VALID_DESTINATIONS = "valid_destinations";
+
 
     public static Long getCurrentTime() {
         return System.currentTimeMillis();
