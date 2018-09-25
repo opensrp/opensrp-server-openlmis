@@ -43,6 +43,10 @@ public class Utils {
 
     public static final String TRADE_ITEM_CLASSIFICATIONS = "trade_item_classifications";
 
+    public static final String FACILITY_PROGRAM = "FacilityProgram";
+
+    public static final String FACILITY_PROGRAMS = "facility_programs";
+
 
     public static Long getCurrentTime() {
         return System.currentTimeMillis();

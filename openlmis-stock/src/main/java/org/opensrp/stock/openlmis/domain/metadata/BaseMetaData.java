@@ -12,7 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = TradeItemMetaData.class, name = "trade_item"),
         @JsonSubTypes.Type(value = DispensableMetaData.class, name = "dispensable"),
         @JsonSubTypes.Type(value = TradeItemClassificationMetaData.class, name = "trade_item_classification"),
-        @JsonSubTypes.Type(value = ReasonMetaData.class, name = "reason")})
+        @JsonSubTypes.Type(value = ReasonMetaData.class, name = "reason"),
+        @JsonSubTypes.Type(value = FacilityProgramMetaData.class, name = "facility_program")})
 @JsonIgnoreProperties({"type"})
 public class BaseMetaData {
 
