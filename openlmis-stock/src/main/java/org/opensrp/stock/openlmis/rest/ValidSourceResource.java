@@ -6,8 +6,8 @@ import com.google.gson.reflect.TypeToken;
 import org.joda.time.DateTime;
 import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
-import org.opensrp.stock.openlmis.domain.metadata.ValidDestinationMetaData;
-import org.opensrp.stock.openlmis.service.ValidDestinationService;
+import org.opensrp.stock.openlmis.domain.metadata.ValidSourceMetaData;
+import org.opensrp.stock.openlmis.service.ValidSourceService;
 import org.opensrp.stock.openlmis.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +31,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Controller
-@RequestMapping(value = "/rest/valid-destinations")
-public class ValidDestinationResource {
-    
+@RequestMapping(value = "/rest/valid-sources")
+public class ValidSourceResource {
+
     @Autowired
-    private ValidDestinationService validDestinationService;
+    private ValidSourceService validSourceService;
 
     private static Logger logger = LoggerFactory.getLogger(OrderableResource.class.toString());
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
@@ -43,16 +43,16 @@ public class ValidDestinationResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    protected List<ValidDestinationMetaData> getAll() {
-        return validDestinationService.getAll();
+    protected List<ValidSourceMetaData> getAll() {
+        return validSourceService.getAll();
     }
 
     @RequestMapping(value = "/sync", method = RequestMethod.GET)
     @ResponseBody
-    protected List<ValidDestinationMetaData> sync(HttpServletRequest request) {
+    protected List<ValidSourceMetaData> sync(HttpServletRequest request) {
         try {
             long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
-            return validDestinationService.get(serverVersion);
+            return validSourceService.get(serverVersion);
         } catch (Exception e) {
             logger.error("", e);
             return new ArrayList<>();
@@ -65,20 +65,20 @@ public class ValidDestinationResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has(VALID_DESTINATIONS)) {
+            if (!postData.has(VALID_SOURCES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ValidDestinationMetaData> entries = (ArrayList<ValidDestinationMetaData>) gson.fromJson(postData.getString(VALID_DESTINATIONS),
-                    new TypeToken<ArrayList<ValidDestinationMetaData>>() {}.getType());
+            List<ValidSourceMetaData> entries = (ArrayList<ValidSourceMetaData>) gson.fromJson(postData.getString(VALID_SOURCES),
+                    new TypeToken<ArrayList<ValidSourceMetaData>>() {}.getType());
             long serverVersion = getCurrentTime();
-            for (ValidDestinationMetaData entry : entries) {
+            for (ValidSourceMetaData entry : entries) {
                 try {
                     entry.setServerVersion(serverVersion);
-                    validDestinationService.addOrUpdate(entry);
+                    validSourceService.addOrUpdate(entry);
                     serverVersion++;
                 } catch (Exception e) {
-                    logger.error("ValidDestination " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
+                    logger.error("ValidSource " + entry.getId() == null ? "" : entry.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {
@@ -94,22 +94,22 @@ public class ValidDestinationResource {
 
         try {
             JSONObject postData = new JSONObject(data);
-            if (!postData.has(VALID_DESTINATIONS)) {
+            if (!postData.has(VALID_SOURCES)) {
                 return new ResponseEntity<>(BAD_REQUEST);
             }
 
-            List<ValidDestinationMetaData> validDestinations = (ArrayList<ValidDestinationMetaData>) gson.fromJson(postData.getString(VALID_DESTINATIONS),
-                    new TypeToken<ArrayList<ValidDestinationMetaData>>() {}.getType());
+            List<ValidSourceMetaData> validSources = (ArrayList<ValidSourceMetaData>) gson.fromJson(postData.getString(VALID_SOURCES),
+                    new TypeToken<ArrayList<ValidSourceMetaData>>() {}.getType());
             long serverVersion = getCurrentTime();
-            for (ValidDestinationMetaData validDestination : validDestinations) {
+            for (ValidSourceMetaData validSource : validSources) {
                 try {
-                    MasterTableEntry entry = validDestinationService.get(VALID_DESTINATION, validDestination.getId());
-                    entry.setJson(validDestination);
+                    MasterTableEntry entry = validSourceService.get(VALID_SOURCE, validSource.getId());
+                    entry.setJson(validSource);
                     entry.setServerVersion(serverVersion);
-                    validDestinationService.update(entry);
+                    validSourceService.update(entry);
                     serverVersion++;
                 } catch (Exception e) {
-                    logger.error("ValidDestination " + validDestination.getId() == null ? "" : validDestination.getId() + " failed to sync", e);
+                    logger.error("ValidSource " + validSource.getId() == null ? "" : validSource.getId() + " failed to sync", e);
                 }
             }
         } catch (Exception e) {

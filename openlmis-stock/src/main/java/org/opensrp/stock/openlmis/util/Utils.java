@@ -51,6 +51,10 @@ public class Utils {
 
     public static final String VALID_DESTINATIONS = "valid_destinations";
 
+    public static final String VALID_SOURCE = "ValidSource";
+
+    public static final String VALID_SOURCES = "valid_sources";
+
 
     public static Long getCurrentTime() {
         return System.currentTimeMillis();
