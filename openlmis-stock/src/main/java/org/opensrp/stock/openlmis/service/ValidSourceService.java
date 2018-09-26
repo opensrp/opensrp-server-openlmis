@@ -28,6 +28,18 @@ public class ValidSourceService {
         return validSourcesMetaData;
     }
 
+    public List<ValidSourceMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
+
+        List<ValidSourceMetaData> validSources = getAll();
+        List<ValidSourceMetaData> filteredResult = new ArrayList<>();
+        for (ValidSourceMetaData validSource : validSources) {
+            if (validSource.getOpenlmisUuid().equals(openlmisUuid) && validSource.getFacilityTypeUuid().equals(facilityTypeUuid)) {
+                filteredResult.add(validSource);
+            }
+        }
+        return filteredResult;
+    }
+
     public List<ValidSourceMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> validSources = repository.get(VALID_SOURCE, syncServerVersion);

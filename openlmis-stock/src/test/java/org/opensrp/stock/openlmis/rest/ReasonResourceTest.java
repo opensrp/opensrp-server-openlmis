@@ -45,7 +45,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         ReasonMetaData expectedReason = new ReasonMetaData();
         expectedReason.setId("id");
         expectedReason.setProgramId("program_id");
-        expectedReason.setFacilityType("facility_type");
+        expectedReason.setFacilityTypeUuid("facility_type");
         setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
@@ -54,13 +54,40 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason = new ReasonMetaData();
         expectedReason.setId("id_1");
         expectedReason.setProgramId("program_id_1");
-        expectedReason.setFacilityType("facility_type_1");
+        expectedReason.setFacilityTypeUuid("facility_type_1");
         setStockCardLineItemReason(expectedReason);
 
         repository.add(expectedReason);
         expectedReasons.add(expectedReason);
 
         List<Object> actualReasons = getResponseAsList(BASE_URL, null, status().isOk());
+
+        assertTwoListsAreSameIgnoringOrder(actualReasons, expectedReasons, false);
+    }
+
+    @Test
+    public void testGetAllShouldReturnAllFilteredReasons() throws Exception {
+
+        List<Object> expectedReasons = new ArrayList<>();
+
+        ReasonMetaData expectedReason = new ReasonMetaData();
+        expectedReason.setId("id");
+        expectedReason.setProgramId("program_id");
+        expectedReason.setFacilityTypeUuid("facility_type_uuid");
+        setStockCardLineItemReason(expectedReason);
+
+        repository.add(expectedReason);
+        expectedReasons.add(expectedReason);
+
+        expectedReason = new ReasonMetaData();
+        expectedReason.setId("id_1");
+        expectedReason.setProgramId("program_id_1");
+        expectedReason.setFacilityTypeUuid("facility_type_uuid_1");
+        setStockCardLineItemReason(expectedReason);
+
+        repository.add(expectedReason);
+
+        List<Object> actualReasons = getResponseAsList(BASE_URL, PROGRAM_ID + "=" + "program_id" + "&" + FACILITY_TYPE_UUID + "=" + "facility_type_uuid", status().isOk());
 
         assertTwoListsAreSameIgnoringOrder(actualReasons, expectedReasons, false);
     }
@@ -76,7 +103,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         ReasonMetaData expectedReason = new ReasonMetaData();
         expectedReason.setId("id");
         expectedReason.setProgramId("program_id");
-        expectedReason.setFacilityType("facility_type");
+        expectedReason.setFacilityTypeUuid("facility_type");
         setStockCardLineItemReason(expectedReason);
         repository.add(expectedReason);
 
@@ -87,7 +114,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason = new ReasonMetaData();
         expectedReason.setId("id_1");
         expectedReason.setProgramId("program_id_1");
-        expectedReason.setFacilityType("facility_type_1");
+        expectedReason.setFacilityTypeUuid("facility_type_1");
         setStockCardLineItemReason(expectedReason);
         expectedReason.setServerVersion(timeBefore + 1);
 
@@ -98,7 +125,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason = new ReasonMetaData();
         expectedReason.setId("id_2");
         expectedReason.setProgramId("program_id_2");
-        expectedReason.setFacilityType("facility_type_2");
+        expectedReason.setFacilityTypeUuid("facility_type_2");
         setStockCardLineItemReason(expectedReason);
         expectedReason.setServerVersion(timeBefore + 2);
 
@@ -119,7 +146,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         ReasonMetaData expectedReason = new ReasonMetaData();
         expectedReason.setId("id");
         expectedReason.setProgramId("program_id");
-        expectedReason.setFacilityType("facility_type");
+        expectedReason.setFacilityTypeUuid("facility_type");
         setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -129,7 +156,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason = new ReasonMetaData();
         expectedReason.setId("id_1");
         expectedReason.setProgramId("program_id_1");
-        expectedReason.setFacilityType("facility_type_1");
+        expectedReason.setFacilityTypeUuid("facility_type_1");
         setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -139,7 +166,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         expectedReason = new ReasonMetaData();
         expectedReason.setId("id_2");
         expectedReason.setProgramId("program_id_2");
-        expectedReason.setFacilityType("facility_type_2");
+        expectedReason.setFacilityTypeUuid("facility_type_2");
         setStockCardLineItemReason(expectedReason);
 
         expectedReasons.add(expectedReason);
@@ -171,7 +198,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         ReasonMetaData reason = new ReasonMetaData();
         reason.setId("id");
         reason.setProgramId("program_id");
-        reason.setFacilityType("facility_type");
+        reason.setFacilityTypeUuid("facility_type");
 
         MasterTableEntry entry = repository.add(reason);
 
@@ -179,7 +206,7 @@ public class ReasonResourceTest extends BaseResourceTest {
         ReasonMetaData expectedReason = new ReasonMetaData();
         expectedReason.setId("id");
         expectedReason.setProgramId("program_id_1");
-        expectedReason.setFacilityType("facility_type_1");
+        expectedReason.setFacilityTypeUuid("facility_type_1");
         setStockCardLineItemReason(expectedReason);
 
         JSONArray reasonsArr = new JSONArray();

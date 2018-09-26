@@ -28,6 +28,18 @@ public class ValidDestinationService {
         return validDestinationsMetaData;
     }
 
+    public List<ValidDestinationMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
+
+        List<ValidDestinationMetaData> validDestinations = getAll();
+        List<ValidDestinationMetaData> filteredResult = new ArrayList<>();
+        for (ValidDestinationMetaData validDestination : validDestinations) {
+            if (validDestination.getOpenlmisUuid().equals(openlmisUuid) && validDestination.getFacilityTypeUuid().equals(facilityTypeUuid)) {
+                filteredResult.add(validDestination);
+            }
+        }
+        return filteredResult;
+    }
+    
     public List<ValidDestinationMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> validDestinations = repository.get(VALID_DESTINATION, syncServerVersion);

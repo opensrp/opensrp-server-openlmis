@@ -87,7 +87,6 @@ public class MasterTableRepository implements BaseRepository<MasterTableEntry> {
         return masterTableMapper.selectByExample(entryExample);
     }
 
-    
     @Override
     public void update(MasterTableEntry masterTableEntry) {
 

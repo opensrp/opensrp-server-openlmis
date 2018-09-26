@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.opensrp.stock.openlmis.util.Utils.SYNC_SERVER_VERSION;
-import static org.opensrp.stock.openlmis.util.Utils.VALID_DESTINATIONS;
-import static org.opensrp.stock.openlmis.util.Utils.getCurrentTime;
+import static org.opensrp.stock.openlmis.util.Utils.*;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
 public class ValidDestinationResourceTest extends BaseResourceTest {
@@ -64,6 +62,35 @@ public class ValidDestinationResourceTest extends BaseResourceTest {
         expectedValidDestinations.add(expectedValidDestination);
 
         List<Object> actualValidDestinations = getResponseAsList(BASE_URL, null, status().isOk());
+
+        assertTwoListsAreSameIgnoringOrder(actualValidDestinations, expectedValidDestinations, false);
+    }
+
+    @Test
+    public void testGetAllShouldReturnAllFilteredValidDestinations() throws Exception {
+
+        List<Object> expectedValidDestinations = new ArrayList<>();
+
+        ValidDestinationMetaData expectedValidDestination = new ValidDestinationMetaData();
+        expectedValidDestination.setId("openlmis_uuid");
+        expectedValidDestination.setFacilityName("facility_name");
+        expectedValidDestination.setFacilityTypeUuid("facility_type_uuid");
+        expectedValidDestination.setOpenlmisUuid("openlmis_uuid");
+        expectedValidDestination.setProgramUuid("program_uuid");
+
+        repository.add(expectedValidDestination);
+        expectedValidDestinations.add(expectedValidDestination);
+
+        expectedValidDestination = new ValidDestinationMetaData();
+        expectedValidDestination.setFacilityName("facility_name_1");
+        expectedValidDestination.setFacilityTypeUuid("facility_type_uuid_1");
+        expectedValidDestination.setOpenlmisUuid("openlmis_uuid_1");
+        expectedValidDestination.setId("openlmis_uuid_1");
+        expectedValidDestination.setProgramUuid("program_uuid_1");
+
+        repository.add(expectedValidDestination);;
+
+        List<Object> actualValidDestinations = getResponseAsList(BASE_URL, OPENLMIS_UUID + "=" + "openlmis_uuid" + "&" + FACILITY_TYPE_UUID + "=" + "facility_type_uuid", status().isOk());
 
         assertTwoListsAreSameIgnoringOrder(actualValidDestinations, expectedValidDestinations, false);
     }

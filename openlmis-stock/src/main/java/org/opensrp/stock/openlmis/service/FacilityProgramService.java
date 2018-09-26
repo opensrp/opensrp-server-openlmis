@@ -28,6 +28,18 @@ public class FacilityProgramService {
         return facilityProgramsMetaData;
     }
 
+    public List<FacilityProgramMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
+
+        List<FacilityProgramMetaData> facilityPrograms = getAll();
+        List<FacilityProgramMetaData> filteredResult = new ArrayList<>();
+        for (FacilityProgramMetaData facilityProgram : facilityPrograms) {
+            if (facilityProgram.getOpenlmisUuid().equals(openlmisUuid) && facilityProgram.getFacilityTypeUuid().equals(facilityTypeUuid)) {
+                filteredResult.add(facilityProgram);
+            }
+        }
+        return filteredResult;
+    }
+
     public List<FacilityProgramMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> facilityPrograms = repository.get(FACILITY_PROGRAM, syncServerVersion);

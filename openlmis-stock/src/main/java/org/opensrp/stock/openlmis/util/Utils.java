@@ -13,6 +13,12 @@ public class Utils {
 
     public static final String SYNC_SERVER_VERSION = "sync_server_version";
 
+    public static final String OPENLMIS_UUID = "openlmis_uuid";
+
+    public static final String FACILITY_TYPE_UUID = "facility_type_uuid";
+
+    public static final String PROGRAM_ID = "program_id";
+
     public static final String COMMODITY_TYPE = "CommodityType";
 
     public static final String COMMODITY_TYPES = "commodity_types";

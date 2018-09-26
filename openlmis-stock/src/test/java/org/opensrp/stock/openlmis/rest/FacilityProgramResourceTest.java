@@ -64,6 +64,33 @@ public class FacilityProgramResourceTest extends BaseResourceTest {
             assertTwoListsAreSameIgnoringOrder(actualFacilityPrograms, expectedFacilityPrograms, false);
         }
 
+    @Test
+    public void testGetAllShouldReturnAllFilteredFacilityPrograms() throws Exception {
+
+        List<Object> expectedFacilityPrograms = new ArrayList<>();
+
+        FacilityProgramMetaData expectedFacilityProgram = new FacilityProgramMetaData();
+        expectedFacilityProgram.setId("openlmis_uuid");
+        expectedFacilityProgram.setFacilityName("facility_name");
+        expectedFacilityProgram.setFacilityTypeUuid("facility_type_uuid");
+        expectedFacilityProgram.setOpenlmisUuid("openlmis_uuid");
+
+        repository.add(expectedFacilityProgram);
+        expectedFacilityPrograms.add(expectedFacilityProgram);
+
+        expectedFacilityProgram = new FacilityProgramMetaData();
+        expectedFacilityProgram.setFacilityName("facility_name_1");
+        expectedFacilityProgram.setFacilityTypeUuid("facility_type_uuid_1");
+        expectedFacilityProgram.setOpenlmisUuid("openlmis_uuid_1");
+        expectedFacilityProgram.setId("openlmis_uuid_1");
+
+        repository.add(expectedFacilityProgram);
+
+        List<Object> actualFacilityPrograms = getResponseAsList(BASE_URL, OPENLMIS_UUID + "=" + "openlmis_uuid" + "&" + FACILITY_TYPE_UUID + "=" + "facility_type_uuid", status().isOk());
+
+        assertTwoListsAreSameIgnoringOrder(actualFacilityPrograms, expectedFacilityPrograms, false);
+    }
+
         @Test
         public void testSyncShouldRetrieveAllFacilityProgramsAfterACertainTime() throws Exception {
 

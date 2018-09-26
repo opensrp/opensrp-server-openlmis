@@ -67,6 +67,35 @@ public class ValidSourceResourceTest extends BaseResourceTest {
     }
 
     @Test
+    public void testGetAllShouldReturnAllFilteredValidSources() throws Exception {
+
+        List<Object> expectedValidSources = new ArrayList<>();
+
+        ValidSourceMetaData expectedValidSource = new ValidSourceMetaData();
+        expectedValidSource.setId("openlmis_uuid");
+        expectedValidSource.setFacilityName("facility_name");
+        expectedValidSource.setFacilityTypeUuid("facility_type_uuid");
+        expectedValidSource.setOpenlmisUuid("openlmis_uuid");
+        expectedValidSource.setProgramUuid("program_uuid");
+
+        repository.add(expectedValidSource);
+        expectedValidSources.add(expectedValidSource);
+
+        expectedValidSource = new ValidSourceMetaData();
+        expectedValidSource.setFacilityName("facility_name_1");
+        expectedValidSource.setFacilityTypeUuid("facility_type_uuid_1");
+        expectedValidSource.setOpenlmisUuid("openlmis_uuid_1");
+        expectedValidSource.setId("openlmis_uuid_1");
+        expectedValidSource.setProgramUuid("program_uuid_1");
+
+        repository.add(expectedValidSource);
+
+        List<Object> actualValidSources = getResponseAsList(BASE_URL, OPENLMIS_UUID + "=" + "openlmis_uuid" + "&" + FACILITY_TYPE_UUID + "=" + "facility_type_uuid", status().isOk());
+
+        assertTwoListsAreSameIgnoringOrder(actualValidSources, expectedValidSources, false);
+    }
+
+    @Test
     public void testSyncShouldRetrieveAllValidSourcesAfterACertainTime() throws Exception {
 
         List<Object> expectedValidSources = new ArrayList<>();

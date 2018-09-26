@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 import static org.opensrp.stock.openlmis.util.Utils.*;
@@ -42,8 +43,14 @@ public class ValidDestinationResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    protected List<ValidDestinationMetaData> getAll() {
-        return validDestinationService.getAll();
+    protected List<ValidDestinationMetaData> getAll(HttpServletRequest request) {
+        Map<String, String[]> parameters = request.getParameterMap();
+        if (parameters.size() == 0) {
+            return validDestinationService.getAll();
+        }
+        String openlmisUuid = getStringFilter(OPENLMIS_UUID, request);
+        String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+        return validDestinationService.getFiltered(openlmisUuid, facilityTypeUuid);
     }
 
     @RequestMapping(value = "/sync", method = RequestMethod.GET)

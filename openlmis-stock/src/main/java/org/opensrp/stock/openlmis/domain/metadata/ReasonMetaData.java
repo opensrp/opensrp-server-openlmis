@@ -8,7 +8,7 @@ public class ReasonMetaData extends BaseMetaData {
     @JsonProperty
     private String programId;
     @JsonProperty
-    private String facilityType;
+    private String facilityTypeUuid;
     @JsonProperty
     private StockCardLineItemReason stockCardLineItemReason;
 
@@ -20,12 +20,12 @@ public class ReasonMetaData extends BaseMetaData {
         this.programId = programId;
     }
 
-    public String getFacilityType() {
-        return facilityType;
+    public String getFacilityTypeUuid() {
+        return facilityTypeUuid;
     }
 
-    public void setFacilityType(String facilityType) {
-        this.facilityType = facilityType;
+    public void setFacilityTypeUuid(String facilityType) {
+        this.facilityTypeUuid = facilityType;
     }
 
     public StockCardLineItemReason getStockCardLineItemReason() {
