@@ -47,12 +47,15 @@ public class ValidDestinationService {
         return filteredResult;
     }
 
-    public List<ValidDestinationMetaData> get(long syncServerVersion) {
+    public List<ValidDestinationMetaData> get(long syncServerVersion, String openlmisUuid, String facilityTypeUuid) {
 
         List<MasterTableEntry> validDestinations = repository.get(VALID_DESTINATION, syncServerVersion);
         List<ValidDestinationMetaData> validDestinationsMetaData = new ArrayList<>();
         for (MasterTableEntry validDestination : validDestinations) {
             validDestinationsMetaData.add((ValidDestinationMetaData) validDestination.getJson());
+        }
+        if (openlmisUuid != null && facilityTypeUuid != null) {
+            return filterResults(validDestinationsMetaData, openlmisUuid, facilityTypeUuid);
         }
         return validDestinationsMetaData;
     }

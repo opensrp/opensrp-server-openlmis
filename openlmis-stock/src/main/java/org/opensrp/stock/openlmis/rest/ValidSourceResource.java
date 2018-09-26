@@ -58,7 +58,9 @@ public class ValidSourceResource {
     protected List<ValidSourceMetaData> sync(HttpServletRequest request) {
         try {
             long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
-            return validSourceService.get(serverVersion);
+            String openlmisUuid = getStringFilter(OPENLMIS_UUID, request);
+            String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+            return validSourceService.get(serverVersion, openlmisUuid, facilityTypeUuid);
         } catch (Exception e) {
             logger.error("", e);
             return new ArrayList<>();

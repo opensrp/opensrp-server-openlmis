@@ -60,7 +60,9 @@ public class ReasonResource {
     protected List<ReasonMetaData> sync(HttpServletRequest request) {
         try {
             long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
-            return reasonService.get(serverVersion);
+            String programId = getStringFilter(PROGRAM_ID, request);
+            String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+            return reasonService.get(serverVersion, programId, facilityTypeUuid);
         } catch (Exception e) {
             logger.error("", e);
             return new ArrayList<>();

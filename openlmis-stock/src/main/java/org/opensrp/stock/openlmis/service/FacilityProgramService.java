@@ -47,12 +47,15 @@ public class FacilityProgramService {
         return filteredResult;
     }
 
-    public List<FacilityProgramMetaData> get(long syncServerVersion) {
+    public List<FacilityProgramMetaData> get(long syncServerVersion, String openlmisUuid, String facilityTypeUuid) {
 
         List<MasterTableEntry> facilityPrograms = repository.get(FACILITY_PROGRAM, syncServerVersion);
         List<FacilityProgramMetaData> facilityProgramsMetaData = new ArrayList<>();
         for (MasterTableEntry facilityProgram : facilityPrograms) {
             facilityProgramsMetaData.add((FacilityProgramMetaData) facilityProgram.getJson());
+        }
+        if (openlmisUuid != null && facilityTypeUuid != null) {
+            return filteredResult(facilityProgramsMetaData, openlmisUuid, facilityTypeUuid);
         }
         return facilityProgramsMetaData;
     }

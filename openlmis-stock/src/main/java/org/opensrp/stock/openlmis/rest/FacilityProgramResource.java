@@ -60,7 +60,9 @@ public class FacilityProgramResource {
     protected List<FacilityProgramMetaData> sync(HttpServletRequest request) {
         try {
             long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
-            return facilityProgramService.get(serverVersion);
+            String openlmisUuid = getStringFilter(OPENLMIS_UUID, request);
+            String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+            return facilityProgramService.get(serverVersion, openlmisUuid, facilityTypeUuid);
         } catch (Exception e) {
             logger.error("", e);
             return new ArrayList<>();
