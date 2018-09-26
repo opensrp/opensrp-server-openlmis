@@ -28,9 +28,16 @@ public class ReasonService {
         return commodityTypesMetaData;
     }
 
-    public List<ReasonMetaData> getFiltered(String programId, String facilityTypeUuid) {
 
+    public List<ReasonMetaData> getFiltered(String programId, String facilityTypeUuid) {
         List<ReasonMetaData> reasons = getAll();
+        if (programId != null && facilityTypeUuid != null) {
+            return filterResults(reasons, programId, facilityTypeUuid);
+        }
+        return reasons;
+    }
+
+    private List<ReasonMetaData> filterResults(List<ReasonMetaData> reasons, String programId, String facilityTypeUuid) {
         List<ReasonMetaData> filteredResult = new ArrayList<>();
         for (ReasonMetaData reason : reasons) {
             if (programId.equals(reason.getProgramId()) && facilityTypeUuid.equals(reason.getFacilityTypeUuid())) {

@@ -31,6 +31,13 @@ public class ValidSourceService {
     public List<ValidSourceMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
 
         List<ValidSourceMetaData> validSources = getAll();
+        if (openlmisUuid != null && facilityTypeUuid != null) {
+            return filterResult(validSources, openlmisUuid, facilityTypeUuid);
+        }
+        return validSources;
+    }
+
+    private List<ValidSourceMetaData> filterResult(List<ValidSourceMetaData> validSources, String openlmisUuid, String facilityTypeUuid) {
         List<ValidSourceMetaData> filteredResult = new ArrayList<>();
         for (ValidSourceMetaData validSource : validSources) {
             if (validSource.getOpenlmisUuid().equals(openlmisUuid) && validSource.getFacilityTypeUuid().equals(facilityTypeUuid)) {

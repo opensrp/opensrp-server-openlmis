@@ -31,6 +31,13 @@ public class ValidDestinationService {
     public List<ValidDestinationMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
 
         List<ValidDestinationMetaData> validDestinations = getAll();
+        if (openlmisUuid != null && facilityTypeUuid != null) {
+            return filterResults(validDestinations, openlmisUuid, facilityTypeUuid);
+        }
+        return validDestinations;
+    }
+
+    private List<ValidDestinationMetaData> filterResults(List<ValidDestinationMetaData> validDestinations, String openlmisUuid, String facilityTypeUuid) {
         List<ValidDestinationMetaData> filteredResult = new ArrayList<>();
         for (ValidDestinationMetaData validDestination : validDestinations) {
             if (validDestination.getOpenlmisUuid().equals(openlmisUuid) && validDestination.getFacilityTypeUuid().equals(facilityTypeUuid)) {
@@ -39,7 +46,7 @@ public class ValidDestinationService {
         }
         return filteredResult;
     }
-    
+
     public List<ValidDestinationMetaData> get(long syncServerVersion) {
 
         List<MasterTableEntry> validDestinations = repository.get(VALID_DESTINATION, syncServerVersion);

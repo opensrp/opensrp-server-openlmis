@@ -31,6 +31,13 @@ public class FacilityProgramService {
     public List<FacilityProgramMetaData> getFiltered(String openlmisUuid, String facilityTypeUuid) {
 
         List<FacilityProgramMetaData> facilityPrograms = getAll();
+        if (openlmisUuid != null && facilityTypeUuid != null) {
+            return filteredResult(facilityPrograms, openlmisUuid, facilityTypeUuid);
+        }
+        return facilityPrograms;
+    }
+
+    private List<FacilityProgramMetaData> filteredResult(List<FacilityProgramMetaData> facilityPrograms, String openlmisUuid, String facilityTypeUuid) {
         List<FacilityProgramMetaData> filteredResult = new ArrayList<>();
         for (FacilityProgramMetaData facilityProgram : facilityPrograms) {
             if (facilityProgram.getOpenlmisUuid().equals(openlmisUuid) && facilityProgram.getFacilityTypeUuid().equals(facilityTypeUuid)) {
