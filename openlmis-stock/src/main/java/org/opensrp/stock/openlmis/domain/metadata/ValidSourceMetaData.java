@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ValidSourceMetaData extends BaseMetaData {
 
     @JsonProperty
-    String programUuid;
+    private String programUuid;
     @JsonProperty
-    String facilityTypeUuid;
+    private String facilityTypeUuid;
     @JsonProperty
-    String facilityName;
+    private String facilityName;
     @JsonProperty
-    String openlmisUuid;
+    private String openlmisUuid;
 
     public ValidSourceMetaData() {}
 

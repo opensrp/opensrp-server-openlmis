@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.opensrp.stock.openlmis.domain.MasterTableEntry;
 import org.opensrp.stock.openlmis.domain.metadata.FacilityProgramMetaData;
 import org.opensrp.stock.openlmis.service.FacilityProgramService;
-import org.opensrp.stock.openlmis.util.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class FacilityProgramResource {
     private static Logger logger = LoggerFactory.getLogger(FacilityProgramResource.class.toString());
 
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-            .registerTypeAdapter(DateTime.class, new Utils.DateTimeTypeConverter()).create();
+            .registerTypeAdapter(DateTime.class, new DateTimeTypeConverter()).create();
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody

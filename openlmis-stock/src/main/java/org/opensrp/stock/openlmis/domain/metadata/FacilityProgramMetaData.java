@@ -7,13 +7,13 @@ import java.util.List;
 public class FacilityProgramMetaData extends  BaseMetaData {
 
     @JsonProperty
-    String openlmisUuid;
+    private String openlmisUuid;
     @JsonProperty
-    String facilityName;
+    private String facilityName;
     @JsonProperty
-    String facilityTypeUuid;
+    private String facilityTypeUuid;
     @JsonProperty
-    List<ProgramMetaData> supportedPrograms;
+    private List<ProgramMetaData> supportedPrograms;
 
     public FacilityProgramMetaData() {}
 
