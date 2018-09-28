@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.text.MessageFormat.format;
 import static org.opensrp.stock.openlmis.util.Utils.*;
@@ -44,8 +45,14 @@ public class ReasonResource {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    protected List<ReasonMetaData> getAll() {
-        return reasonService.getAll();
+    protected List<ReasonMetaData> getAll(HttpServletRequest request) {
+        Map<String, String[]> parameters = request.getParameterMap();
+        if (parameters.size() == 0) {
+            return reasonService.getAll();
+        }
+        String programId = getStringFilter(PROGRAM_ID, request);
+        String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+        return reasonService.getFiltered(programId, facilityTypeUuid);
     }
 
     @RequestMapping(value = "/sync", method = RequestMethod.GET)
@@ -53,7 +60,9 @@ public class ReasonResource {
     protected List<ReasonMetaData> sync(HttpServletRequest request) {
         try {
             long serverVersion = getLongFilter(SYNC_SERVER_VERSION, request);
-            return reasonService.get(serverVersion);
+            String programId = getStringFilter(PROGRAM_ID, request);
+            String facilityTypeUuid = getStringFilter(FACILITY_TYPE_UUID, request);
+            return reasonService.get(serverVersion, programId, facilityTypeUuid);
         } catch (Exception e) {
             logger.error("", e);
             return new ArrayList<>();
