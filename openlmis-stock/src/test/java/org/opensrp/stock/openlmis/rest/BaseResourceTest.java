@@ -36,175 +36,184 @@ import static org.springframework.test.web.server.result.MockMvcResultHandlers.p
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader = TestWebContextLoader.class, locations = {
-        "classpath:test-openlmis-application-context.xml"})
+		"classpath:test-openlmis-application-context.xml" })
 public abstract class BaseResourceTest {
 
-    @Autowired
-    protected WebApplicationContext wac;
+	@Autowired
+	protected WebApplicationContext wac;
 
-    @Autowired
-    private DataSource openLmisDataSource;
+	@Autowired
+	private DataSource openLmisDataSource;
 
-    protected MockMvc mockMvc;
+	protected MockMvc mockMvc;
 
-    protected ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
+	protected ObjectMapper mapper = new ObjectMapper().enableDefaultTyping();
 
-    protected static List<String> tableNames = new ArrayList<>();
+	protected static List<String> tableNames = new ArrayList<>();
 
-    @Before
-    public void setUp() {
-        setMockMvc();
-    }
+	@Before
+	public void setUp() {
+		setMockMvc();
+	}
 
-    protected void truncateTables() {
-        Connection connection = null;
-        try {
-            for (String tableName : tableNames) {
-                connection = DataSourceUtils.getConnection(openLmisDataSource);
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("TRUNCATE " + tableName);
-                connection.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	protected void truncateTables() {
+		Connection connection = null;
+		try {
+			for (String tableName : tableNames) {
+				connection = DataSourceUtils.getConnection(openLmisDataSource);
+				Statement statement = connection.createStatement();
+				statement.executeUpdate("TRUNCATE " + tableName);
+				connection.close();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-    public void setMockMvc() {
-        this.mockMvc = MockMvcBuilders.webApplicationContextSetup(this.wac).build();
-    }
+	public void setMockMvc() {
+		this.mockMvc = MockMvcBuilders.webApplicationContextSetup(this.wac).build();
+	}
 
-    protected List<Object> getResponseAsList(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
+	protected List<Object> getResponseAsList(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
 
-        String finalUrl = url;
-        if (parameter != null &&!parameter.isEmpty()) {
-            finalUrl = finalUrl + "?" + parameter;
-        }
+		String finalUrl = url;
+		if (parameter != null && !parameter.isEmpty()) {
+			finalUrl = finalUrl + "?" + parameter;
+		}
 
-        MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).accept(MediaType.APPLICATION_JSON)).andDo(print())
-                .andExpect(expectedStatus).andReturn();
+		MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(expectedStatus).andReturn();
 
-        String responseString = mvcResult.getResponse().getContentAsString();
-        if (responseString.isEmpty()) {
-            return null;
-        }
+		String responseString = mvcResult.getResponse().getContentAsString();
+		if (responseString.isEmpty()) {
+			return null;
+		}
 
-        List<Object> result = new Gson().fromJson(responseString, new TypeToken<List<TradeItemMetaData>>(){}.getType());
-        return result;
-    }
+		List<Object> result = new Gson().fromJson(responseString, new TypeToken<List<TradeItemMetaData>>() {
 
-    protected String getResponseAsString(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
+		}.getType());
+		return result;
+	}
 
-        String finalUrl = url;
-        if (parameter != null &&!parameter.isEmpty()) {
-            finalUrl = finalUrl + "?" + parameter;
-        }
+	protected String getResponseAsString(String url, String parameter, ResultMatcher expectedStatus) throws Exception {
 
-        MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).accept(MediaType.APPLICATION_JSON)).andDo(print())
-                .andExpect(expectedStatus).andReturn();
+		String finalUrl = url;
+		if (parameter != null && !parameter.isEmpty()) {
+			finalUrl = finalUrl + "?" + parameter;
+		}
 
-        String responseString = mvcResult.getResponse().getContentAsString();
-        if (responseString.isEmpty()) {
-            return null;
-        }
-        return  responseString;
-    }
+		MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(expectedStatus).andReturn();
 
-    protected byte[] getRequestAsByteArray(String url, String parameterQuery, ResultMatcher expectedStatus) throws Exception {
+		String responseString = mvcResult.getResponse().getContentAsString();
+		if (responseString.isEmpty()) {
+			return null;
+		}
+		return responseString;
+	}
 
-        String finalUrl = url;
-        if (!parameterQuery.isEmpty()) {
-            finalUrl = finalUrl + "?" + parameterQuery;
-        }
+	protected byte[] getRequestAsByteArray(String url, String parameterQuery, ResultMatcher expectedStatus)
+			throws Exception {
 
-        MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).accept(MediaType.APPLICATION_JSON))
-                .andExpect(expectedStatus).andReturn();
+		String finalUrl = url;
+		if (!parameterQuery.isEmpty()) {
+			finalUrl = finalUrl + "?" + parameterQuery;
+		}
 
-        return mvcResult.getResponse().getContentAsByteArray();
-    }
+		MvcResult mvcResult = this.mockMvc.perform(get(finalUrl).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(expectedStatus).andReturn();
 
-    protected JsonNode postRequestWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
+		return mvcResult.getResponse().getContentAsByteArray();
+	}
 
-        MvcResult mvcResult = this.mockMvc.perform(
-                post(url).contentType(MediaType.APPLICATION_JSON).body(data.getBytes()).accept(MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(expectedStatus).andReturn();
+	protected JsonNode postRequestWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
 
-        String responseString = mvcResult.getResponse().getContentAsString();
-        if (responseString.isEmpty()) {
-            return null;
-        }
-        JsonNode actualObj = mapper.readTree(responseString);
-        return actualObj;
-    }
+		MvcResult mvcResult = this.mockMvc.perform(
+				post(url).contentType(MediaType.APPLICATION_JSON).body(data.getBytes())
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(expectedStatus).andReturn();
 
-    protected JsonNode putRequestWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
+		String responseString = mvcResult.getResponse().getContentAsString();
+		if (responseString.isEmpty()) {
+			return null;
+		}
+		JsonNode actualObj = mapper.readTree(responseString);
+		return actualObj;
+	}
 
-        MvcResult mvcResult = this.mockMvc.perform(
-                put(url).contentType(MediaType.APPLICATION_JSON).body(data.getBytes()).accept(MediaType.APPLICATION_JSON))
-                .andDo(print()).andExpect(expectedStatus).andReturn();
+	protected JsonNode putRequestWithJsonContent(String url, String data, ResultMatcher expectedStatus) throws Exception {
 
-        String responseString = mvcResult.getResponse().getContentAsString();
-        if (responseString.isEmpty()) {
-            return null;
-        }
-        JsonNode actualObj = mapper.readTree(responseString);
-        return actualObj;
-    }
+		MvcResult mvcResult = this.mockMvc.perform(
+				put(url).contentType(MediaType.APPLICATION_JSON).body(data.getBytes())
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(expectedStatus).andReturn();
 
-    protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters, ResultMatcher expectedStatus)
-            throws Exception {
+		String responseString = mvcResult.getResponse().getContentAsString();
+		if (responseString.isEmpty()) {
+			return null;
+		}
+		JsonNode actualObj = mapper.readTree(responseString);
+		return actualObj;
+	}
 
-        List<BasicNameValuePair> paramList = new ArrayList<>();
-        for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-        }
+	protected MvcResult postRequestWithFormUrlEncode(String url, Map<String, String> parameters,
+			ResultMatcher expectedStatus)
+			throws Exception {
 
-        MvcResult mvcResult = this.mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON)
-                .body(EntityUtils.toString(new UrlEncodedFormEntity(paramList)).getBytes())
-                .accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(expectedStatus).andReturn();
+		List<BasicNameValuePair> paramList = new ArrayList<>();
+		for (Map.Entry<String, String> entry : parameters.entrySet()) {
+			paramList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+		}
 
-        return mvcResult;
-    }
+		MvcResult mvcResult = this.mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON)
+				.body(EntityUtils.toString(new UrlEncodedFormEntity(paramList)).getBytes())
+				.contentType(MediaType.APPLICATION_JSON)).andExpect(expectedStatus).andReturn();
 
-    protected JsonNode postRequestWithBasicAuthorizationHeader(String url, String userName, String password,
-                                                            ResultMatcher expectedStatus) throws Exception {
+		return mvcResult;
+	}
 
-        String basicAuthCredentials = new String(Base64.encode((userName + ":" + password).getBytes()));
-        System.out.println(basicAuthCredentials);
-        MvcResult mvcResult = this.mockMvc.perform(
-                post(url).contentType(MediaType.APPLICATION_JSON).header("Authorization", "Basic " + basicAuthCredentials)
-                        .accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(expectedStatus).andReturn();
+	protected JsonNode postRequestWithBasicAuthorizationHeader(String url, String userName, String password,
+			ResultMatcher expectedStatus) throws Exception {
 
-        String responseString = mvcResult.getResponse().getContentAsString();
-        if (responseString.isEmpty()) {
-            return null;
-        }
-        JsonNode actualObj = mapper.readTree(responseString);
-        return actualObj;
-    }
+		String basicAuthCredentials = new String(Base64.encode((userName + ":" + password).getBytes()));
+		System.out.println(basicAuthCredentials);
+		MvcResult mvcResult = this.mockMvc.perform(
+				post(url).contentType(MediaType.APPLICATION_JSON).header("Authorization", "Basic " + basicAuthCredentials)
+						.contentType(MediaType.APPLICATION_JSON)).andExpect(expectedStatus).andReturn();
 
-    protected <T> List<T> createObjectListFromJson(JsonNode jsonList, Class<T> classOfT) throws IOException {
+		String responseString = mvcResult.getResponse().getContentAsString();
+		if (responseString.isEmpty()) {
+			return null;
+		}
+		JsonNode actualObj = mapper.readTree(responseString);
+		return actualObj;
+	}
 
-        final List<T> objectList = new ArrayList<>();
-        for (int i = 0; i < jsonList.size(); i++) {
-            T object = mapper.treeToValue(jsonList.get(i), classOfT);
-            objectList.add(object);
-        }
-        return objectList;
-    }
+	protected <T> List<T> createObjectListFromJson(JsonNode jsonList, Class<T> classOfT) throws IOException {
 
-    /** Objects in the list should have a unique uuid identifier field **/
-    protected void assertTwoListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList, boolean isSync) {
+		final List<T> objectList = new ArrayList<>();
+		for (int i = 0; i < jsonList.size(); i++) {
+			T object = mapper.treeToValue(jsonList.get(i), classOfT);
+			objectList.add(object);
+		}
+		return objectList;
+	}
 
-        assertEquals(expectedList.size(), actualList.size());
+	/**
+	 * Objects in the list should have a unique uuid identifier field
+	 **/
+	protected void assertTwoListsAreSameIgnoringOrder(List<Object> expectedList, List<Object> actualList, boolean isSync) {
 
-        Set<String> expectedIds = new HashSet<>();
-        for (Object expected : expectedList) {
-            expectedIds.add(((BaseMetaData) expected).getId());
-        }
-        for (Object actual : actualList) {
-           assertTrue(expectedIds.contains(((BaseMetaData) actual).getId()));
-        }
-    }
+		assertEquals(expectedList.size(), actualList.size());
+
+		Set<String> expectedIds = new HashSet<>();
+		for (Object expected : expectedList) {
+			expectedIds.add(((BaseMetaData) expected).getId());
+		}
+		for (Object actual : actualList) {
+			assertTrue(expectedIds.contains(((BaseMetaData) actual).getId()));
+		}
+	}
 }
 
