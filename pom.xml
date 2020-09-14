@@ -11,7 +11,7 @@
 
 	<name>opensrp-server-openlmis</name>
 	<description>OpenSRP Server OpenLMIS module</description>
-	<url>http://github.com/OpenSRP/opensrp-server</url>
+	<url>http://github.com/OpenSRP/opensrp-server-openlmis</url>
 
 	<modules>
 		<module>openlmis-stock</module>
@@ -47,9 +47,9 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:git@github.com:OpenSRP/opensrp-server-common.git</connection>
-		<developerConnection>scm:git:git@github.com:OpenSRP/opensrp-server-common.git</developerConnection>
-		<url>https://github.com/OpenSRP/opensrp-server-common</url>
+		<connection>scm:git:git@github.com:OpenSRP/opensrp-server-openlmis.git</connection>
+		<developerConnection>scm:git:git@github.com:OpenSRP/opensrp-server-openlmis.git</developerConnection>
+		<url>https://github.com/OpenSRP/opensrp-server-openlmis</url>
 	</scm>
 
 	<licenses>

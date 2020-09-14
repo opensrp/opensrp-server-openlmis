@@ -7,6 +7,9 @@ import java.util.List;
 public final class StockCardLineItemReason {
 
     @JsonProperty
+    private String id;
+
+    @JsonProperty
     private String name;
 
     @JsonProperty
@@ -78,5 +81,21 @@ public final class StockCardLineItemReason {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getFreeTextAllowed() {
+        return isFreeTextAllowed;
+    }
+
+    public void setFreeTextAllowed(Boolean freeTextAllowed) {
+        isFreeTextAllowed = freeTextAllowed;
     }
 }

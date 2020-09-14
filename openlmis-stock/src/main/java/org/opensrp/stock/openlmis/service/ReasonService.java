@@ -28,15 +28,37 @@ public class ReasonService {
         return commodityTypesMetaData;
     }
 
-    public List<ReasonMetaData> get(long syncServerVersion) {
 
-        List<MasterTableEntry> commodityTypes = repository.get(REASON, syncServerVersion);
-
-        List<ReasonMetaData> commodityTypesMetaData = new ArrayList<>();
-        for (MasterTableEntry commodityType : commodityTypes) {
-            commodityTypesMetaData.add((ReasonMetaData) commodityType.getJson());
+    public List<ReasonMetaData> getFiltered(String programId, String facilityTypeUuid) {
+        List<ReasonMetaData> reasons = getAll();
+        if (programId != null && facilityTypeUuid != null) {
+            return filterResults(reasons, programId, facilityTypeUuid);
         }
-        return commodityTypesMetaData;
+        return reasons;
+    }
+
+    private List<ReasonMetaData> filterResults(List<ReasonMetaData> reasons, String programId, String facilityTypeUuid) {
+        List<ReasonMetaData> filteredResult = new ArrayList<>();
+        for (ReasonMetaData reason : reasons) {
+            if (programId.equals(reason.getProgramId()) && facilityTypeUuid.equals(reason.getFacilityTypeUuid())) {
+                filteredResult.add(reason);
+            }
+        }
+        return filteredResult;
+    }
+    
+    public List<ReasonMetaData> get(long syncServerVersion, String programId, String facilityTypeUuid) {
+
+        List<MasterTableEntry> reasons = repository.get(REASON, syncServerVersion);
+
+        List<ReasonMetaData> reasonsMetaData = new ArrayList<>();
+        for (MasterTableEntry reason : reasons) {
+            reasonsMetaData.add((ReasonMetaData) reason.getJson());
+        }
+        if (programId != null && facilityTypeUuid != null) {
+            return filterResults(reasonsMetaData, programId, facilityTypeUuid);
+        }
+        return reasonsMetaData;
     }
 
     public MasterTableEntry get(String type, String id) {

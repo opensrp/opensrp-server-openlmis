@@ -13,6 +13,12 @@ public class Utils {
 
     public static final String SYNC_SERVER_VERSION = "sync_server_version";
 
+    public static final String OPENLMIS_UUID = "openlmis_uuid";
+
+    public static final String FACILITY_TYPE_UUID = "facility_type_uuid";
+
+    public static final String PROGRAM_ID = "program_id";
+
     public static final String COMMODITY_TYPE = "CommodityType";
 
     public static final String COMMODITY_TYPES = "commodity_types";
@@ -42,6 +48,18 @@ public class Utils {
     public static final String TRADE_ITEM_CLASSIFICATION = "TradeItemClassification";
 
     public static final String TRADE_ITEM_CLASSIFICATIONS = "trade_item_classifications";
+
+    public static final String FACILITY_PROGRAM = "FacilityProgram";
+
+    public static final String FACILITY_PROGRAMS = "facility_programs";
+
+    public static final String VALID_DESTINATION = "ValidDestination";
+
+    public static final String VALID_DESTINATIONS = "valid_destinations";
+
+    public static final String VALID_SOURCE = "ValidSource";
+
+    public static final String VALID_SOURCES = "valid_sources";
 
 
     public static Long getCurrentTime() {

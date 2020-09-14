@@ -20,241 +20,240 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 
 public class CommodityTypeResourceTest extends BaseResourceTest {
 
-    private final static String BASE_URL = "/rest/commodity-types/";
+	private final static String BASE_URL = "/rest/commodity-types/";
 
-    @Autowired
-    private MasterTableRepository repository;
+	@Autowired
+	private MasterTableRepository repository;
 
-    @Before
-    public void bootStrap() {
-        tableNames.add("core.master_table");
-        tableNames.add("core.master_metadata");
-        truncateTables();
-    }
+	@Before
+	public void bootStrap() {
+		tableNames.add("core.master_table");
+		tableNames.add("core.master_metadata");
+		truncateTables();
+	}
 
-    @After
-    public void tearDown() {
-        truncateTables();
-    }
+	@After
+	public void tearDown() {
+		truncateTables();
+	}
 
-    @Test
-    public void testGetAllShouldReturnAllCommodityTypes() throws Exception {
+	@Test
+	public void testGetAllShouldReturnAllCommodityTypes() throws Exception {
 
-        List<Object> expectedCommodityTypes = new ArrayList<>();
+		List<Object> expectedCommodityTypes = new ArrayList<>();
 
-        CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
-                "identifier"
-        );
-        expectedCommodityType.setClassificationId("classification_id");
-        expectedCommodityType.setClassificationSystem("classification_system");
-        expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
+				"identifier"
+		);
+		expectedCommodityType.setClassificationId("classification_id");
+		expectedCommodityType.setClassificationSystem("classification_system");
+		expectedCommodityType.setName("commodity_name");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        repository.add(expectedCommodityType);
-        expectedCommodityTypes.add(expectedCommodityType);
+		repository.add(expectedCommodityType);
+		expectedCommodityTypes.add(expectedCommodityType);
 
-        expectedCommodityType = new CommodityTypeMetaData(
-                "identifier_1"
-        );
-        expectedCommodityType.setClassificationId("classification_id_1");
-        expectedCommodityType.setClassificationSystem("classification_system_1");
-        expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		expectedCommodityType = new CommodityTypeMetaData(
+				"identifier_1"
+		);
+		expectedCommodityType.setClassificationId("classification_id_1");
+		expectedCommodityType.setClassificationSystem("classification_system_1");
+		expectedCommodityType.setName("commodity_name_1");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        repository.add(expectedCommodityType);
-        expectedCommodityTypes.add(expectedCommodityType);
+		repository.add(expectedCommodityType);
+		expectedCommodityTypes.add(expectedCommodityType);
 
-        List<Object> actualCommodityTypes = getResponseAsList(BASE_URL, null, status().isOk());
+		List<Object> actualCommodityTypes = getResponseAsList(BASE_URL, null, status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes, false);
-    }
+		assertTwoListsAreSameIgnoringOrder(actualCommodityTypes, expectedCommodityTypes, false);
+	}
 
-    @Test
-    public void testSyncShouldRetrieveAllCommodityTypesAfterACertainTime() throws Exception {
+	@Test
+	public void testSyncShouldRetrieveAllCommodityTypesAfterACertainTime() throws Exception {
 
-        List<Object> expectedCommodityTypes = new ArrayList<>();
+		List<Object> expectedCommodityTypes = new ArrayList<>();
 
-        // this commodity type should not sync
+		// this commodity type should not sync
 
-        // commodity type 1
-        CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
-                "identifier"
-        );
-        expectedCommodityType.setClassificationId("classification_id");
-        expectedCommodityType.setClassificationSystem("classification_system");
-        expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		// commodity type 1
+		CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
+				"identifier"
+		);
+		expectedCommodityType.setClassificationId("classification_id");
+		expectedCommodityType.setClassificationSystem("classification_system");
+		expectedCommodityType.setName("commodity_name");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        repository.add(expectedCommodityType);
+		repository.add(expectedCommodityType);
 
-        // these commodity types should sync
+		// these commodity types should sync
 
-        long timeBefore = getCurrentTime();
-        // commodity type 2
-        expectedCommodityType = new CommodityTypeMetaData(
-                "identifier_1"
-        );
-        expectedCommodityType.setClassificationId("classification_id_1");
-        expectedCommodityType.setClassificationSystem("classification_system_1");
-        expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
-        expectedCommodityType.setServerVersion(timeBefore + 1);
+		long timeBefore = getCurrentTime();
+		// commodity type 2
+		expectedCommodityType = new CommodityTypeMetaData(
+				"identifier_1"
+		);
+		expectedCommodityType.setClassificationId("classification_id_1");
+		expectedCommodityType.setClassificationSystem("classification_system_1");
+		expectedCommodityType.setName("commodity_name_1");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
+		expectedCommodityType.setServerVersion(timeBefore + 1);
 
-        repository.add(expectedCommodityType);
-        expectedCommodityTypes.add(expectedCommodityType);
+		repository.add(expectedCommodityType);
+		expectedCommodityTypes.add(expectedCommodityType);
 
-        // commodity type 3
-        expectedCommodityType = new CommodityTypeMetaData(
-                "identifier_2"
-        );
-        expectedCommodityType.setClassificationId("classification_id_2");
-        expectedCommodityType.setClassificationSystem("classification_system_2");
-        expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
-        expectedCommodityType.setServerVersion(timeBefore + 2);
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		// commodity type 3
+		expectedCommodityType = new CommodityTypeMetaData(
+				"identifier_2"
+		);
+		expectedCommodityType.setClassificationId("classification_id_2");
+		expectedCommodityType.setClassificationSystem("classification_system_2");
+		expectedCommodityType.setName("commodity_name_2");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
+		expectedCommodityType.setServerVersion(timeBefore + 2);
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        repository.add(expectedCommodityType);
-        expectedCommodityTypes.add(expectedCommodityType);
+		repository.add(expectedCommodityType);
+		expectedCommodityTypes.add(expectedCommodityType);
 
-        List<Object> actualCommodityTypes = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore, status().isOk());
+		List<Object> actualCommodityTypes = getResponseAsList(BASE_URL + "sync", SYNC_SERVER_VERSION + "=" + timeBefore,
+				status().isOk());
 
-        assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, true);
-    }
+		assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, true);
+	}
 
-    @Test
-    public void testPostShouldCreateNewCommodityTypesInDb() throws Exception {
+	@Test
+	public void testPostShouldCreateNewCommodityTypesInDb() throws Exception {
 
-        List<Object> expectedCommodityTypes = new ArrayList<>();
-        JSONArray commodityTypesArr = new JSONArray();
-        // commodity type 1
-        CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
-                "identifier"
-        );
-        expectedCommodityType.setClassificationId("classification_id");
-        expectedCommodityType.setClassificationSystem("classification_system");
-        expectedCommodityType.setName("commodity_name");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		List<Object> expectedCommodityTypes = new ArrayList<>();
+		JSONArray commodityTypesArr = new JSONArray();
+		// commodity type 1
+		CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
+				"identifier"
+		);
+		expectedCommodityType.setClassificationId("classification_id");
+		expectedCommodityType.setClassificationSystem("classification_system");
+		expectedCommodityType.setName("commodity_name");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        expectedCommodityTypes.add(expectedCommodityType);
-        commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
+		expectedCommodityTypes.add(expectedCommodityType);
+		commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
-        // commodity type 2
-        expectedCommodityType = new CommodityTypeMetaData(
-                "identifier_1"
-        );
-        expectedCommodityType.setClassificationId("classification_id_1");
-        expectedCommodityType.setClassificationSystem("classification_system_1");
-        expectedCommodityType.setName("commodity_name_1");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		// commodity type 2
+		expectedCommodityType = new CommodityTypeMetaData(
+				"identifier_1"
+		);
+		expectedCommodityType.setClassificationId("classification_id_1");
+		expectedCommodityType.setClassificationSystem("classification_system_1");
+		expectedCommodityType.setName("commodity_name_1");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_1"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        expectedCommodityTypes.add(expectedCommodityType);
-        commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
+		expectedCommodityTypes.add(expectedCommodityType);
+		commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
-        // commodity type 3
-        expectedCommodityType = new CommodityTypeMetaData(
-                "identifier_2"
-        );
-        expectedCommodityType.setClassificationId("classification_id_2");
-        expectedCommodityType.setClassificationSystem("classification_system_2");
-        expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		// commodity type 3
+		expectedCommodityType = new CommodityTypeMetaData(
+				"identifier_2"
+		);
+		expectedCommodityType.setClassificationId("classification_id_2");
+		expectedCommodityType.setClassificationSystem("classification_system_2");
+		expectedCommodityType.setName("commodity_name_2");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        expectedCommodityTypes.add(expectedCommodityType);
-        commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
+		expectedCommodityTypes.add(expectedCommodityType);
+		commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
-        JSONObject data = new JSONObject();
-        data.put(COMMODITY_TYPES, commodityTypesArr);
-        String dataString =
-                data
-                        .toString()
-                        .replace("\"{", "{")
-                        .replace("}\"", "}")
-                        .replace("\\", "")
-                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
-        postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+		JSONObject data = new JSONObject();
+		data.put(COMMODITY_TYPES, commodityTypesArr);
+		String dataString =
+				data
+						.toString()
+						.replace("\"{", "{")
+						.replace("}\"", "}")
+						.replace("\\", "")
+						.replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+		postRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
-        List<Object> actualCommodityTypes = new ArrayList<>();
-        for (MasterTableEntry entry : repository.getAll()) {
-            actualCommodityTypes.add(entry.getJson());
-        }
+		List<Object> actualCommodityTypes = new ArrayList<>();
+		for (MasterTableEntry entry : repository.getAll()) {
+			actualCommodityTypes.add(entry.getJson());
+		}
 
-        assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, false);
-    }
+		assertTwoListsAreSameIgnoringOrder(expectedCommodityTypes, actualCommodityTypes, false);
+	}
 
-    @Test
-    public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
+	@Test
+	public void testPutShouldUpdateCommodityTypesInDb() throws Exception {
 
-        // CommodityType 1
-        CommodityTypeMetaData commodityType = new CommodityTypeMetaData(
-                "identifier"
-        );
-        commodityType.setClassificationId("classification_id");
-        commodityType.setClassificationSystem("classification_system");
-        commodityType.setName("commodity_name");
-        commodityType.setParent(new CommodityTypeMetaData("parent_id"));
-        setParentAndChildrenAndTradeItems(commodityType);
+		// CommodityType 1
+		CommodityTypeMetaData commodityType = new CommodityTypeMetaData("identifier");
+		commodityType.setClassificationId("classification_id");
+		commodityType.setClassificationSystem("classification_system");
+		commodityType.setName("commodity_name");
+		commodityType.setParent(new CommodityTypeMetaData("parent_id"));
+		setParentAndChildrenAndTradeItems(commodityType);
 
-        MasterTableEntry entry = repository.add(commodityType);
+		MasterTableEntry entry = repository.add(commodityType);
 
-        // CommodityType 2
-        CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
-                "identifier"
-        );
-        expectedCommodityType.setClassificationId("classification_id_2");
-        expectedCommodityType.setClassificationSystem("classification_system_2");
-        expectedCommodityType.setName("commodity_name_2");
-        expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
-        setParentAndChildrenAndTradeItems(expectedCommodityType);
+		// CommodityType 2
+		CommodityTypeMetaData expectedCommodityType = new CommodityTypeMetaData(
+				"identifier"
+		);
+		expectedCommodityType.setClassificationId("classification_id_2");
+		expectedCommodityType.setClassificationSystem("classification_system_2");
+		expectedCommodityType.setName("commodity_name_2");
+		expectedCommodityType.setParent(new CommodityTypeMetaData("parent_id_2"));
+		setParentAndChildrenAndTradeItems(expectedCommodityType);
 
-        JSONArray commodityTypesArr = new JSONArray();
-        commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
+		JSONArray commodityTypesArr = new JSONArray();
+		commodityTypesArr.put(mapper.writeValueAsString(expectedCommodityType));
 
-        JSONObject data = new JSONObject();
-        data.put(COMMODITY_TYPES, commodityTypesArr);
-        String dataString =
-                data
-                        .toString()
-                        .replace("\"{", "{")
-                        .replace("}\"", "}")
-                        .replace("\\", "")
-                        .replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
+		JSONObject data = new JSONObject();
+		data.put(COMMODITY_TYPES, commodityTypesArr);
+		String dataString =
+				data
+						.toString()
+						.replace("\"{", "{")
+						.replace("}\"", "}")
+						.replace("\\", "")
+						.replace("[\"java.util.ArrayList\",", "").replace("]]", "]");
 
-        putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
+		putRequestWithJsonContent(BASE_URL, dataString, status().isCreated());
 
-        commodityType = (CommodityTypeMetaData) repository.get(entry.getId()).getJson();
-        assertEquals(expectedCommodityType.getId(), commodityType.getId());
-        assertEquals(expectedCommodityType.getClassificationId(), commodityType.getClassificationId());
-        assertEquals(expectedCommodityType.getClassificationSystem(), commodityType.getClassificationSystem());
-        assertEquals(expectedCommodityType.getName(), commodityType.getName());
-        assertEquals(expectedCommodityType.getParent().getId(), commodityType.getParent().getId());
-    }
+		commodityType = (CommodityTypeMetaData) repository.get(entry.getId()).getJson();
+		assertEquals(expectedCommodityType.getId(), commodityType.getId());
+		assertEquals(expectedCommodityType.getClassificationId(), commodityType.getClassificationId());
+		assertEquals(expectedCommodityType.getClassificationSystem(), commodityType.getClassificationSystem());
+		assertEquals(expectedCommodityType.getName(), commodityType.getName());
+		assertEquals(expectedCommodityType.getParent().getId(), commodityType.getParent().getId());
+	}
 
-    private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {
+	private void setParentAndChildrenAndTradeItems(CommodityTypeMetaData commodityTypeMetaData) throws Exception {
 
-        CommodityTypeMetaData parent = new CommodityTypeMetaData("parent_id");
-        List<TradeItemMetaData> tradeItems = new ArrayList<>();
-        List<CommodityTypeMetaData> children = new ArrayList<>();
+		CommodityTypeMetaData parent = new CommodityTypeMetaData("parent_id");
+		List<TradeItemMetaData> tradeItems = new ArrayList<>();
+		List<CommodityTypeMetaData> children = new ArrayList<>();
 
-        TradeItemMetaData tradeItem = new TradeItemMetaData("trade_item_1");
-        tradeItems.add(tradeItem);
-        tradeItem = new TradeItemMetaData("trade_item_2");
-        tradeItems.add(tradeItem);
+		TradeItemMetaData tradeItem = new TradeItemMetaData("trade_item_1");
+		tradeItems.add(tradeItem);
+		tradeItem = new TradeItemMetaData("trade_item_2");
+		tradeItems.add(tradeItem);
 
-        CommodityTypeMetaData childCommodityType = new CommodityTypeMetaData("child_1");
-        children.add(childCommodityType);
-        childCommodityType = new CommodityTypeMetaData("child_2");
-        children.add(childCommodityType);
+		CommodityTypeMetaData childCommodityType = new CommodityTypeMetaData("child_1");
+		children.add(childCommodityType);
+		childCommodityType = new CommodityTypeMetaData("child_2");
+		children.add(childCommodityType);
 
-        commodityTypeMetaData.setParent(parent);
-        commodityTypeMetaData.setTradeItems(tradeItems);
-        commodityTypeMetaData.setChildren(children);
-    }
+		commodityTypeMetaData.setParent(parent);
+		commodityTypeMetaData.setTradeItems(tradeItems);
+		commodityTypeMetaData.setChildren(children);
+	}
 }

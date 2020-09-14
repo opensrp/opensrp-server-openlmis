@@ -26,6 +26,8 @@ CREATE TABLE core.orderable (
     dispensable integer,
     trade_item_id character varying,
     commodity_type_id character varying,
+    use_vvm boolean,
+    has_lots boolean,
     server_version bigint,
     date_deleted bigint,
     PRIMARY KEY (id)
