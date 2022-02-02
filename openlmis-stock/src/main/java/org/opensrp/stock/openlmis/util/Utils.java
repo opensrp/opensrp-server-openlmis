@@ -1,7 +1,7 @@
 package org.opensrp.stock.openlmis.util;
 
 import com.google.gson.*;
-import com.mysql.jdbc.StringUtils;
+import com.mysql.cj.util.StringUtils;
 import org.joda.time.DateTime;
 
 import javax.servlet.http.HttpServletRequest;
