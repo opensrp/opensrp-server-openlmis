@@ -13,8 +13,13 @@ on:
 
 jobs:
   run-unit-tests:
-
     runs-on: ubuntu-18.04
+    env:
+      CORE_TABLESPACE_LOCATION: /tmp/core
+      ERROR_TABLESPACE_LOCATION: /tmp/error
+      SCHEDULE_TABLESPACE_LOCATION: /tmp/schedule
+      FEED_TABLESPACE_LOCATION: /tmp/feed
+      FORM_TABLESPACE_LOCATION: /tmp/form
 
     steps:
     - uses: actions/checkout@v2
@@ -33,12 +38,25 @@ jobs:
         postgresql user:     'openlmis_admin'
         postgresql password: 'admin'
 
+    - name: Create tmp tablespace folders
+      run: |
+        docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "mkdir $CORE_TABLESPACE_LOCATION && chown postgres:postgres $CORE_TABLESPACE_LOCATION"
+        docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "mkdir $ERROR_TABLESPACE_LOCATION && chown postgres:postgres $ERROR_TABLESPACE_LOCATION"
+        docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "mkdir $SCHEDULE_TABLESPACE_LOCATION && chown postgres:postgres $SCHEDULE_TABLESPACE_LOCATION"
+        docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "mkdir $FEED_TABLESPACE_LOCATION && chown postgres:postgres $FEED_TABLESPACE_LOCATION"
+        docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "mkdir $FORM_TABLESPACE_LOCATION && chown postgres:postgres $FORM_TABLESPACE_LOCATION"
+
+    - name: Update TableSpace Locations
+      run: |
+        sed -i "s:core_tablespace_location='/u01/postgres/core':core_tablespace_location='$CORE_TABLESPACE_LOCATION':g" assets/migrations/environments/test.properties
+        sed -i "s:error_tablespace_location='/u01/postgres/error':error_tablespace_location='$ERROR_TABLESPACE_LOCATION':g" assets/migrations/environments/test.properties
+        sed -i "s:schedule_tablespace_location='/u01/postgres/schedule':schedule_tablespace_location='$SCHEDULE_TABLESPACE_LOCATION':g" assets/migrations/environments/test.properties
+        sed -i "s:feed_tablespace_location='/u01/postgres/feed':feed_tablespace_location='$FEED_TABLESPACE_LOCATION':g" assets/migrations/environments/test.properties
+        sed -i "s:form_tablespace_location='/u01/postgres/form':form_tablespace_location='$FORM_TABLESPACE_LOCATION':g" assets/migrations/environments/test.properties
+
     - name: Configure Postgres repository
       run: docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list"
 
-    - name: Install PostGIS packages
-      run: docker exec -u 0 `docker ps -q --filter ancestor=postgres:10` bash -c  "apt-get -y update && apt-get -y install postgresql-client-10 postgresql-10-postgis-2.4 postgresql-10-postgis-2.4-scripts"
- 
     - name: Install Postgres client
       run: sudo apt-get -y update &&  sudo apt-get -y install postgresql-client-10
 
