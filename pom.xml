@@ -25,7 +25,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>5.2.20.RELEASE</spring.version>
 		<spring.security.version>5.2.15.RELEASE</spring.security.version>
-		<spring.data.version>2.2.13.RELEASE</spring.data.version>
+		<spring.data.version>2.7.2</spring.data.version>
 		<mybatis.version>3.5.7</mybatis.version>
 		<mybatis.spring.version>2.0.6</mybatis.spring.version>
 		<mysql.connector.version>8.0.28</mysql.connector.version>
@@ -189,7 +189,7 @@
 				<version>2.5</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<outputDirectory />
+					<outputDirectory/>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -333,7 +333,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore/>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
